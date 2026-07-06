@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Fluenta design tokens — "Warm Premium Gamified"
+   Paper base, gold-leaf accent, per-language ink seals.
+   ============================================================ */
+@theme {
+  --color-ivory: #f7f2e9;
+  --color-paper: #fbf7ef;
+  --color-paper-2: #f2ead9;
+  --color-edge: #e7dcc6;
+
+  --color-ink: #23201b;
+  --color-ink-soft: #6e655a;
+  --color-ink-faint: #a89e8d;
+
+  --color-gold: #c1912e;
+  --color-gold-deep: #a9791f;
+  --color-flame: #e8862f;
+
+  /* per-language accents (muted vintage ink) */
+  --color-jp: #b23a2e;
+  --color-ko: #3b5c99;
+  --color-zh: #2f7d53;
+  --color-en: #5b4b9e;
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 1.5rem;
+
+  --shadow-soft: 0 1px 2px rgba(35, 32, 27, 0.04),
+    0 8px 24px -12px rgba(35, 32, 27, 0.18);
+  --shadow-lift: 0 2px 4px rgba(35, 32, 27, 0.05),
+    0 24px 60px -24px rgba(35, 32, 27, 0.35);
+}
+
+/* Subtle paper grain on the page background — keeps large ivory areas alive. */
+body {
+  background-image:
+    radial-gradient(rgba(35, 32, 27, 0.022) 1px, transparent 1px),
+    radial-gradient(rgba(35, 32, 27, 0.02) 1px, transparent 1px);
+  background-size: 4px 4px, 6px 6px;
+  background-position: 0 0, 2px 3px;
+}
+
+/* Reusable letterpress hairline used to frame premium sections. */
+.hairline {
+  border-color: color-mix(in srgb, var(--color-edge) 85%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

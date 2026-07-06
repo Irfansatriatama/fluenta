@@ -1,0 +1,289 @@
+// Fluenta — schema Prisma
+// Aturan: TIDAK pakai enum (pakai String + konstanta di src/lib/constants.ts),
+// TIDAK pakai FK constraint DB (relationMode = "prisma", relasi diemulasi Prisma).
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  directUrl    = env("DIRECT_URL")
+  relationMode = "prisma"
+}
+
+// ============================================================
+// KONTEN — generic untuk semua bahasa (JP/KR/CN/EN + soon)
+// ============================================================
+
+model Language {
+  id         String   @id @default(cuid())
+  code       String   @unique // "ja" | "ko" | "zh" | "en"
+  name       String // "Japanese"
+  nativeName String // "日本語"
+  accentHex  String // warna aksen brand per bahasa
+  sortOrder  Int      @default(0)
+  isActive   Boolean  @default(true)
+  comingSoon Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  tracks      Track[]
+  decks       Deck[]
+  enrollments Enrollment[]
+  placements  PlacementTest[]
+}
+
+model Track {
+  id          String   @id @default(cuid())
+  languageId  String
+  code        String   @unique // "jlpt-n5" | "hsk-1" | "topik-1" | "cefr-a1"
+  framework   String // "JLPT" | "HSK" | "TOPIK" | "CEFR"
+  level       String // "N5" | "1" | "A1"
+  title       String
+  description String?
+  sortOrder   Int      @default(0)
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  language    Language     @relation(fields: [languageId], references: [id])
+  units       Unit[]
+  enrollments Enrollment[]
+
+  @@index([languageId])
+}
+
+model Unit {
+  id        String   @id @default(cuid())
+  trackId   String
+  title     String
+  iconName  String?
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  track   Track    @relation(fields: [trackId], references: [id])
+  lessons Lesson[]
+
+  @@index([trackId])
+}
+
+model Lesson {
+  id          String   @id @default(cuid())
+  unitId      String
+  title       String
+  kind        String // flashcard | reading | listening | writing | quiz | dialog | script
+  sortOrder   Int      @default(0)
+  xpReward    Int      @default(10)
+  estMinutes  Int      @default(5)
+  isPublished Boolean  @default(false)
+  metadata    Json?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  unit      Unit             @relation(fields: [unitId], references: [id])
+  questions Question[]
+  progress  LessonProgress[]
+
+  @@index([unitId])
+}
+
+model Question {
+  id           String   @id @default(cuid())
+  lessonId     String
+  kind         String // mcq | fill | match | order | audio | writing
+  prompt       String
+  promptNative String?
+  options      Json?
+  answer       Json
+  explanation  String?
+  audioId      String? // Cloudinary public_id
+  imageId      String? // Cloudinary public_id
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  lesson Lesson @relation(fields: [lessonId], references: [id])
+
+  @@index([lessonId])
+}
+
+model Deck {
+  id          String   @id @default(cuid())
+  languageId  String
+  title       String
+  description String?
+  isSystem    Boolean  @default(true)
+  ownerUserId String? // null = deck sistem; terisi = deck bikinan user
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  language Language @relation(fields: [languageId], references: [id])
+  cards    Card[]
+
+  @@index([languageId])
+  @@index([ownerUserId])
+}
+
+model Card {
+  id        String   @id @default(cuid())
+  deckId    String
+  front     String
+  back      String
+  reading   String?
+  example   String?
+  imageId   String?
+  audioId   String?
+  tags      String[]
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+
+  deck    Deck         @relation(fields: [deckId], references: [id])
+  reviews CardReview[]
+
+  @@index([deckId])
+}
+
+// ============================================================
+// USER PROGRESS & GAMIFIKASI
+// userId = id user Better Auth (String), tanpa relasi keras.
+// ============================================================
+
+model Profile {
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  displayName      String?
+  avatarId         String? // Cloudinary public_id
+  activeLanguageId String?
+  timezone         String   @default("Asia/Jakarta")
+  dailyGoalXp      Int      @default(30)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Enrollment {
+  id           String    @id @default(cuid())
+  userId       String
+  languageId   String
+  trackId      String?
+  currentLevel String?
+  startedAt    DateTime  @default(now())
+  lastStudiedAt DateTime?
+
+  language Language @relation(fields: [languageId], references: [id])
+  track    Track?   @relation(fields: [trackId], references: [id])
+
+  @@unique([userId, languageId])
+  @@index([languageId])
+  @@index([trackId])
+}
+
+model LessonProgress {
+  id          String    @id @default(cuid())
+  userId      String
+  lessonId    String
+  status      String    @default("not_started") // not_started | in_progress | completed
+  score       Int?
+  attempts    Int       @default(0)
+  completedAt DateTime?
+  updatedAt   DateTime  @updatedAt
+
+  lesson Lesson @relation(fields: [lessonId], references: [id])
+
+  @@unique([userId, lessonId])
+  @@index([lessonId])
+}
+
+model CardReview {
+  id             String   @id @default(cuid())
+  userId         String
+  cardId         String
+  ease           Float    @default(2.5)
+  intervalDays   Int      @default(0)
+  reps           Int      @default(0)
+  lapses         Int      @default(0)
+  dueAt          DateTime @default(now())
+  lastReviewedAt DateTime?
+
+  card Card @relation(fields: [cardId], references: [id])
+
+  @@unique([userId, cardId])
+  @@index([cardId])
+  @@index([userId, dueAt])
+}
+
+model XpEvent {
+  id        String   @id @default(cuid())
+  userId    String
+  amount    Int
+  source    String // lesson | quiz | streak | review | placement
+  refId     String?
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+}
+
+model Streak {
+  id             String    @id @default(cuid())
+  userId         String    @unique
+  current        Int       @default(0)
+  longest        Int       @default(0)
+  freezeCount    Int       @default(0)
+  lastActiveDate DateTime?
+  updatedAt      DateTime  @updatedAt
+}
+
+model Badge {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  title       String
+  description String
+  iconName    String
+  tier        String // bronze | silver | gold
+  criteria    Json
+  createdAt   DateTime @default(now())
+
+  userBadges UserBadge[]
+}
+
+model UserBadge {
+  id       String   @id @default(cuid())
+  userId   String
+  badgeId  String
+  earnedAt DateTime @default(now())
+
+  badge Badge @relation(fields: [badgeId], references: [id])
+
+  @@unique([userId, badgeId])
+  @@index([badgeId])
+}
+
+model PlacementTest {
+  id         String   @id @default(cuid())
+  languageId String
+  title      String
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  language Language           @relation(fields: [languageId], references: [id])
+  attempts PlacementAttempt[]
+
+  @@index([languageId])
+}
+
+model PlacementAttempt {
+  id          String   @id @default(cuid())
+  testId      String
+  userId      String
+  resultLevel String
+  score       Int
+  answers     Json
+  createdAt   DateTime @default(now())
+
+  test PlacementTest @relation(fields: [testId], references: [id])
+
+  @@index([testId])
+  @@index([userId])
+}
