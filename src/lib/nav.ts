@@ -1,8 +1,11 @@
 import {
+  Award,
   BarChart3,
-  GraduationCap,
   Home,
+  MessageCircle,
   Route,
+  Swords,
+  Trophy,
   User,
   type LucideIcon,
 } from "lucide-react";
@@ -13,11 +16,29 @@ export type NavItem = {
   icon: LucideIcon;
 };
 
-// Primary app navigation — shared by the desktop sidebar and mobile tab bar.
-export const NAV_ITEMS: NavItem[] = [
-  { label: "Home", href: "/dashboard", icon: Home },
-  { label: "Learn", href: "/learn", icon: GraduationCap },
-  { label: "Journey", href: "/journey", icon: Route },
-  { label: "Stats", href: "/stats", icon: BarChart3 },
-  { label: "Profile", href: "/profile", icon: User },
+// Hub (umbrella) — general, cross-language menu.
+export const HUB_NAV: NavItem[] = [
+  { label: "Home", href: "/home", icon: Home },
+  { label: "Reports", href: "/home/reports", icon: BarChart3 },
+  { label: "Leaderboard", href: "/home/leaderboard", icon: Trophy },
+  { label: "Achievements", href: "/home/achievements", icon: Award },
+  { label: "Profile", href: "/home/profile", icon: User },
 ];
+
+export type ModuleNavItem = {
+  label: string;
+  segment: string; // appended to /learn/[lang]
+  icon: LucideIcon;
+};
+
+// Module (per-language) — scoped to /learn/[lang].
+export const MODULE_NAV: ModuleNavItem[] = [
+  { label: "Home", segment: "", icon: Home },
+  { label: "Journey", segment: "/journey", icon: Route },
+  { label: "Practice", segment: "/practice", icon: Swords },
+  { label: "Tutor", segment: "/tutor", icon: MessageCircle },
+];
+
+export function moduleHref(lang: string, segment: string): string {
+  return `/learn/${lang}${segment}`;
+}

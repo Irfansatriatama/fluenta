@@ -1,0 +1,67 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ChevronDown, Feather } from "lucide-react";
+import { Logo } from "@/components/brand/Logo";
+import { HUB_NAV } from "@/lib/nav";
+
+export function HubSidebar() {
+  const pathname = usePathname();
+
+  return (
+    <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r hairline bg-paper/60 px-4 py-6 md:flex">
+      <div className="px-2">
+        <Logo />
+        <p className="mt-1 pl-8 text-xs text-ink-soft">Speak with confidence.</p>
+      </div>
+
+      <p className="mt-8 px-3 text-[0.62rem] font-bold uppercase tracking-[0.2em] text-ink-faint">
+        General
+      </p>
+      <nav className="mt-2 flex flex-1 flex-col gap-1">
+        {HUB_NAV.map(({ label, href, icon: Icon }) => {
+          const active = pathname === href || pathname.startsWith(`${href}/`);
+          return (
+            <Link
+              key={href}
+              href={href}
+              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors data-[active=false]:text-ink-soft data-[active=false]:hover:bg-paper-2"
+              data-active={active}
+              style={
+                active
+                  ? { color: "var(--color-gold-deep)", backgroundColor: "rgba(193,145,46,0.12)" }
+                  : undefined
+              }
+            >
+              <Icon className="h-5 w-5" strokeWidth={active ? 2.2 : 1.8} />
+              {label}
+            </Link>
+          );
+        })}
+      </nav>
+
+      <div className="rounded-2xl border hairline bg-ivory p-4">
+        <Feather className="h-5 w-5 text-gold" />
+        <p className="mt-2 font-display text-sm font-bold text-ink">Go Premium</p>
+        <p className="mt-1 text-xs leading-relaxed text-ink-soft">
+          Unlock all languages, premium lessons, and advanced reports.
+        </p>
+        <button className="mt-3 w-full rounded-xl bg-gold px-3 py-2 text-sm font-bold text-white transition-colors hover:bg-gold-deep">
+          Upgrade Now
+        </button>
+      </div>
+
+      <button className="mt-4 flex items-center gap-3 rounded-xl px-2 py-2 text-left transition-colors hover:bg-paper-2">
+        <span className="grid h-9 w-9 place-items-center rounded-full bg-ink font-display text-sm font-bold text-ivory">
+          K
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block truncate text-sm font-semibold text-ink">Kei Tanaka</span>
+          <span className="block text-xs text-ink-soft">Free Plan</span>
+        </span>
+        <ChevronDown className="h-4 w-4 text-ink-soft" />
+      </button>
+    </aside>
+  );
+}
