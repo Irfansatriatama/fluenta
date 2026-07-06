@@ -9,8 +9,6 @@ generator client {
 
 datasource db {
   provider     = "postgresql"
-  url          = env("DATABASE_URL")
-  directUrl    = env("DIRECT_URL")
   relationMode = "prisma"
 }
 
@@ -164,12 +162,12 @@ model Profile {
 }
 
 model Enrollment {
-  id           String    @id @default(cuid())
-  userId       String
-  languageId   String
-  trackId      String?
-  currentLevel String?
-  startedAt    DateTime  @default(now())
+  id            String    @id @default(cuid())
+  userId        String
+  languageId    String
+  trackId       String?
+  currentLevel  String?
+  startedAt     DateTime  @default(now())
   lastStudiedAt DateTime?
 
   language Language @relation(fields: [languageId], references: [id])
@@ -197,14 +195,14 @@ model LessonProgress {
 }
 
 model CardReview {
-  id             String   @id @default(cuid())
+  id             String    @id @default(cuid())
   userId         String
   cardId         String
-  ease           Float    @default(2.5)
-  intervalDays   Int      @default(0)
-  reps           Int      @default(0)
-  lapses         Int      @default(0)
-  dueAt          DateTime @default(now())
+  ease           Float     @default(2.5)
+  intervalDays   Int       @default(0)
+  reps           Int       @default(0)
+  lapses         Int       @default(0)
+  dueAt          DateTime  @default(now())
   lastReviewedAt DateTime?
 
   card Card @relation(fields: [cardId], references: [id])
@@ -286,4 +284,67 @@ model PlacementAttempt {
 
   @@index([testId])
   @@index([userId])
+}
+
+model User {
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
 }
