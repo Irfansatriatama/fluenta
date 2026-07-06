@@ -2,8 +2,10 @@ import { Bell } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { HubMobileNav } from "@/components/hub/HubMobileNav";
 import { HubSidebar } from "@/components/hub/HubSidebar";
+import { requireSession } from "@/lib/session";
 
-export default function HubLayout({ children }: { children: React.ReactNode }) {
+export default async function HubLayout({ children }: { children: React.ReactNode }) {
+  await requireSession();
   return (
     <div className="min-h-screen md:pl-64">
       <HubSidebar />

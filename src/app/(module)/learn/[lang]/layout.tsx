@@ -3,6 +3,7 @@ import { Bell } from "lucide-react";
 import { LanguageSeal } from "@/components/brand/LanguageSeal";
 import { ModuleMobileNav } from "@/components/module/ModuleMobileNav";
 import { ModuleSidebar } from "@/components/module/ModuleSidebar";
+import { requireSession } from "@/lib/session";
 import { accentVars, getLanguage } from "@/lib/theme";
 
 export default async function ModuleLayout({
@@ -12,6 +13,7 @@ export default async function ModuleLayout({
   children: React.ReactNode;
   params: Promise<{ lang: string }>;
 }) {
+  await requireSession();
   const { lang } = await params;
   const language = getLanguage(lang);
   if (!language) notFound();

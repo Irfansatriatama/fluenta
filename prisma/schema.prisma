@@ -156,7 +156,9 @@ model Profile {
   avatarId         String? // Cloudinary public_id
   activeLanguageId String?
   timezone         String   @default("Asia/Jakarta")
-  dailyGoalXp      Int      @default(30)
+  dailyGoalMinutes Int      @default(15)
+  learningReason   String?
+  onboardedAt      DateTime?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 }

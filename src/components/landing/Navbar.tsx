@@ -45,7 +45,7 @@ export function Navbar() {
             <ChevronDown className="hidden h-3.5 w-3.5 sm:inline" />
           </button>
           <a
-            href="#"
+            href="/login"
             className="rounded-xl border border-edge bg-paper px-4 py-1.5 text-sm font-semibold text-ink shadow-soft transition-colors hover:border-gold/60"
           >
             Log in
