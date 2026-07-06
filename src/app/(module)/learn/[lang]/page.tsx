@@ -1,34 +1,13 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  ArrowRight,
-  BookOpen,
-  Check,
-  Flame,
-  Gamepad2,
-  PencilRuler,
-  Sparkles,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowRight, Check, Flame, Lock } from "lucide-react";
 import { LanguageSeal } from "@/components/brand/LanguageSeal";
 import { ProgressRing } from "@/components/ui/ProgressRing";
+import { getModuleData } from "@/lib/content";
+import { kindMeta } from "@/lib/lessonKind";
+import { prisma } from "@/lib/prisma";
+import { getSession } from "@/lib/session";
 import { getLanguage } from "@/lib/theme";
-
-// --- Placeholder data (wired to progress models next). ---
-const stats = { streak: 12, xp: 3240, level: 14, levelTitle: "Apprentice", levelPct: 66 };
-const goal = { done: 23, target: 30 };
-
-const plan: { icon: LucideIcon; title: string; sub: string; done: boolean }[] = [
-  { icon: BookOpen, title: "Flashcards", sub: "Review 20 cards", done: true },
-  { icon: Sparkles, title: "Vocabulary", sub: "New words", done: false },
-  { icon: PencilRuler, title: "Grammar", sub: "Particle は", done: false },
-  { icon: Gamepad2, title: "Practice", sub: "Quick quiz", done: false },
-];
-
-const bottom = [
-  { label: "Words learned", value: "128", delta: "+18 today" },
-  { label: "Minutes studied", value: "32", delta: "+6 today" },
-  { label: "Accuracy", value: "87%", delta: "+6%" },
-];
 
 const card = "rounded-2xl border hairline bg-paper p-5 shadow-soft";
 
@@ -41,6 +20,25 @@ export default async function ModuleHomePage({
   const language = getLanguage(lang);
   if (!language) notFound();
 
+  const session = await getSession();
+  const userId = session!.user.id;
+
+  const [data, xpAgg, streak, profile] = await Promise.all([
+    getModuleData(lang, userId),
+    prisma.xpEvent.aggregate({ where: { userId }, _sum: { amount: true } }),
+    prisma.streak.findUnique({ where: { userId } }),
+    prisma.profile.findUnique({ where: { userId } }),
+  ]);
+
+  const totalXp = xpAgg._sum.amount ?? 0;
+  const completed = data?.completed ?? 0;
+  const total = data?.total ?? 0;
+  const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+  const goal = profile?.dailyGoalMinutes ?? 15;
+  const nextId = data?.nextLessonId ?? null;
+  const flatLessons = data?.units.flatMap((u) => u.lessons) ?? [];
+  const nextLesson = flatLessons.find((l) => l.id === nextId);
+
   return (
     <div className="mx-auto max-w-5xl">
       <div className="flex items-start justify-between gap-4">
@@ -48,13 +46,11 @@ export default async function ModuleHomePage({
           <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
             Continue your {language.name}
           </h1>
-          <p className="mt-1 text-sm text-ink-soft">
-            One lesson at a time — keep the momentum going.
-          </p>
+          <p className="mt-1 text-sm text-ink-soft">One lesson at a time — keep the momentum going.</p>
         </div>
         <div className="flex shrink-0 items-center gap-2 rounded-full border hairline bg-paper px-3.5 py-2 shadow-soft">
           <Flame className="h-5 w-5 text-flame" />
-          <span className="font-display text-lg font-bold text-ink">{stats.streak}</span>
+          <span className="font-display text-lg font-bold text-ink">{streak?.current ?? 0}</span>
           <span className="text-xs leading-tight text-ink-soft">
             day
             <br />
@@ -64,37 +60,31 @@ export default async function ModuleHomePage({
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className={`${card} flex items-center gap-4`}>
+          <ProgressRing percent={percent} size={64} color="var(--accent)">
+            <span className="text-xs font-bold text-ink">{percent}%</span>
+          </ProgressRing>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">Progress</p>
+            <p className="mt-1 font-display text-xl font-extrabold text-ink">
+              {completed}/{total}
+            </p>
+            <p className="text-xs text-ink-soft">lessons</p>
+          </div>
+        </div>
         <div className={card}>
           <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">XP</p>
           <p className="mt-2 font-display text-3xl font-extrabold text-ink">
-            {stats.xp.toLocaleString()}
+            {totalXp.toLocaleString()}
           </p>
           <p className="text-xs text-ink-soft">Total XP</p>
-        </div>
-        <div className={`${card} flex items-center gap-4`}>
-          <ProgressRing percent={stats.levelPct} size={64} color="var(--accent)">
-            <span className="font-display text-lg font-bold text-ink">{stats.level}</span>
-          </ProgressRing>
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">Level</p>
-            <p className="mt-1 font-display text-xl font-extrabold text-ink">{stats.level}</p>
-            <p className="text-xs text-ink-soft">{stats.levelTitle}</p>
-          </div>
         </div>
         <div className={card}>
           <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">Daily Goal</p>
           <p className="mt-2 font-display text-2xl font-extrabold text-ink">
-            {goal.done} <span className="text-base font-semibold text-ink-soft">/ {goal.target} min</span>
+            {goal} <span className="text-base font-semibold text-ink-soft">min</span>
           </p>
-          <div className="mt-2 h-2 overflow-hidden rounded-full bg-paper-2">
-            <div
-              className="h-full rounded-full"
-              style={{ width: `${Math.min(100, (goal.done / goal.target) * 100)}%`, backgroundColor: "var(--accent)" }}
-            />
-          </div>
-          <p className="mt-1.5 flex items-center gap-1 text-xs font-medium text-flame">
-            <Flame className="h-3.5 w-3.5" /> You&apos;re on fire!
-          </p>
+          <p className="mt-1 text-xs text-ink-soft">Keep your streak alive.</p>
         </div>
       </div>
 
@@ -104,62 +94,80 @@ export default async function ModuleHomePage({
           style={{ borderColor: "color-mix(in srgb, var(--accent) 28%, transparent)" }}
         >
           <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "var(--accent)" }}>
-            {language.name}
+            {nextLesson ? kindMeta(nextLesson.kind).label : language.name}
           </p>
-          <h2 className="mt-2 font-display text-2xl font-extrabold text-ink">Hiragana Basics</h2>
-          <p className="mt-1 text-sm text-ink-soft" lang={lang}>
-            Lesson 12 · あ行・か行
+          <h2 className="mt-2 font-display text-2xl font-extrabold text-ink">
+            {nextLesson ? nextLesson.title : "All caught up!"}
+          </h2>
+          <p className="mt-1 text-sm text-ink-soft">
+            {nextLesson ? `+${nextLesson.xpReward} XP` : "You've completed every lesson here."}
           </p>
-          <button
-            className="mt-5 inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-opacity hover:opacity-90"
-            style={{ backgroundColor: "var(--accent)" }}
-          >
-            Continue
-            <ArrowRight className="h-4 w-4" />
-          </button>
+          {nextLesson ? (
+            <Link
+              href={`/learn/${lang}/lesson/${nextLesson.id}`}
+              className="mt-5 inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-opacity hover:opacity-90"
+              style={{ backgroundColor: "var(--accent)" }}
+            >
+              Continue
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          ) : (
+            <Link
+              href={`/learn/${lang}/journey`}
+              className="mt-5 inline-flex items-center gap-2 rounded-xl border border-edge px-5 py-2.5 text-sm font-bold text-ink transition-colors hover:border-gold/60"
+            >
+              View journey
+            </Link>
+          )}
           <div className="pointer-events-none absolute -right-2 top-1/2 -translate-y-1/2 opacity-90">
             <LanguageSeal language={language} size={110} showLabel={false} />
           </div>
         </div>
 
         <div className={card}>
-          <h3 className="font-display text-base font-bold text-ink">Today&apos;s Plan</h3>
+          <div className="flex items-center justify-between">
+            <h3 className="font-display text-base font-bold text-ink">Today&apos;s Plan</h3>
+            <Link href={`/learn/${lang}/journey`} className="text-xs font-semibold text-ink-soft hover:text-ink">
+              View all
+            </Link>
+          </div>
           <ul className="mt-3 flex flex-col gap-1">
-            {plan.map(({ icon: Icon, title, sub, done }) => (
-              <li key={title} className="flex items-center gap-3 rounded-xl px-2 py-2">
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-ivory ring-1 ring-edge text-ink-soft">
-                  <Icon className="h-5 w-5" strokeWidth={1.8} />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-semibold text-ink">{title}</p>
-                  <p className="truncate text-xs text-ink-soft">{sub}</p>
+            {flatLessons.slice(0, 4).map((l) => {
+              const { icon: Icon, label } = kindMeta(l.kind);
+              const locked = l.state === "locked";
+              const done = l.state === "completed";
+              const row = (
+                <div className="flex items-center gap-3 rounded-xl px-2 py-2">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-ivory ring-1 ring-edge text-ink-soft">
+                    <Icon className="h-5 w-5" strokeWidth={1.8} />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-semibold text-ink">{l.title}</p>
+                    <p className="truncate text-xs text-ink-soft">{label}</p>
+                  </div>
+                  {done ? (
+                    <span className="grid h-5 w-5 place-items-center rounded-full" style={{ backgroundColor: "var(--accent)" }}>
+                      <Check className="h-3 w-3 text-white" strokeWidth={3} />
+                    </span>
+                  ) : locked ? (
+                    <Lock className="h-4 w-4 text-ink-faint" />
+                  ) : null}
                 </div>
-                <span
-                  className="grid h-5 w-5 place-items-center rounded-full border"
-                  style={
-                    done
-                      ? { backgroundColor: "var(--accent)", borderColor: "var(--accent)" }
-                      : { borderColor: "var(--color-edge)" }
-                  }
-                >
-                  {done && <Check className="h-3 w-3 text-white" strokeWidth={3} />}
-                </span>
-              </li>
-            ))}
+              );
+              return (
+                <li key={l.id}>
+                  {locked ? (
+                    <div className="opacity-60">{row}</div>
+                  ) : (
+                    <Link href={`/learn/${lang}/lesson/${l.id}`} className="block transition-colors hover:bg-paper-2 rounded-xl">
+                      {row}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
-      </div>
-
-      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {bottom.map((b) => (
-          <div key={b.label} className={card}>
-            <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">{b.label}</p>
-            <p className="mt-1.5 font-display text-2xl font-extrabold text-ink">{b.value}</p>
-            <p className="text-xs font-medium" style={{ color: "#2f7d53" }}>
-              {b.delta}
-            </p>
-          </div>
-        ))}
       </div>
     </div>
   );
