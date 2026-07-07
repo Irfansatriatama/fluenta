@@ -19,14 +19,14 @@ export function Hero() {
         </p>
 
         <h1 className="mt-5 font-display text-[clamp(2.6rem,6vw,4.25rem)] font-extrabold leading-[1.02] tracking-[-0.02em] text-ink">
-          Learn 4 Languages.
+          Learn Every Language.
           <br />
           One Beautiful Journey.
         </h1>
 
         <p className="mt-5 max-w-md text-base leading-relaxed text-ink-soft sm:text-[1.05rem]">
-          Japanese, Korean, Chinese, English—master them all in one place with a
-          gamified path that keeps you motivated every day.
+          Japanese, Korean, Chinese, English—and more on the way. One gamified
+          path, one passport, and progress you&apos;ll actually feel every day.
         </p>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
