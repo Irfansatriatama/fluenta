@@ -1,6 +1,6 @@
 import { Plane } from "lucide-react";
 import { LanguageSeal } from "@/components/brand/LanguageSeal";
-import { LANGUAGES } from "@/lib/languages";
+import { LANGUAGES, UPCOMING_LANGUAGES, UPCOMING_MORE } from "@/lib/languages";
 
 // The signature hero object: a warm passport booklet you stamp as you learn.
 export function Passport() {
@@ -52,7 +52,27 @@ export function Passport() {
           ))}
         </div>
 
-        <footer className="mt-7 flex items-end justify-between gap-4 border-t border-dashed hairline pt-5">
+        {/* coming-soon stamps → signals the platform's breadth */}
+        <div className="mt-7 border-t border-dashed hairline pt-4">
+          <p className="text-center text-[0.55rem] font-bold uppercase tracking-[0.28em] text-ink-faint">
+            More languages coming
+          </p>
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-3">
+            {UPCOMING_LANGUAGES.map((u) => (
+              <span
+                key={u.label}
+                title={u.label}
+                className="grid h-11 w-11 place-items-center rounded-full border border-dashed text-ink-faint opacity-70"
+                style={{ borderColor: "var(--color-ink-faint)", transform: `rotate(${u.rotate}deg)` }}
+              >
+                <span className="font-display text-xs font-bold">{u.glyph}</span>
+              </span>
+            ))}
+            <span className="font-display text-xs font-bold text-gold-deep">+{UPCOMING_MORE} more</span>
+          </div>
+        </div>
+
+        <footer className="mt-6 flex items-end justify-between gap-4 border-t border-dashed hairline pt-5">
           <p className="font-display text-[0.95rem] italic leading-snug text-ink-soft">
             Collect stamps. Build fluency.
             <br />

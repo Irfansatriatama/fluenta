@@ -50,3 +50,17 @@ export const LANGUAGES: Language[] = [
     rotate: 4,
   },
 ];
+
+// Languages on the roadmap — shown as faded "coming soon" stamps on the
+// landing passport to signal the platform's breadth. Not enrollable yet.
+export const UPCOMING_LANGUAGES: { glyph: string; label: string; rotate: number }[] = [
+  { glyph: "Es", label: "Spanish", rotate: -5 },
+  { glyph: "Fr", label: "French", rotate: 4 },
+  { glyph: "De", label: "German", rotate: -3 },
+  { glyph: "ع", label: "Arabic", rotate: 5 },
+  { glyph: "हि", label: "Hindi", rotate: -4 },
+  { glyph: "ไทย", label: "Thai", rotate: 3 },
+];
+
+// Total languages on the roadmap (marketing "+N more").
+export const UPCOMING_MORE = 12;
