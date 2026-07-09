@@ -3,6 +3,9 @@ import {
   LessonRunner,
   type RunnerQuestion,
 } from "@/components/lesson/LessonRunner";
+import { DialogRunner, type DialogData } from "@/components/lesson/DialogRunner";
+import { SpeakRunner, type SpeakData } from "@/components/lesson/SpeakRunner";
+import { LESSON_KIND } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 
 export default async function LessonPage({
@@ -20,9 +23,25 @@ export default async function LessonPage({
     },
   });
 
-  if (!lesson || lesson.unit.track.language.code !== lang || lesson.questions.length === 0) {
-    notFound();
+  if (!lesson || lesson.unit.track.language.code !== lang) notFound();
+
+  // Dialog / roleplay is script-driven (no questions rows).
+  if (lesson.kind === LESSON_KIND.DIALOG) {
+    const d = (lesson.metadata ?? {}) as Omit<DialogData, "id" | "xpReward">;
+    return (
+      <DialogRunner
+        lang={lang}
+        data={{ id: lesson.id, xpReward: lesson.xpReward, ...d }}
+      />
+    );
   }
+
+  if (lesson.kind === LESSON_KIND.SCRIPT || lesson.kind === "speaking") {
+    const d = (lesson.metadata ?? {}) as Omit<SpeakData, "id" | "xpReward">;
+    return <SpeakRunner lang={lang} data={{ id: lesson.id, xpReward: lesson.xpReward, ...d }} />;
+  }
+
+  if (lesson.questions.length === 0) notFound();
 
   const meta = (lesson.metadata ?? {}) as {
     passage?: string;

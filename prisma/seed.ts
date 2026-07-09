@@ -99,6 +99,40 @@ const UNITS: Record<string, Unit> = {
           { id: "q-ja-quiz1-3", kind: "mcq", prompt: "Which romaji matches this?", promptNative: "の", options: [{ text: "na" }, { text: "ni" }, { text: "no" }, { text: "nu" }], answer: 2, sortOrder: 3 },
         ],
       },
+      {
+        id: "l-ja-dialog1", title: "Café — order a coffee", kind: "dialog", xpReward: 30, estMinutes: 6, sortOrder: 5,
+        metadata: {
+          scenario: "Café — order a coffee",
+          description: "You are at a café in Tokyo. Practice ordering a coffee and making a small request.",
+          goal: "Order naturally and politely",
+          turns: [
+            { native: "いらっしゃいませ。ご注文はお決まりですか？", gloss: "Welcome! Have you decided on your order?" },
+            { native: "かしこまりました。他に何かご注文されますか？", gloss: "Certainly. Would you like to order anything else?" },
+          ],
+          replies: [
+            { native: "ホットコーヒーをお願いします。", gloss: "I'll have a hot coffee, please.", correct: true },
+            { native: "アイスコーヒーをください。", gloss: "I'd like an iced coffee, please." },
+            { native: "カフェラテをお願いします。", gloss: "I'll have a café latte, please." },
+          ],
+          tips: ["Use 「お願いします」 to make polite requests.", "Add 「〜を」 before the item you want."],
+        },
+        questions: [],
+      },
+      {
+        id: "l-ja-speak1", title: "Say it: order a coffee", kind: "speaking", xpReward: 20, estMinutes: 4, sortOrder: 6,
+        metadata: {
+          phrase: "コーヒーをください。",
+          reading: "こーひー を ください。",
+          gloss: "Please give me a coffee.",
+          tokens: [
+            { native: "コーヒー", reading: "koohii" },
+            { native: "を", reading: "wo" },
+            { native: "ください", reading: "kudasai" },
+          ],
+          tip: "Make the final 「ください」 clear and polite. Keep your 「コーヒー」 long and natural.",
+        },
+        questions: [],
+      },
     ],
   },
 

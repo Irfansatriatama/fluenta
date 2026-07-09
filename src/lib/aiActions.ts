@@ -104,3 +104,47 @@ export async function gradeWriting(input: {
     };
   }
 }
+
+export type ChatTurn = { role: "user" | "assistant"; text: string };
+
+// AI tutor reply. Replies in the target language with a short English gloss.
+// Falls back to a helpful canned message when ANTHROPIC_API_KEY is absent.
+export async function tutorReply(input: {
+  languageName: string;
+  history: ChatTurn[];
+}): Promise<{ text: string; aiPowered: boolean }> {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return {
+      text: `I'd love to help you with ${input.languageName}! (Live AI tutoring turns on once ANTHROPIC_API_KEY is set.)`,
+      aiPowered: false,
+    };
+  }
+
+  // The Messages API must start with a user turn — drop any leading greeting.
+  let start = 0;
+  while (start < input.history.length && input.history[start].role !== "user") start += 1;
+  const turns = input.history.slice(start);
+  if (turns.length === 0) return { text: "Ask me anything!", aiPowered: true };
+
+  try {
+    const client = new Anthropic();
+    const response = await client.messages.create({
+      model: "claude-opus-4-8",
+      max_tokens: 900,
+      thinking: { type: "adaptive" },
+      system:
+        `You are a warm, patient ${input.languageName} tutor for a beginner. ` +
+        `Reply primarily in ${input.languageName} using simple language, then give a short English ` +
+        `translation on a new line. Keep replies to 1–3 short sentences. When explaining grammar, ` +
+        `give one concrete example. Never use emoji.`,
+      messages: turns.map((t) => ({ role: t.role, content: t.text })),
+    });
+    const block = response.content.find((b) => b.type === "text");
+    return { text: block && "text" in block ? block.text : "…", aiPowered: true };
+  } catch {
+    return {
+      text: "Sorry, I couldn't respond just now — please try again.",
+      aiPowered: false,
+    };
+  }
+}
