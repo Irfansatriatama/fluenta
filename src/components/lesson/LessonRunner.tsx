@@ -46,16 +46,30 @@ function Passage({ text, highlight }: { text: string; highlight: string | null }
   );
 }
 
-function ListeningPlayer({ transcript }: { transcript: string | null }) {
+const SR_LANG: Record<string, string> = { ja: "ja-JP", ko: "ko-KR", zh: "zh-CN", en: "en-US" };
+
+function speak(text: string, lang: string) {
+  if (typeof window === "undefined" || !window.speechSynthesis || !text) return;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = SR_LANG[lang] ?? "en-US";
+  u.rate = 0.9;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+function ListeningPlayer({ lang, transcript }: { lang: string; transcript: string | null }) {
   return (
     <div className="rounded-2xl border hairline bg-paper p-5">
       <div className="flex items-center gap-4">
-        <span
-          className="grid h-14 w-14 place-items-center rounded-full text-white"
+        <button
+          type="button"
+          onClick={() => transcript && speak(transcript, lang)}
+          className="grid h-14 w-14 shrink-0 place-items-center rounded-full text-white transition-transform hover:scale-105"
           style={{ backgroundColor: "var(--accent)" }}
+          aria-label="Play audio"
         >
           <Play className="h-6 w-6 fill-current" />
-        </span>
+        </button>
         <div className="flex-1">
           <div className="flex h-8 items-end gap-0.5">
             {Array.from({ length: 28 }).map((_, i) => (
@@ -67,15 +81,15 @@ function ListeningPlayer({ transcript }: { transcript: string | null }) {
             ))}
           </div>
         </div>
-        <button className="flex items-center gap-1 text-xs font-semibold text-ink-soft" type="button">
+        <button
+          type="button"
+          onClick={() => transcript && speak(transcript, lang)}
+          className="flex items-center gap-1 text-xs font-semibold text-ink-soft hover:text-ink"
+        >
           <RotateCcw className="h-4 w-4" /> Replay
         </button>
       </div>
-      {transcript && (
-        <p className="mt-3 text-xs text-ink-faint" lang="ja">
-          Preview: {transcript}
-        </p>
-      )}
+      <p className="mt-3 text-center text-xs text-ink-faint">Tap play and choose what you heard.</p>
     </div>
   );
 }
@@ -196,7 +210,7 @@ export function LessonRunner({
 
       <div className="mt-4 flex flex-col gap-4">
         {lesson.passage && <Passage text={lesson.passage} highlight={lesson.highlight} />}
-        {lesson.kind === "listening" && <ListeningPlayer transcript={lesson.transcript} />}
+        {lesson.kind === "listening" && <ListeningPlayer lang={lang} transcript={lesson.transcript} />}
 
         {q.promptNative && (
           <div className="grid place-items-center rounded-2xl border hairline bg-paper py-10">

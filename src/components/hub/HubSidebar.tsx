@@ -48,9 +48,9 @@ export function HubSidebar({ user }: { user: { name: string; email: string } }) 
         <p className="mt-1 text-xs leading-relaxed text-ink-soft">
           Unlock all languages, premium lessons, and advanced reports.
         </p>
-        <button className="mt-3 w-full rounded-xl bg-gold px-3 py-2 text-sm font-bold text-white transition-colors hover:bg-gold-deep">
+        <Link href="/home/premium" className="mt-3 block w-full rounded-xl bg-gold px-3 py-2 text-center text-sm font-bold text-white transition-colors hover:bg-gold-deep">
           Upgrade Now
-        </button>
+        </Link>
       </div>
 
       <Link

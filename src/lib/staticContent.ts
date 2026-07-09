@@ -1,5 +1,6 @@
 import gJa from "@/content/grammar/ja.json";
 import gKo from "@/content/grammar/ko.json";
+import gZh from "@/content/grammar/zh.json";
 import gEn from "@/content/grammar/en.json";
 import dJa from "@/content/dialogs/ja.json";
 import dKo from "@/content/dialogs/ko.json";
@@ -36,6 +37,7 @@ export type CharGroup = { title: string; items: CharItem[] };
 const GRAMMAR: Record<string, { patterns: GrammarPattern[] }> = {
   ja: gJa as { patterns: GrammarPattern[] },
   ko: gKo as { patterns: GrammarPattern[] },
+  zh: gZh as { patterns: GrammarPattern[] },
   en: gEn as { patterns: GrammarPattern[] },
 };
 const DIALOGS: Record<string, { dialogs: Dialog[] }> = {

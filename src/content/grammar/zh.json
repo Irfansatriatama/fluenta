@@ -1,0 +1,186 @@
+{
+  "patterns": [
+    {
+      "id": "zh-shi",
+      "pattern": "A 是 B",
+      "reading": "shì",
+      "meaning": "A adalah B (kata kerja penghubung)",
+      "level": "HSK1",
+      "category": "Kalimat Dasar",
+      "explanation": "是 (shì) menghubungkan dua kata benda: 'A adalah B'. Tidak dipakai sebelum kata sifat — untuk kata sifat gunakan 很.",
+      "examples": [
+        { "native": "我是学生。", "roman": "Wǒ shì xuéshēng.", "gloss": "Saya adalah pelajar." },
+        { "native": "他是老师。", "roman": "Tā shì lǎoshī.", "gloss": "Dia adalah guru." }
+      ]
+    },
+    {
+      "id": "zh-bu",
+      "pattern": "不 + kata kerja",
+      "reading": "bù",
+      "meaning": "tidak / bukan (negasi)",
+      "level": "HSK1",
+      "category": "Kalimat Dasar",
+      "explanation": "不 (bù) menegasikan kata kerja atau kata sifat pada masa kini/umum. Untuk 有 gunakan 没 (méi), bukan 不.",
+      "examples": [
+        { "native": "我不喝咖啡。", "roman": "Wǒ bù hē kāfēi.", "gloss": "Saya tidak minum kopi." },
+        { "native": "这不是我的。", "roman": "Zhè bù shì wǒ de.", "gloss": "Ini bukan milik saya." }
+      ]
+    },
+    {
+      "id": "zh-ma",
+      "pattern": "kalimat + 吗？",
+      "reading": "ma",
+      "meaning": "menjadikan kalimat pertanyaan ya/tidak",
+      "level": "HSK1",
+      "category": "Pertanyaan",
+      "explanation": "Tambahkan 吗 (ma) di akhir kalimat pernyataan untuk membuat pertanyaan ya/tidak.",
+      "examples": [
+        { "native": "你是学生吗？", "roman": "Nǐ shì xuéshēng ma?", "gloss": "Apakah kamu pelajar?" },
+        { "native": "你好吗？", "roman": "Nǐ hǎo ma?", "gloss": "Apa kabar?" }
+      ]
+    },
+    {
+      "id": "zh-de",
+      "pattern": "A 的 B",
+      "reading": "de",
+      "meaning": "milik / kepunyaan (A-nya B)",
+      "level": "HSK1",
+      "category": "Partikel",
+      "explanation": "的 (de) menandai kepemilikan atau sifat: 我的书 = buku saya. Untuk hubungan dekat (keluarga) 的 sering dihilangkan: 我妈妈.",
+      "examples": [
+        { "native": "这是我的书。", "roman": "Zhè shì wǒ de shū.", "gloss": "Ini buku saya." },
+        { "native": "他的名字是小明。", "roman": "Tā de míngzì shì Xiǎomíng.", "gloss": "Namanya Xiaoming." }
+      ]
+    },
+    {
+      "id": "zh-you",
+      "pattern": "有 / 没有",
+      "reading": "yǒu",
+      "meaning": "punya / tidak punya, ada",
+      "level": "HSK1",
+      "category": "Kalimat Dasar",
+      "explanation": "有 (yǒu) berarti 'punya' atau 'ada'. Negasinya khusus: 没有 (méiyǒu), tidak pernah 不有.",
+      "examples": [
+        { "native": "我有一个哥哥。", "roman": "Wǒ yǒu yí ge gēge.", "gloss": "Saya punya seorang kakak laki-laki." },
+        { "native": "我没有钱。", "roman": "Wǒ méiyǒu qián.", "gloss": "Saya tidak punya uang." }
+      ]
+    },
+    {
+      "id": "zh-zai",
+      "pattern": "在 + tempat",
+      "reading": "zài",
+      "meaning": "berada di (lokasi)",
+      "level": "HSK1",
+      "category": "Kalimat Dasar",
+      "explanation": "在 (zài) menyatakan keberadaan di suatu tempat. Struktur: Subjek + 在 + tempat.",
+      "examples": [
+        { "native": "我在家。", "roman": "Wǒ zài jiā.", "gloss": "Saya di rumah." },
+        { "native": "他在学校。", "roman": "Tā zài xuéxiào.", "gloss": "Dia di sekolah." }
+      ]
+    },
+    {
+      "id": "zh-hen",
+      "pattern": "Subjek + 很 + kata sifat",
+      "reading": "hěn",
+      "meaning": "(sangat) — penghubung ke kata sifat",
+      "level": "HSK1",
+      "category": "Kata Sifat",
+      "explanation": "Sebelum kata sifat, bahasa Mandarin tidak memakai 是 melainkan 很. Meski 很 berarti 'sangat', di sini fungsinya lebih sebagai penghubung netral.",
+      "examples": [
+        { "native": "我很好。", "roman": "Wǒ hěn hǎo.", "gloss": "Saya baik-baik saja." },
+        { "native": "今天很热。", "roman": "Jīntiān hěn rè.", "gloss": "Hari ini panas." }
+      ]
+    },
+    {
+      "id": "zh-xiang",
+      "pattern": "想 + kata kerja",
+      "reading": "xiǎng",
+      "meaning": "ingin / mau (melakukan)",
+      "level": "HSK1",
+      "category": "Kata Kerja Bantu",
+      "explanation": "想 (xiǎng) di depan kata kerja menyatakan keinginan: 'ingin melakukan sesuatu'.",
+      "examples": [
+        { "native": "我想喝茶。", "roman": "Wǒ xiǎng hē chá.", "gloss": "Saya ingin minum teh." },
+        { "native": "我想去中国。", "roman": "Wǒ xiǎng qù Zhōngguó.", "gloss": "Saya ingin pergi ke Tiongkok." }
+      ]
+    },
+    {
+      "id": "zh-hui",
+      "pattern": "会 + kata kerja",
+      "reading": "huì",
+      "meaning": "bisa (keterampilan yang dipelajari)",
+      "level": "HSK1",
+      "category": "Kata Kerja Bantu",
+      "explanation": "会 (huì) menyatakan kemampuan yang dipelajari (mis. berbahasa). Untuk kemampuan fisik/izin gunakan 能 (néng).",
+      "examples": [
+        { "native": "我会说中文。", "roman": "Wǒ huì shuō Zhōngwén.", "gloss": "Saya bisa berbahasa Mandarin." },
+        { "native": "他不会游泳。", "roman": "Tā bú huì yóuyǒng.", "gloss": "Dia tidak bisa berenang." }
+      ]
+    },
+    {
+      "id": "zh-shenme",
+      "pattern": "什么",
+      "reading": "shénme",
+      "meaning": "apa (kata tanya)",
+      "level": "HSK1",
+      "category": "Pertanyaan",
+      "explanation": "什么 (shénme) menggantikan objek yang ditanyakan, dan tetap di posisi objek (tidak dipindah ke depan seperti bahasa Inggris).",
+      "examples": [
+        { "native": "这是什么？", "roman": "Zhè shì shénme?", "gloss": "Ini apa?" },
+        { "native": "你叫什么名字？", "roman": "Nǐ jiào shénme míngzì?", "gloss": "Siapa namamu?" }
+      ]
+    },
+    {
+      "id": "zh-le",
+      "pattern": "kata kerja + 了",
+      "reading": "le",
+      "meaning": "menandai tindakan selesai / perubahan",
+      "level": "HSK1",
+      "category": "Waktu & Aspek",
+      "explanation": "了 (le) menandai tindakan yang telah selesai atau perubahan keadaan. Contoh dasar: kata kerja + 了.",
+      "examples": [
+        { "native": "我吃了。", "roman": "Wǒ chī le.", "gloss": "Saya sudah makan." },
+        { "native": "他来了。", "roman": "Tā lái le.", "gloss": "Dia sudah datang." }
+      ]
+    },
+    {
+      "id": "zh-he",
+      "pattern": "A 和 B",
+      "reading": "hé",
+      "meaning": "dan (menghubungkan kata benda)",
+      "level": "HSK1",
+      "category": "Menghubungkan",
+      "explanation": "和 (hé) menghubungkan dua kata benda (bukan dua kalimat). 'Saya dan kamu' = 我和你.",
+      "examples": [
+        { "native": "我和你。", "roman": "Wǒ hé nǐ.", "gloss": "Saya dan kamu." },
+        { "native": "咖啡和茶。", "roman": "Kāfēi hé chá.", "gloss": "Kopi dan teh." }
+      ]
+    },
+    {
+      "id": "zh-ji",
+      "pattern": "几 + kata bantu bilangan",
+      "reading": "jǐ",
+      "meaning": "berapa (jumlah kecil)",
+      "level": "HSK1",
+      "category": "Pertanyaan",
+      "explanation": "几 (jǐ) menanyakan jumlah kecil dan selalu diikuti kata bantu bilangan (measure word), mis. 几个.",
+      "examples": [
+        { "native": "你有几个孩子？", "roman": "Nǐ yǒu jǐ ge háizi?", "gloss": "Kamu punya berapa anak?" },
+        { "native": "现在几点？", "roman": "Xiànzài jǐ diǎn?", "gloss": "Sekarang jam berapa?" }
+      ]
+    },
+    {
+      "id": "zh-ba",
+      "pattern": "kalimat + 吧",
+      "reading": "ba",
+      "meaning": "melunakkan ajakan / dugaan",
+      "level": "HSK1",
+      "category": "Partikel",
+      "explanation": "吧 (ba) di akhir kalimat membuat ajakan/saran terdengar lebih lembut, atau menyatakan dugaan.",
+      "examples": [
+        { "native": "我们走吧。", "roman": "Wǒmen zǒu ba.", "gloss": "Ayo kita pergi." },
+        { "native": "你是学生吧？", "roman": "Nǐ shì xuéshēng ba?", "gloss": "Kamu pelajar, kan?" }
+      ]
+    }
+  ]
+}
