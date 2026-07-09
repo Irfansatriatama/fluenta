@@ -2,9 +2,10 @@ import {
   Award,
   BarChart3,
   Home,
+  Layers,
   MessageCircle,
+  Repeat2,
   Route,
-  Swords,
   Trophy,
   User,
   type LucideIcon,
@@ -35,7 +36,8 @@ export type ModuleNavItem = {
 export const MODULE_NAV: ModuleNavItem[] = [
   { label: "Home", segment: "", icon: Home },
   { label: "Journey", segment: "/journey", icon: Route },
-  { label: "Practice", segment: "/practice", icon: Swords },
+  { label: "Vocab", segment: "/vocab", icon: Layers },
+  { label: "Review", segment: "/review", icon: Repeat2 },
   { label: "Tutor", segment: "/tutor", icon: MessageCircle },
 ];
 
