@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, Check, Flame, Lock } from "lucide-react";
+import { ArrowRight, BookText, Check, Flame, Languages, Layers, Lock, MessagesSquare, Repeat2 } from "lucide-react";
 import { LanguageSeal } from "@/components/brand/LanguageSeal";
 import { ProgressRing } from "@/components/ui/ProgressRing";
 import { getModuleData } from "@/lib/content";
 import { kindMeta } from "@/lib/lessonKind";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/session";
+import { studyTools } from "@/lib/staticContent";
 import { getLanguage } from "@/lib/theme";
 
 const card = "rounded-2xl border hairline bg-paper p-5 shadow-soft";
@@ -38,6 +39,15 @@ export default async function ModuleHomePage({
   const nextId = data?.nextLessonId ?? null;
   const flatLessons = data?.units.flatMap((u) => u.lessons) ?? [];
   const nextLesson = flatLessons.find((l) => l.id === nextId);
+
+  const t = studyTools(lang);
+  const toolCards = [
+    { href: `/learn/${lang}/vocab`, icon: Layers, title: "Vocabulary", sub: "Flashcards + SRS", show: true },
+    { href: `/learn/${lang}/review`, icon: Repeat2, title: "Review", sub: "Due cards", show: true },
+    { href: `/learn/${lang}/grammar`, icon: BookText, title: "Grammar", sub: `${t.grammar} patterns`, show: t.grammar > 0 },
+    { href: `/learn/${lang}/characters`, icon: Languages, title: "Characters", sub: `${t.characters} characters`, show: t.characters > 0 },
+    { href: `/learn/${lang}/dialogs`, icon: MessagesSquare, title: "Dialogs", sub: `${t.dialogs} conversations`, show: t.dialogs > 0 },
+  ].filter((c) => c.show);
 
   return (
     <div className="mx-auto max-w-5xl">
@@ -169,6 +179,28 @@ export default async function ModuleHomePage({
           </ul>
         </div>
       </div>
+
+      {/* study tools */}
+      <section className="mt-6">
+        <h2 className="font-display text-base font-bold text-ink">Study tools</h2>
+        <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+          {toolCards.map(({ href, icon: Icon, title, sub }) => (
+            <Link
+              key={href}
+              href={href}
+              className="flex flex-col gap-2 rounded-2xl border hairline bg-paper p-4 shadow-soft transition-colors hover:border-[color:var(--accent)]"
+            >
+              <span className="grid h-10 w-10 place-items-center rounded-xl bg-ivory ring-1 ring-edge" style={{ color: "var(--accent)" }}>
+                <Icon className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="font-display text-sm font-bold text-ink">{title}</p>
+                <p className="text-xs text-ink-soft">{sub}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
