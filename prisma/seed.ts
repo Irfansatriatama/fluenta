@@ -187,6 +187,39 @@ const UNITS: Record<string, Unit> = {
           { id: "q-ko-quiz1-3", kind: "mcq", prompt: "Which romanization matches this?", promptNative: "다", options: [{ text: "ta" }, { text: "da" }, { text: "ga" }, { text: "ha" }], answer: 1, sortOrder: 3 },
         ],
       },
+      {
+        id: "l-ko-dialog1", title: "Café — order a coffee", kind: "dialog", xpReward: 30, estMinutes: 6, sortOrder: 5,
+        metadata: {
+          scenario: "Café — order a coffee",
+          description: "You are at a café in Seoul. Practice ordering a coffee politely.",
+          goal: "Order naturally and politely",
+          turns: [
+            { native: "어서 오세요. 주문하시겠어요?", gloss: "Welcome! Would you like to order?" },
+            { native: "알겠습니다. 더 필요한 거 있으세요?", gloss: "Got it. Anything else?" },
+          ],
+          replies: [
+            { native: "따뜻한 커피 주세요.", gloss: "A hot coffee, please.", correct: true },
+            { native: "아이스 커피 주세요.", gloss: "An iced coffee, please." },
+            { native: "카페라테 한 잔 주세요.", gloss: "One café latte, please." },
+          ],
+          tips: ["Use 「주세요」 to ask politely.", "Add 「~을/를」 before the item you want."],
+        },
+        questions: [],
+      },
+      {
+        id: "l-ko-speak1", title: "Say it: order a coffee", kind: "speaking", xpReward: 20, estMinutes: 4, sortOrder: 6,
+        metadata: {
+          phrase: "커피 주세요.",
+          reading: "keopi juseyo.",
+          gloss: "A coffee, please.",
+          tokens: [
+            { native: "커피", reading: "keopi" },
+            { native: "주세요", reading: "juseyo" },
+          ],
+          tip: "Keep 「주세요」 clear and polite.",
+        },
+        questions: [],
+      },
     ],
   },
 
@@ -241,6 +274,40 @@ const UNITS: Record<string, Unit> = {
           { id: "q-zh-quiz1-3", kind: "mcq", prompt: "Which pinyin matches this?", promptNative: "人", options: [{ text: "rén" }, { text: "rěn" }, { text: "lín" }, { text: "nín" }], answer: 0, sortOrder: 3 },
         ],
       },
+      {
+        id: "l-zh-dialog1", title: "Café — order a coffee", kind: "dialog", xpReward: 30, estMinutes: 6, sortOrder: 5,
+        metadata: {
+          scenario: "Café — order a coffee",
+          description: "You are at a café in Beijing. Practice ordering a coffee politely.",
+          goal: "Order naturally and politely",
+          turns: [
+            { native: "欢迎光临！您想点什么？", gloss: "Welcome! What would you like to order?" },
+            { native: "好的。还要别的吗？", gloss: "Okay. Anything else?" },
+          ],
+          replies: [
+            { native: "我要一杯热咖啡。", gloss: "I'll have a hot coffee.", correct: true },
+            { native: "请给我一杯冰咖啡。", gloss: "An iced coffee, please." },
+            { native: "我要一杯拿铁。", gloss: "I'll have a latte." },
+          ],
+          tips: ["Use 「请」 to be polite.", "「一杯」 = one cup / glass."],
+        },
+        questions: [],
+      },
+      {
+        id: "l-zh-speak1", title: "Say it: order a coffee", kind: "speaking", xpReward: 20, estMinutes: 4, sortOrder: 6,
+        metadata: {
+          phrase: "我要咖啡。",
+          reading: "wǒ yào kāfēi.",
+          gloss: "I want coffee.",
+          tokens: [
+            { native: "我", reading: "wǒ" },
+            { native: "要", reading: "yào" },
+            { native: "咖啡", reading: "kāfēi" },
+          ],
+          tip: "Give each tone its full shape — 咖啡 is first tone + first tone.",
+        },
+        questions: [],
+      },
     ],
   },
 
@@ -294,6 +361,40 @@ const UNITS: Record<string, Unit> = {
           { id: "q-en-quiz1-2", kind: "mcq", prompt: "Choose the correct word: They ___ my friends.", options: [{ text: "is" }, { text: "are" }, { text: "am" }, { text: "be" }], answer: 1, sortOrder: 2 },
           { id: "q-en-quiz1-3", kind: "mcq", prompt: "Choose the correct word: I ___ happy.", options: [{ text: "is" }, { text: "are" }, { text: "am" }, { text: "be" }], answer: 2, sortOrder: 3 },
         ],
+      },
+      {
+        id: "l-en-dialog1", title: "Café — order a coffee", kind: "dialog", xpReward: 30, estMinutes: 6, sortOrder: 5,
+        metadata: {
+          scenario: "Café — order a coffee",
+          description: "You are at a café. Practice ordering a coffee politely in English.",
+          goal: "Order naturally and politely",
+          turns: [
+            { native: "Welcome! What can I get for you?", gloss: "The barista asks for your order." },
+            { native: "Sure! Anything else?", gloss: "The barista asks if you want more." },
+          ],
+          replies: [
+            { native: "I'll have a hot coffee, please.", gloss: "polite order", correct: true },
+            { native: "Can I get an iced coffee?", gloss: "casual order" },
+            { native: "A latte, please.", gloss: "short order" },
+          ],
+          tips: ["Use 'please' to sound polite.", "'Can I get…' is common in cafés."],
+        },
+        questions: [],
+      },
+      {
+        id: "l-en-speak1", title: "Say it: order a coffee", kind: "speaking", xpReward: 20, estMinutes: 4, sortOrder: 6,
+        metadata: {
+          phrase: "I'd like a coffee, please.",
+          reading: "",
+          gloss: "Ordering politely",
+          tokens: [
+            { native: "I'd like", reading: "" },
+            { native: "a coffee", reading: "" },
+            { native: "please", reading: "" },
+          ],
+          tip: "Stress 'coffee' and end politely with 'please'.",
+        },
+        questions: [],
       },
     ],
   },
