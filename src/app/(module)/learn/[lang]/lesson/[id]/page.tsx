@@ -5,6 +5,7 @@ import {
 } from "@/components/lesson/LessonRunner";
 import { DialogRunner, type DialogData } from "@/components/lesson/DialogRunner";
 import { SpeakRunner, type SpeakData } from "@/components/lesson/SpeakRunner";
+import { FlashcardRunner } from "@/components/lesson/FlashcardRunner";
 import { LESSON_KIND } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 
@@ -39,6 +40,29 @@ export default async function LessonPage({
   if (lesson.kind === LESSON_KIND.SCRIPT || lesson.kind === "speaking") {
     const d = (lesson.metadata ?? {}) as Omit<SpeakData, "id" | "xpReward">;
     return <SpeakRunner lang={lang} data={{ id: lesson.id, xpReward: lesson.xpReward, ...d }} />;
+  }
+
+  if (lesson.kind === LESSON_KIND.FLASHCARD) {
+    const meta = (lesson.metadata ?? {}) as { deckId?: string };
+    const deck = meta.deckId
+      ? await prisma.deck.findUnique({ where: { id: meta.deckId }, include: { cards: { orderBy: { sortOrder: "asc" } } } })
+      : null;
+    const cards = (deck?.cards ?? []).slice(0, 12).map((c) => ({
+      id: c.id,
+      front: c.front,
+      back: c.back,
+      reading: c.reading,
+      example: c.example,
+    }));
+    return (
+      <FlashcardRunner
+        lang={lang}
+        title={lesson.title}
+        cards={cards}
+        backHref={`/learn/${lang}/journey`}
+        lessonId={lesson.id}
+      />
+    );
   }
 
   if (lesson.questions.length === 0) notFound();

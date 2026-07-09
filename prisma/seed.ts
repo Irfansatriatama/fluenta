@@ -451,6 +451,44 @@ async function main() {
     }
   }
 
+  // Add a "Vocabulary" unit of flashcard lessons wired to the imported decks.
+  for (const lang of LANGUAGES) {
+    const language = await prisma.language.findUnique({ where: { code: lang.code } });
+    if (!language) continue;
+    const track = await prisma.track.findFirst({ where: { languageId: language.id }, orderBy: { sortOrder: "asc" } });
+    if (!track) continue;
+
+    const decks = await prisma.deck.findMany({
+      where: { languageId: language.id, isSystem: true },
+      include: { _count: { select: { cards: true } } },
+      orderBy: { title: "asc" },
+    });
+    const usable = decks.filter((d) => d._count.cards >= 6).slice(0, 5);
+    if (usable.length === 0) continue;
+
+    const unitId = `u-${lang.code}-vocab`;
+    await prisma.unit.create({ data: { id: unitId, trackId: track.id, title: "Vocabulary", sortOrder: 2 } });
+
+    let so = 1;
+    for (const deck of usable) {
+      await prisma.lesson.create({
+        data: {
+          id: `l-${lang.code}-fc-${so}`,
+          unitId,
+          title: `Flashcards: ${deck.title}`,
+          kind: "flashcard",
+          xpReward: 15,
+          estMinutes: 5,
+          sortOrder: so,
+          isPublished: true,
+          metadata: { deckId: deck.id },
+        },
+      });
+      so += 1;
+      lessonCount += 1;
+    }
+  }
+
   console.log(`Seeded ${LANGUAGES.length} languages, tracks, and ${lessonCount} lessons across all languages.`);
 }
 

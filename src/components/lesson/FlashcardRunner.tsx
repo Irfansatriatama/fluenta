@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Check, RotateCw, X } from "lucide-react";
 import { reviewCard } from "@/lib/cardActions";
+import { completeLesson } from "@/lib/lessonActions";
 
 export type FlashCard = {
   id: string;
@@ -18,11 +19,13 @@ export function FlashcardRunner({
   title,
   cards,
   backHref,
+  lessonId,
 }: {
   lang: string;
   title: string;
   cards: FlashCard[];
   backHref: string;
+  lessonId?: string;
 }) {
   const router = useRouter();
   const [index, setIndex] = useState(0);
@@ -33,6 +36,16 @@ export function FlashcardRunner({
   const total = cards.length;
   const card = cards[index];
   const finished = index >= total;
+
+  // When a flashcard set is a journey lesson, mark it complete on finish.
+  useEffect(() => {
+    if (finished && lessonId && total > 0) {
+      startTransition(async () => {
+        await completeLesson({ lessonId, correct: done, total });
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [finished]);
 
   function answer(quality: "again" | "good") {
     startTransition(async () => {
