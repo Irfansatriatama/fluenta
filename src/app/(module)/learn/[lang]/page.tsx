@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, BookText, Check, Flame, Languages, Layers, Lock, MessagesSquare, Repeat2 } from "lucide-react";
+import { ArrowRight, BookText, Check, Flame, Gamepad2, Languages, Layers, Lock, MessagesSquare, Repeat2 } from "lucide-react";
 import { LanguageSeal } from "@/components/brand/LanguageSeal";
 import { ProgressRing } from "@/components/ui/ProgressRing";
 import { getModuleData } from "@/lib/content";
@@ -47,6 +47,7 @@ export default async function ModuleHomePage({
     { href: `/learn/${lang}/grammar`, icon: BookText, title: "Grammar", sub: `${t.grammar} patterns`, show: t.grammar > 0 },
     { href: `/learn/${lang}/characters`, icon: Languages, title: "Characters", sub: `${t.characters} characters`, show: t.characters > 0 },
     { href: `/learn/${lang}/dialogs`, icon: MessagesSquare, title: "Dialogs", sub: `${t.dialogs} conversations`, show: t.dialogs > 0 },
+    { href: `/learn/${lang}/games`, icon: Gamepad2, title: "Games", sub: "Play & practice", show: true },
   ].filter((c) => c.show);
 
   return (

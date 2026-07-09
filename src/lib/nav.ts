@@ -2,6 +2,7 @@ import {
   Award,
   BarChart3,
   BookText,
+  Gamepad2,
   Home,
   Languages,
   Layers,
@@ -44,6 +45,7 @@ export const MODULE_NAV: ModuleNavItem[] = [
   { label: "Characters", segment: "/characters", icon: Languages },
   { label: "Grammar", segment: "/grammar", icon: BookText },
   { label: "Dialogs", segment: "/dialogs", icon: MessagesSquare },
+  { label: "Games", segment: "/games", icon: Gamepad2 },
   { label: "Review", segment: "/review", icon: Repeat2 },
   { label: "Tutor", segment: "/tutor", icon: MessageCircle },
 ];
