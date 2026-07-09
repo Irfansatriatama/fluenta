@@ -8,10 +8,11 @@ const adapter = new PrismaPg({ connectionString: process.env.DIRECT_URL });
 const prisma = new PrismaClient({ adapter });
 
 const DATA_DIR = "D:/Download/Side Project/lingora/assets/js/data";
+const EP_DIR = "D:/Download/Side Project/englishpath/assets/js/data";
 
-// Load a global `const X = ...` from a lingora browser data file (no exports).
-function loadVar<T>(file: string, varName: string): T {
-  let code = fs.readFileSync(path.join(DATA_DIR, file), "utf8");
+// Load a global `const X = ...` from a browser data file (no exports).
+function loadVar<T>(file: string, varName: string, dir: string = DATA_DIR): T {
+  let code = fs.readFileSync(path.join(dir, file), "utf8");
   code = code.replace(/window\.[A-Za-z_]+\s*=\s*[A-Za-z_]+;?/g, ""); // drop window assigns
   return new Function(`${code}\n;return ${varName};`)() as T;
 }
@@ -124,7 +125,41 @@ async function main() {
     }
   }
 
-  console.log(`Imported ${deckCount} decks and ${cardCount} cards from lingora.`);
+  // English vocab from englishpath (themes with nested words).
+  const enLang = await prisma.language.findUnique({ where: { code: "en" } });
+  if (enLang) {
+    type EnWord = { id: string; word: string; ipa?: string; translation: string; example?: string; level?: string };
+    type EnTheme = { id: string; name?: string; nameID?: string; words: EnWord[] };
+    const enVocab = loadVar<{ getThemes: () => EnTheme[] }>("vocabulary-data.js", "VocabData", EP_DIR);
+
+    for (const theme of enVocab.getThemes()) {
+      if (!theme.words?.length) continue;
+      const deckId = `deck-en-${theme.id}`;
+      await prisma.deck.create({
+        data: { id: deckId, languageId: enLang.id, title: theme.name ?? theme.id, description: `${theme.words.length} words`, isSystem: true },
+      });
+      deckCount += 1;
+      let sort = 0;
+      for (const w of theme.words) {
+        await prisma.card.create({
+          data: {
+            id: `card-${deckId}-${sort}`,
+            deckId,
+            front: w.word,
+            back: w.translation,
+            reading: w.ipa ?? null,
+            example: w.example ?? null,
+            tags: [theme.id, w.level ?? ""].filter(Boolean),
+            sortOrder: sort,
+          },
+        });
+        sort += 1;
+        cardCount += 1;
+      }
+    }
+  }
+
+  console.log(`Imported ${deckCount} decks and ${cardCount} cards (JP/KO/ZH + EN).`);
 }
 
 main()
