@@ -6,8 +6,9 @@ import { ChevronDown, Feather } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { HUB_NAV } from "@/lib/nav";
 
-export function HubSidebar() {
+export function HubSidebar({ user }: { user: { name: string; email: string } }) {
   const pathname = usePathname();
+  const initial = user.name?.trim().charAt(0).toUpperCase() || "?";
 
   return (
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r hairline bg-paper/60 px-4 py-6 md:flex">
@@ -52,16 +53,19 @@ export function HubSidebar() {
         </button>
       </div>
 
-      <button className="mt-4 flex items-center gap-3 rounded-xl px-2 py-2 text-left transition-colors hover:bg-paper-2">
-        <span className="grid h-9 w-9 place-items-center rounded-full bg-ink font-display text-sm font-bold text-ivory">
-          K
+      <Link
+        href="/home/profile"
+        className="mt-4 flex items-center gap-3 rounded-xl px-2 py-2 text-left transition-colors hover:bg-paper-2"
+      >
+        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-ink font-display text-sm font-bold text-ivory">
+          {initial}
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-sm font-semibold text-ink">Kei Tanaka</span>
-          <span className="block text-xs text-ink-soft">Free Plan</span>
+          <span className="block truncate text-sm font-semibold text-ink">{user.name}</span>
+          <span className="block truncate text-xs text-ink-soft">{user.email}</span>
         </span>
-        <ChevronDown className="h-4 w-4 text-ink-soft" />
-      </button>
+        <ChevronDown className="h-4 w-4 shrink-0 text-ink-soft" />
+      </Link>
     </aside>
   );
 }

@@ -5,10 +5,10 @@ import { HubSidebar } from "@/components/hub/HubSidebar";
 import { requireSession } from "@/lib/session";
 
 export default async function HubLayout({ children }: { children: React.ReactNode }) {
-  await requireSession();
+  const session = await requireSession();
   return (
     <div className="min-h-screen md:pl-64">
-      <HubSidebar />
+      <HubSidebar user={{ name: session.user.name, email: session.user.email }} />
 
       <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b hairline bg-ivory/90 px-4 backdrop-blur-md md:hidden">
         <Logo />

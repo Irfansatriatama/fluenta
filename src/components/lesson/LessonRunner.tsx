@@ -2,8 +2,9 @@
 
 import { type CSSProperties, type ReactNode, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Check, Flame, Play, RotateCcw, Star, Target, X } from "lucide-react";
+import { ArrowRight, Check, Flame, Play, RotateCcw, Sparkles, Star, Target, X } from "lucide-react";
 import { completeLesson } from "@/lib/lessonActions";
+import { gradeWriting, type WritingFeedback } from "@/lib/aiActions";
 
 export type RunnerQuestion = {
   id: string;
@@ -81,10 +82,12 @@ function ListeningPlayer({ transcript }: { transcript: string | null }) {
 
 export function LessonRunner({
   lang,
+  languageName,
   lesson,
   questions,
 }: {
   lang: string;
+  languageName: string;
   lesson: RunnerLesson;
   questions: RunnerQuestion[];
 }) {
@@ -94,6 +97,7 @@ export function LessonRunner({
   const [writing, setWriting] = useState("");
   const [revealed, setRevealed] = useState(false);
   const [correct, setCorrect] = useState(0);
+  const [feedback, setFeedback] = useState<WritingFeedback | null>(null);
   const [result, setResult] = useState<{ xp: number; streakCurrent: number; score: number } | null>(null);
   const [pending, startTransition] = useTransition();
 
@@ -107,11 +111,21 @@ export function LessonRunner({
     if (isMcq) {
       if (selected === null) return;
       if (selected === answerIndex) setCorrect((c) => c + 1);
-    } else {
-      if (writing.trim().length === 0) return;
-      setCorrect((c) => c + 1); // writing accepted (AI grading in a later phase)
+      setRevealed(true);
+      return;
     }
-    setRevealed(true);
+    if (writing.trim().length === 0) return;
+    startTransition(async () => {
+      const fb = await gradeWriting({
+        languageName,
+        prompt: q.prompt,
+        answer: writing,
+        sample: typeof q.answer === "object" && q.answer ? q.answer.sample : undefined,
+      });
+      setFeedback(fb);
+      if (fb.correct) setCorrect((c) => c + 1);
+      setRevealed(true);
+    });
   }
 
   function next() {
@@ -120,6 +134,7 @@ export function LessonRunner({
       setSelected(null);
       setWriting("");
       setRevealed(false);
+      setFeedback(null);
       return;
     }
     startTransition(async () => {
@@ -228,13 +243,50 @@ export function LessonRunner({
               className="w-full rounded-2xl border border-edge bg-paper p-4 text-sm text-ink outline-none focus:border-[color:var(--accent)]"
               lang="ja"
             />
-            {revealed && lesson.example && (
+            {revealed && feedback && (
               <div className="mt-3 rounded-2xl border hairline bg-paper p-4">
-                <p className="text-xs font-bold uppercase tracking-wide text-ink-soft">Sample answer</p>
-                <p className="mt-1 font-display text-base text-ink" lang="ja">
-                  {typeof q.answer === "object" && q.answer?.sample}
-                </p>
-                <p className="mt-2 text-xs text-ink-soft">{lesson.example}</p>
+                <div className="flex items-center justify-between">
+                  <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-gold-deep">
+                    <Sparkles className="h-4 w-4 text-gold" /> AI Feedback
+                  </p>
+                  <span className="rounded-full bg-ivory px-2.5 py-1 font-display text-sm font-bold text-ink ring-1 ring-edge">
+                    {feedback.score}/10
+                  </span>
+                </div>
+                <p className="mt-2 text-sm text-ink">{feedback.comment}</p>
+
+                {feedback.corrections.length > 0 && (
+                  <ul className="mt-3 flex flex-col gap-2">
+                    {feedback.corrections.map((c, i) => (
+                      <li key={i} className="text-sm">
+                        <span className="text-jp line-through" lang={lang}>
+                          {c.original}
+                        </span>{" "}
+                        <span className="font-semibold" style={{ color: "#2f7d53" }} lang={lang}>
+                          {c.suggestion}
+                        </span>
+                        {c.note && <span className="block text-xs text-ink-soft">{c.note}</span>}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {feedback.tips.length > 0 && (
+                  <div className="mt-3">
+                    <p className="text-xs font-bold uppercase tracking-wide text-ink-soft">Tips</p>
+                    <ol className="mt-1 flex list-inside list-decimal flex-col gap-1 text-xs text-ink-soft">
+                      {feedback.tips.map((t, i) => (
+                        <li key={i}>{t}</li>
+                      ))}
+                    </ol>
+                  </div>
+                )}
+
+                {!feedback.aiPowered && (
+                  <p className="mt-3 text-[0.65rem] text-ink-faint">
+                    Detailed AI grading activates once ANTHROPIC_API_KEY is set.
+                  </p>
+                )}
               </div>
             )}
           </div>
@@ -249,11 +301,11 @@ export function LessonRunner({
         {!revealed ? (
           <button
             onClick={check}
-            disabled={!canCheck}
+            disabled={!canCheck || pending}
             className="w-full rounded-xl px-5 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
             style={{ backgroundColor: "var(--accent)" }}
           >
-            Check
+            {pending ? "Grading…" : "Check"}
           </button>
         ) : (
           <button

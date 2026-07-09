@@ -44,6 +44,7 @@ export default async function LessonPage({
   return (
     <LessonRunner
       lang={lang}
+      languageName={lesson.unit.track.language.name}
       lesson={{
         id: lesson.id,
         title: lesson.title,
