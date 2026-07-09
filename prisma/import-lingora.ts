@@ -17,6 +17,31 @@ function loadVar<T>(file: string, varName: string, dir: string = DATA_DIR): T {
   return new Function(`${code}\n;return ${varName};`)() as T;
 }
 
+type MappedCard = { front: string; back: string; reading?: string | null; example?: string | null };
+
+// Create a system deck of flashcards from an arbitrary item list.
+async function createDeckFrom(
+  languageId: string,
+  deckId: string,
+  title: string,
+  items: unknown[] | undefined,
+  map: (x: Record<string, unknown>) => MappedCard,
+): Promise<number> {
+  if (!items?.length) return 0;
+  await prisma.deck.create({
+    data: { id: deckId, languageId, title, description: `${items.length} cards`, isSystem: true },
+  });
+  let sort = 0;
+  for (const it of items) {
+    const c = map(it as Record<string, unknown>);
+    await prisma.card.create({
+      data: { id: `card-${deckId}-${sort}`, deckId, front: c.front, back: c.back, reading: c.reading ?? null, example: c.example ?? null, tags: [], sortOrder: sort },
+    });
+    sort += 1;
+  }
+  return items.length;
+}
+
 type Theme = { id: string; label: string; icon?: string };
 type VocabItem = {
   word: string;
@@ -159,7 +184,58 @@ async function main() {
     }
   }
 
-  console.log(`Imported ${deckCount} decks and ${cardCount} cards (JP/KO/ZH + EN).`);
+  // ---- Character / script study decks (learnable as flashcards + SRS + games) ----
+  const add = async (languageId: string, deckId: string, title: string, items: unknown[] | undefined, map: (x: Record<string, unknown>) => MappedCard) => {
+    const n = await createDeckFrom(languageId, deckId, title, items, map);
+    if (n > 0) deckCount += 1;
+    cardCount += n;
+  };
+  const rec = (v: unknown) => (v ?? {}) as Record<string, unknown>;
+
+  const jaC = await prisma.language.findUnique({ where: { code: "ja" } });
+  if (jaC) {
+    const kanji = loadVar<Record<string, unknown[]>>("kanji.js", "KanjiData");
+    const hira = loadVar<{ all?: unknown[]; basic?: unknown[] }>("hiragana.js", "HiraganaData");
+    const kata = loadVar<{ all?: unknown[]; basic?: unknown[] }>("katakana.js", "KatakanaData");
+    const kanjiMap = (k: Record<string, unknown>): MappedCard => ({
+      front: String(k.char),
+      reading: [...((k.onyomi as string[]) ?? []), ...((k.kunyomi as string[]) ?? [])].join(" · "),
+      back: ((k.meaning as string[]) ?? []).join(", "),
+      example: k.example ? `${rec(k.example).word} (${rec(k.example).reading}) — ${rec(k.example).meaning}` : undefined,
+    });
+    const kanaMap = (c: Record<string, unknown>): MappedCard => ({
+      front: String(c.char), back: String(c.romaji), reading: null,
+      example: c.example ? `${rec(c.example).word} — ${rec(c.example).meaning}` : undefined,
+    });
+    await add(jaC.id, "deck-ja-kanji-n5", "Kanji N5", kanji.n5, kanjiMap);
+    await add(jaC.id, "deck-ja-kanji-n4", "Kanji N4", kanji.n4, kanjiMap);
+    await add(jaC.id, "deck-ja-hiragana", "Hiragana", hira.all ?? hira.basic, kanaMap);
+    await add(jaC.id, "deck-ja-katakana", "Katakana", kata.all ?? kata.basic, kanaMap);
+  }
+
+  const zhC = await prisma.language.findUnique({ where: { code: "zh" } });
+  if (zhC) {
+    const hanzi = loadVar<Record<string, unknown[]>>("hanzi.js", "HanziData");
+    const hanziMap = (h: Record<string, unknown>): MappedCard => ({
+      front: String(h.char), reading: String(h.pinyin ?? ""), back: ((h.meaning as string[]) ?? []).join(", "),
+      example: h.example ? `${rec(h.example).sentence} — ${rec(h.example).meaning}` : undefined,
+    });
+    await add(zhC.id, "deck-zh-hanzi-hsk1", "Hanzi HSK1", hanzi.hsk1, hanziMap);
+    await add(zhC.id, "deck-zh-hanzi-hsk2", "Hanzi HSK2", hanzi.hsk2, hanziMap);
+    await add(zhC.id, "deck-zh-hanzi-hsk3", "Hanzi HSK3", hanzi.hsk3, hanziMap);
+  }
+
+  const koC = await prisma.language.findUnique({ where: { code: "ko" } });
+  if (koC) {
+    const hangul = loadVar<{ getAll?: () => unknown[] }>("hangul.js", "HangulData");
+    const hangulMap = (c: Record<string, unknown>): MappedCard => ({
+      front: String(c.jamo ?? c.char ?? ""), back: String(c.romanization ?? c.romaji ?? ""), reading: null,
+      example: c.name ? String(c.name) : undefined,
+    });
+    await add(koC.id, "deck-ko-hangul", "Hangul", hangul.getAll?.() ?? [], hangulMap);
+  }
+
+  console.log(`Imported ${deckCount} decks and ${cardCount} cards (JP/KO/ZH + EN + characters).`);
 }
 
 main()
