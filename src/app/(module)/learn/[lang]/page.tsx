@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, BookText, Check, Flame, Gamepad2, Languages, Layers, Lock, MessagesSquare, Repeat2 } from "lucide-react";
+import { ArrowRight, BookOpen, BookText, Check, Flame, Gamepad2, Languages, Layers, Lock, MessagesSquare, Repeat2 } from "lucide-react";
 import { LanguageSeal } from "@/components/brand/LanguageSeal";
 import { ProgressRing } from "@/components/ui/ProgressRing";
 import { getModuleData } from "@/lib/content";
@@ -44,6 +44,7 @@ export default async function ModuleHomePage({
   const toolCards = [
     { href: `/learn/${lang}/vocab`, icon: Layers, title: "Vocabulary", sub: "Flashcards + SRS", show: true },
     { href: `/learn/${lang}/review`, icon: Repeat2, title: "Review", sub: "Due cards", show: true },
+    { href: `/learn/${lang}/reading`, icon: BookOpen, title: "Reading", sub: `${t.reading} passages`, show: t.reading > 0 },
     { href: `/learn/${lang}/grammar`, icon: BookText, title: "Grammar", sub: `${t.grammar} patterns`, show: t.grammar > 0 },
     { href: `/learn/${lang}/characters`, icon: Languages, title: "Characters", sub: `${t.characters} characters`, show: t.characters > 0 },
     { href: `/learn/${lang}/dialogs`, icon: MessagesSquare, title: "Dialogs", sub: `${t.dialogs} conversations`, show: t.dialogs > 0 },

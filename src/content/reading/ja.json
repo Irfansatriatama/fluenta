@@ -1,0 +1,238 @@
+{
+  "passages": [
+    {
+      "id": "ja-conv-konbini",
+      "type": "conversation",
+      "level": "N5",
+      "title": "コンビニで買い物",
+      "titleEn": "Shopping at the convenience store",
+      "topic": "Daily life",
+      "summary": "A customer buys tea at a convenience store and talks with the clerk.",
+      "minutes": 3,
+      "blocks": [
+        { "speaker": "店員", "jp": "いらっしゃいませ。", "reading": "いらっしゃいませ。", "en": "Welcome." },
+        { "speaker": "客", "jp": "すみません、お茶はどこですか。", "reading": "すみません、おちゃはどこですか。", "en": "Excuse me, where is the tea?" },
+        { "speaker": "店員", "jp": "お茶はあそこです。飲み物の棚にありますよ。", "reading": "おちゃはあそこです。のみもののたなにありますよ。", "en": "The tea is over there. It's on the drinks shelf." },
+        { "speaker": "客", "jp": "ありがとう。じゃあ、これをください。", "reading": "ありがとう。じゃあ、これをください。", "en": "Thanks. Then I'll take this, please." },
+        { "speaker": "店員", "jp": "はい、百五十円です。袋は要りますか。", "reading": "はい、ひゃくごじゅうえんです。ふくろはいりますか。", "en": "Okay, that's 150 yen. Do you need a bag?" },
+        { "speaker": "客", "jp": "いいえ、大丈夫です。", "reading": "いいえ、だいじょうぶです。", "en": "No, I'm fine." }
+      ],
+      "vocab": [
+        { "word": "お茶", "reading": "おちゃ", "meaning": "tea" },
+        { "word": "飲み物", "reading": "のみもの", "meaning": "drink, beverage" },
+        { "word": "棚", "reading": "たな", "meaning": "shelf" },
+        { "word": "袋", "reading": "ふくろ", "meaning": "bag" },
+        { "word": "要る", "reading": "いる", "meaning": "to need" },
+        { "word": "大丈夫", "reading": "だいじょうぶ", "meaning": "okay, all right" }
+      ],
+      "questions": [
+        { "q": "客は何を探していますか。", "options": ["お茶", "コーヒー", "パン", "水"], "answer": 0, "explanation": "「お茶はどこですか」と聞いています。" },
+        { "q": "いくらでしたか。", "options": ["百五十円", "百五円", "五百円", "百十五円"], "answer": 0, "explanation": "店員が「百五十円です」と言いました。" },
+        { "q": "客は袋が要りますか。", "options": ["はい、要ります", "いいえ、要りません", "わかりません", "店員に聞いていません"], "answer": 1, "explanation": "「いいえ、大丈夫です」＝袋は要りません。" }
+      ]
+    },
+    {
+      "id": "ja-conv-hajimemashite",
+      "type": "conversation",
+      "level": "N5",
+      "title": "はじめまして",
+      "titleEn": "Nice to meet you",
+      "topic": "Introductions",
+      "summary": "Two people meet for the first time and introduce themselves.",
+      "minutes": 3,
+      "blocks": [
+        { "speaker": "田中", "jp": "はじめまして。田中です。", "reading": "はじめまして。たなかです。", "en": "Nice to meet you. I'm Tanaka." },
+        { "speaker": "リン", "jp": "はじめまして。リンです。中国から来ました。", "reading": "はじめまして。リンです。ちゅうごくからきました。", "en": "Nice to meet you. I'm Lin. I came from China." },
+        { "speaker": "田中", "jp": "そうですか。日本語が上手ですね。", "reading": "そうですか。にほんごがじょうずですね。", "en": "Really? Your Japanese is good." },
+        { "speaker": "リン", "jp": "ありがとうございます。でも、まだ勉強中です。", "reading": "ありがとうございます。でも、まだべんきょうちゅうです。", "en": "Thank you. But I'm still studying." },
+        { "speaker": "田中", "jp": "これからよろしくお願いします。", "reading": "これからよろしくおねがいします。", "en": "I look forward to getting to know you." }
+      ],
+      "vocab": [
+        { "word": "はじめまして", "reading": "はじめまして", "meaning": "nice to meet you" },
+        { "word": "中国", "reading": "ちゅうごく", "meaning": "China" },
+        { "word": "上手", "reading": "じょうず", "meaning": "good at, skilled" },
+        { "word": "勉強中", "reading": "べんきょうちゅう", "meaning": "in the middle of studying" },
+        { "word": "よろしくお願いします", "reading": "よろしくおねがいします", "meaning": "please treat me well; nice to work with you" }
+      ],
+      "questions": [
+        { "q": "リンさんはどこから来ましたか。", "options": ["日本", "中国", "韓国", "アメリカ"], "answer": 1, "explanation": "「中国から来ました」と言っています。" },
+        { "q": "リンさんの日本語はどうですか。", "options": ["下手です", "上手です", "話せません", "わかりません"], "answer": 1, "explanation": "田中さんが「上手ですね」とほめました。" },
+        { "q": "田中さんは最後に何と言いましたか。", "options": ["さようなら", "ありがとう", "よろしくお願いします", "おやすみなさい"], "answer": 2, "explanation": "「これからよろしくお願いします」。" }
+      ]
+    },
+    {
+      "id": "ja-news-toshokan",
+      "type": "news",
+      "level": "N5",
+      "title": "図書館が新しくなりました",
+      "titleEn": "The library has been renewed",
+      "topic": "Town news",
+      "summary": "A short easy-news notice about a renovated town library.",
+      "minutes": 3,
+      "blocks": [
+        { "jp": "町の図書館が新しくなりました。", "reading": "まちのとしょかんがあたらしくなりました。", "en": "The town library has been renovated." },
+        { "jp": "先週の土曜日に、開きました。", "reading": "せんしゅうのどようびに、ひらきました。", "en": "It opened last Saturday." },
+        { "jp": "新しい図書館には、本がたくさんあります。", "reading": "あたらしいとしょかんには、ほんがたくさんあります。", "en": "The new library has many books." },
+        { "jp": "子供のための部屋もあります。", "reading": "こどものためのへやもあります。", "en": "There is also a room for children." },
+        { "jp": "毎日、朝九時から夜八時まで開いています。", "reading": "まいにち、あさくじからよるはちじまであいています。", "en": "It is open every day from 9 a.m. to 8 p.m." }
+      ],
+      "vocab": [
+        { "word": "図書館", "reading": "としょかん", "meaning": "library" },
+        { "word": "新しい", "reading": "あたらしい", "meaning": "new" },
+        { "word": "開く", "reading": "ひらく", "meaning": "to open" },
+        { "word": "部屋", "reading": "へや", "meaning": "room" },
+        { "word": "毎日", "reading": "まいにち", "meaning": "every day" }
+      ],
+      "questions": [
+        { "q": "図書館はいつ開きましたか。", "options": ["先週の土曜日", "先週の日曜日", "今日", "来週"], "answer": 0, "explanation": "「先週の土曜日に、開きました」。" },
+        { "q": "図書館には何がありますか。", "options": ["プールがあります", "子供のための部屋があります", "レストランがあります", "映画館があります"], "answer": 1, "explanation": "「子供のための部屋もあります」。" },
+        { "q": "何時まで開いていますか。", "options": ["夜六時まで", "夜七時まで", "夜八時まで", "夜九時まで"], "answer": 2, "explanation": "「朝九時から夜八時まで」。" }
+      ]
+    },
+    {
+      "id": "ja-conv-densha",
+      "type": "conversation",
+      "level": "N4",
+      "title": "電車が遅れています",
+      "titleEn": "The train is delayed",
+      "topic": "Commuting",
+      "summary": "Two colleagues worry about being late because of a train delay.",
+      "minutes": 4,
+      "blocks": [
+        { "speaker": "A", "jp": "もう九時だよ。電車、まだ来ないね。", "reading": "もうくじだよ。でんしゃ、まだこないね。", "en": "It's already nine. The train still isn't here." },
+        { "speaker": "B", "jp": "事故があったみたい。十五分ぐらい遅れているって。", "reading": "じこがあったみたい。じゅうごふんぐらいおくれているって。", "en": "Seems there was an accident. They say it's about 15 minutes late." },
+        { "speaker": "A", "jp": "困ったなあ。会議に間に合わないかも。", "reading": "こまったなあ。かいぎにまにあわないかも。", "en": "Oh no. I might not make it to the meeting." },
+        { "speaker": "B", "jp": "部長に連絡した方がいいよ。", "reading": "ぶちょうにれんらくしたほうがいいよ。", "en": "You'd better contact the manager." },
+        { "speaker": "A", "jp": "そうだね。今すぐメールする。", "reading": "そうだね。いますぐメールする。", "en": "You're right. I'll email right now." }
+      ],
+      "vocab": [
+        { "word": "遅れる", "reading": "おくれる", "meaning": "to be late, delayed" },
+        { "word": "事故", "reading": "じこ", "meaning": "accident" },
+        { "word": "困る", "reading": "こまる", "meaning": "to be troubled" },
+        { "word": "間に合う", "reading": "まにあう", "meaning": "to be in time" },
+        { "word": "連絡", "reading": "れんらく", "meaning": "contact, to get in touch" }
+      ],
+      "questions": [
+        { "q": "どうして電車が遅れていますか。", "options": ["雨が降ったから", "事故があったから", "雪のため", "祭りがあるから"], "answer": 1, "explanation": "「事故があったみたい」と言っています。" },
+        { "q": "Aさんは何を心配していますか。", "options": ["お金がないこと", "会議に間に合わないこと", "道に迷ったこと", "電車賃が高いこと"], "answer": 1, "explanation": "「会議に間に合わないかも」。" },
+        { "q": "Bさんは何をした方がいいと言いましたか。", "options": ["タクシーに乗る", "家に帰る", "部長に連絡する", "もう少し待つ"], "answer": 2, "explanation": "「部長に連絡した方がいいよ」。" }
+      ]
+    },
+    {
+      "id": "ja-news-sakura",
+      "type": "news",
+      "level": "N4",
+      "title": "桜の季節が始まりました",
+      "titleEn": "Cherry blossom season has begun",
+      "topic": "Seasons",
+      "summary": "An easy news piece about cherry blossoms and hanami in spring.",
+      "minutes": 4,
+      "blocks": [
+        { "jp": "春になって、桜の季節が始まりました。", "reading": "はるになって、さくらのきせつがはじまりました。", "en": "Spring has come, and the cherry blossom season has begun." },
+        { "jp": "東京では、先週から桜が咲いています。", "reading": "とうきょうでは、せんしゅうからさくらがさいています。", "en": "In Tokyo, the cherry blossoms have been blooming since last week." },
+        { "jp": "週末には、多くの人が公園でお花見をします。", "reading": "しゅうまつには、おおくのひとがこうえんでおはなみをします。", "en": "On weekends, many people go flower-viewing in the parks." },
+        { "jp": "家族や友達と、桜の下でお弁当を食べます。", "reading": "かぞくやともだちと、さくらのしたでおべんとうをたべます。", "en": "With family and friends, they eat boxed lunches under the cherry trees." },
+        { "jp": "でも、桜が咲く時間は短いです。二週間ぐらいで散ってしまいます。", "reading": "でも、さくらがさくじかんはみじかいです。にしゅうかんぐらいでちってしまいます。", "en": "But the blooming period is short — they scatter in about two weeks." }
+      ],
+      "vocab": [
+        { "word": "季節", "reading": "きせつ", "meaning": "season" },
+        { "word": "咲く", "reading": "さく", "meaning": "to bloom" },
+        { "word": "お花見", "reading": "おはなみ", "meaning": "flower viewing" },
+        { "word": "お弁当", "reading": "おべんとう", "meaning": "boxed lunch" },
+        { "word": "散る", "reading": "ちる", "meaning": "to scatter, fall" }
+      ],
+      "questions": [
+        { "q": "東京ではいつから桜が咲いていますか。", "options": ["今日から", "先週から", "先月から", "来週から"], "answer": 1, "explanation": "「先週から桜が咲いています」。" },
+        { "q": "人々は週末に何をしますか。", "options": ["山に登ります", "公園でお花見をします", "海で泳ぎます", "家で寝ます"], "answer": 1, "explanation": "「公園でお花見をします」。" },
+        { "q": "桜はどのくらいで散りますか。", "options": ["一日ぐらい", "一週間ぐらい", "二週間ぐらい", "一か月ぐらい"], "answer": 2, "explanation": "「二週間ぐらいで散ってしまいます」。" }
+      ]
+    },
+    {
+      "id": "ja-story-nichiyoubi",
+      "type": "story",
+      "level": "N4",
+      "title": "私の日曜日",
+      "titleEn": "My Sunday",
+      "topic": "Routine",
+      "summary": "A first-person essay about a relaxing Sunday routine.",
+      "minutes": 4,
+      "blocks": [
+        { "jp": "日曜日はいつも早く起きます。", "reading": "にちようびはいつもはやくおきます。", "en": "On Sundays I always wake up early." },
+        { "jp": "朝ごはんを食べてから、近くの公園を走ります。", "reading": "あさごはんをたべてから、ちかくのこうえんをはしります。", "en": "After breakfast, I run in the nearby park." },
+        { "jp": "走った後で、コーヒーを飲みながら本を読みます。", "reading": "はしったあとで、コーヒーをのみながらほんをよみます。", "en": "After running, I read a book while drinking coffee." },
+        { "jp": "午後は、母と一緒に買い物に行きます。", "reading": "ごごは、ははといっしょにかいものにいきます。", "en": "In the afternoon, I go shopping with my mother." },
+        { "jp": "夜は、家族と晩ごはんを作ります。日曜日が一番好きです。", "reading": "よるは、かぞくとばんごはんをつくります。にちようびがいちばんすきです。", "en": "At night, I cook dinner with my family. Sunday is my favorite day." }
+      ],
+      "vocab": [
+        { "word": "起きる", "reading": "おきる", "meaning": "to wake up" },
+        { "word": "走る", "reading": "はしる", "meaning": "to run" },
+        { "word": "〜ながら", "reading": "ながら", "meaning": "while doing ~" },
+        { "word": "買い物", "reading": "かいもの", "meaning": "shopping" },
+        { "word": "一番", "reading": "いちばん", "meaning": "most, best, number one" }
+      ],
+      "questions": [
+        { "q": "朝ごはんの後で何をしますか。", "options": ["本を読みます", "公園を走ります", "買い物に行きます", "料理を作ります"], "answer": 1, "explanation": "「朝ごはんを食べてから、公園を走ります」。" },
+        { "q": "午後は誰と買い物に行きますか。", "options": ["父", "母", "友達", "一人で"], "answer": 1, "explanation": "「母と一緒に買い物に行きます」。" },
+        { "q": "この人は何曜日が一番好きですか。", "options": ["土曜日", "日曜日", "月曜日", "金曜日"], "answer": 1, "explanation": "「日曜日が一番好きです」。" }
+      ]
+    },
+    {
+      "id": "ja-conv-mensetsu",
+      "type": "conversation",
+      "level": "N3",
+      "title": "アルバイトの面接",
+      "titleEn": "A part-time job interview",
+      "topic": "Work",
+      "summary": "A student answers questions in a part-time job interview.",
+      "minutes": 5,
+      "blocks": [
+        { "speaker": "面接官", "jp": "どうしてこの仕事に応募したんですか。", "reading": "めんせつかん：どうしてこのしごとにおうぼしたんですか。", "en": "Why did you apply for this job?" },
+        { "speaker": "学生", "jp": "接客の経験を積みたいと思ったからです。", "reading": "がくせい：せっきゃくのけいけんをつみたいとおもったからです。", "en": "Because I wanted to gain customer-service experience." },
+        { "speaker": "面接官", "jp": "週に何日ぐらい働けますか。", "reading": "しゅうになんにちぐらいはたらけますか。", "en": "About how many days a week can you work?" },
+        { "speaker": "学生", "jp": "授業がない火曜日と木曜日、それに週末も大丈夫です。", "reading": "じゅぎょうがないかようびともくようび、それにしゅうまつもだいじょうぶです。", "en": "Tuesdays and Thursdays when I have no class, and weekends are fine too." },
+        { "speaker": "面接官", "jp": "わかりました。では、来週から始めましょう。", "reading": "わかりました。では、らいしゅうからはじめましょう。", "en": "All right. Then let's start next week." }
+      ],
+      "vocab": [
+        { "word": "面接", "reading": "めんせつ", "meaning": "interview" },
+        { "word": "応募する", "reading": "おうぼする", "meaning": "to apply (for a job)" },
+        { "word": "接客", "reading": "せっきゃく", "meaning": "customer service" },
+        { "word": "経験を積む", "reading": "けいけんをつむ", "meaning": "to gain experience" },
+        { "word": "働く", "reading": "はたらく", "meaning": "to work" }
+      ],
+      "questions": [
+        { "q": "学生はどうして応募しましたか。", "options": ["お金がほしいから", "接客の経験を積みたいから", "家から近いから", "友達がいるから"], "answer": 1, "explanation": "「接客の経験を積みたいと思ったから」。" },
+        { "q": "学生はいつ働けますか。", "options": ["毎日", "月曜日だけ", "火曜日と木曜日と週末", "週末だけ"], "answer": 2, "explanation": "「火曜日と木曜日、それに週末も大丈夫」。" },
+        { "q": "いつから始めますか。", "options": ["今日から", "明日から", "来週から", "来月から"], "answer": 2, "explanation": "「来週から始めましょう」。" }
+      ]
+    },
+    {
+      "id": "ja-news-recycle",
+      "type": "news",
+      "level": "N3",
+      "title": "リサイクルにご協力ください",
+      "titleEn": "Please cooperate with recycling",
+      "topic": "Community notice",
+      "summary": "A city notice about new garbage-sorting rules.",
+      "minutes": 5,
+      "blocks": [
+        { "jp": "市は、来月からごみの分別のルールを変えます。", "reading": "しは、らいげつからごみのぶんべつのルールをかえます。", "en": "Starting next month, the city will change the garbage-sorting rules." },
+        { "jp": "これまで一緒に捨てていたプラスチックと紙を、別々に分けます。", "reading": "これまでいっしょにすてていたプラスチックとかみを、べつべつにわけます。", "en": "Plastic and paper, which used to be thrown out together, will now be separated." },
+        { "jp": "資源を大切にするために、リサイクルはとても重要です。", "reading": "しげんをたいせつにするために、リサイクルはとてもじゅうようです。", "en": "To conserve resources, recycling is very important." },
+        { "jp": "分け方がわからない人は、市のホームページを見てください。", "reading": "わけかたがわからないひとは、しのホームページをみてください。", "en": "If you're not sure how to sort, please check the city's website." },
+        { "jp": "市民の皆さんのご協力をお願いします。", "reading": "しみんのみなさんのごきょうりょくをおねがいします。", "en": "We ask for the cooperation of all citizens." }
+      ],
+      "vocab": [
+        { "word": "分別", "reading": "ぶんべつ", "meaning": "sorting (garbage)" },
+        { "word": "捨てる", "reading": "すてる", "meaning": "to throw away" },
+        { "word": "別々", "reading": "べつべつ", "meaning": "separately" },
+        { "word": "資源", "reading": "しげん", "meaning": "resources" },
+        { "word": "協力", "reading": "きょうりょく", "meaning": "cooperation" }
+      ],
+      "questions": [
+        { "q": "いつからルールが変わりますか。", "options": ["今日から", "来週から", "来月から", "来年から"], "answer": 2, "explanation": "「来月からごみの分別のルールを変えます」。" },
+        { "q": "何を別々に分けますか。", "options": ["プラスチックと紙", "缶とびん", "生ごみと紙", "服と本"], "answer": 0, "explanation": "「プラスチックと紙を、別々に分けます」。" },
+        { "q": "分け方がわからないときは、どうしますか。", "options": ["市役所に電話する", "市のホームページを見る", "近所の人に聞く", "何もしない"], "answer": 1, "explanation": "「市のホームページを見てください」。" }
+      ]
+    }
+  ]
+}

@@ -9,6 +9,7 @@ import dEn from "@/content/dialogs/en.json";
 import cJa from "@/content/characters/ja.json";
 import cKo from "@/content/characters/ko.json";
 import cZh from "@/content/characters/zh.json";
+import rJa from "@/content/reading/ja.json";
 
 export type Example = { native: string; roman: string; gloss: string };
 export type GrammarPattern = {
@@ -33,6 +34,22 @@ export type Dialog = {
 };
 export type CharItem = { char: string; sub: string; meaning: string; example?: string };
 export type CharGroup = { title: string; items: CharItem[] };
+export type ReadingBlock = { speaker?: string; jp: string; reading: string; en: string };
+export type ReadingVocab = { word: string; reading: string; meaning: string };
+export type ReadingQuestion = { q: string; options: string[]; answer: number; explanation?: string };
+export type ReadingPassage = {
+  id: string;
+  type: "news" | "conversation" | "story";
+  level: string;
+  title: string;
+  titleEn: string;
+  topic: string;
+  summary: string;
+  minutes: number;
+  blocks: ReadingBlock[];
+  vocab: ReadingVocab[];
+  questions: ReadingQuestion[];
+};
 
 const GRAMMAR: Record<string, { patterns: GrammarPattern[] }> = {
   ja: gJa as { patterns: GrammarPattern[] },
@@ -51,6 +68,9 @@ const CHARACTERS: Record<string, { groups: CharGroup[] }> = {
   ko: cKo as { groups: CharGroup[] },
   zh: cZh as { groups: CharGroup[] },
 };
+const READING: Record<string, { passages: ReadingPassage[] }> = {
+  ja: rJa as { passages: ReadingPassage[] },
+};
 
 export function getGrammar(lang: string): GrammarPattern[] {
   return GRAMMAR[lang]?.patterns ?? [];
@@ -64,6 +84,12 @@ export function getDialog(lang: string, id: string): Dialog | null {
 export function getCharacters(lang: string): CharGroup[] {
   return CHARACTERS[lang]?.groups ?? [];
 }
+export function getReading(lang: string): ReadingPassage[] {
+  return READING[lang]?.passages ?? [];
+}
+export function getReadingPassage(lang: string, id: string): ReadingPassage | null {
+  return getReading(lang).find((p) => p.id === id) ?? null;
+}
 
 // Which study tools have content for a language (for the home grid).
 export function studyTools(lang: string) {
@@ -71,5 +97,6 @@ export function studyTools(lang: string) {
     grammar: getGrammar(lang).length,
     dialogs: getDialogs(lang).length,
     characters: getCharacters(lang).reduce((n, g) => n + g.items.length, 0),
+    reading: getReading(lang).length,
   };
 }
