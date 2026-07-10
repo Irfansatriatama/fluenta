@@ -451,29 +451,21 @@ async function main() {
     }
   }
 
-  // Add a "Vocabulary" unit of flashcard lessons wired to the imported decks.
-  for (const lang of LANGUAGES) {
-    const language = await prisma.language.findUnique({ where: { code: lang.code } });
-    if (!language) continue;
-    const track = await prisma.track.findFirst({ where: { languageId: language.id }, orderBy: { sortOrder: "asc" } });
-    if (!track) continue;
-
-    const decks = await prisma.deck.findMany({
-      where: { languageId: language.id, isSystem: true },
-      include: { _count: { select: { cards: true } } },
-      orderBy: { title: "asc" },
-    });
-    const usable = decks.filter((d) => d._count.cards >= 6).slice(0, 5);
-    if (usable.length === 0) continue;
-
-    const unitId = `u-${lang.code}-vocab`;
-    await prisma.unit.create({ data: { id: unitId, trackId: track.id, title: "Vocabulary", sortOrder: 2 } });
-
+  // Build flashcard-lesson units from the imported decks (script first, then vocab).
+  const makeFlashUnit = async (
+    trackId: string,
+    unitId: string,
+    title: string,
+    sortOrder: number,
+    deckList: { id: string; title: string }[],
+  ) => {
+    if (deckList.length === 0) return;
+    await prisma.unit.create({ data: { id: unitId, trackId, title, sortOrder } });
     let so = 1;
-    for (const deck of usable) {
+    for (const deck of deckList) {
       await prisma.lesson.create({
         data: {
-          id: `l-${lang.code}-fc-${so}`,
+          id: `${unitId}-l${so}`,
           unitId,
           title: `Flashcards: ${deck.title}`,
           kind: "flashcard",
@@ -487,6 +479,25 @@ async function main() {
       so += 1;
       lessonCount += 1;
     }
+  };
+
+  const CHAR_RE = /hiragana|katakana|kanji|hangul|hanzi/;
+  for (const lang of LANGUAGES) {
+    const language = await prisma.language.findUnique({ where: { code: lang.code } });
+    if (!language) continue;
+    const track = await prisma.track.findFirst({ where: { languageId: language.id }, orderBy: { sortOrder: "asc" } });
+    if (!track) continue;
+
+    const decks = await prisma.deck.findMany({
+      where: { languageId: language.id, isSystem: true },
+      include: { _count: { select: { cards: true } } },
+      orderBy: { title: "asc" },
+    });
+    const charDecks = decks.filter((d) => CHAR_RE.test(d.id));
+    const themeDecks = decks.filter((d) => !CHAR_RE.test(d.id) && d._count.cards >= 6).slice(0, 4);
+
+    await makeFlashUnit(track.id, `u-${lang.code}-script`, "Script & Characters", 2, charDecks);
+    await makeFlashUnit(track.id, `u-${lang.code}-vocab`, "Core Vocabulary", 3, themeDecks);
   }
 
   console.log(`Seeded ${LANGUAGES.length} languages, tracks, and ${lessonCount} lessons across all languages.`);
