@@ -45,6 +45,13 @@ export default async function CharactersPage({
           ))}
         </div>
       )}
+
+      {lang === "ja" && groups.length > 0 && (
+        <p className="mt-8 border-t hairline pt-4 text-[0.7rem] leading-relaxed text-ink-faint">
+          Kanji readings &amp; meanings derived from KANJIDIC2, © the Electronic
+          Dictionary Research and Development Group, used under CC BY-SA 4.0.
+        </p>
+      )}
     </div>
   );
 }

@@ -452,36 +452,52 @@ async function main() {
   }
 
   // Build flashcard-lesson units from the imported decks (script first, then vocab).
+  // Large decks are chunked into sets of CHUNK cards so a lesson stays bite-sized
+  // and the journey shows real progression instead of one giant lesson.
+  const CHUNK = 12;
   const makeFlashUnit = async (
     trackId: string,
     unitId: string,
     title: string,
     sortOrder: number,
-    deckList: { id: string; title: string }[],
+    deckList: { id: string; title: string; count: number }[],
   ) => {
-    if (deckList.length === 0) return;
+    const withCards = deckList.filter((d) => d.count > 0);
+    if (withCards.length === 0) return;
     await prisma.unit.create({ data: { id: unitId, trackId, title, sortOrder } });
     let so = 1;
-    for (const deck of deckList) {
-      await prisma.lesson.create({
-        data: {
-          id: `${unitId}-l${so}`,
-          unitId,
-          title: `Flashcards: ${deck.title}`,
-          kind: "flashcard",
-          xpReward: 15,
-          estMinutes: 5,
-          sortOrder: so,
-          isPublished: true,
-          metadata: { deckId: deck.id },
-        },
-      });
-      so += 1;
-      lessonCount += 1;
+    for (const deck of withCards) {
+      const sets = Math.max(1, Math.ceil(deck.count / CHUNK));
+      for (let s = 0; s < sets; s += 1) {
+        const label = sets > 1 ? `${deck.title} · Set ${s + 1}` : deck.title;
+        await prisma.lesson.create({
+          data: {
+            id: `${unitId}-l${so}`,
+            unitId,
+            title: `Flashcards: ${label}`,
+            kind: "flashcard",
+            xpReward: 15,
+            estMinutes: 5,
+            sortOrder: so,
+            isPublished: true,
+            metadata: { deckId: deck.id, offset: s * CHUNK, limit: CHUNK },
+          },
+        });
+        so += 1;
+        lessonCount += 1;
+      }
     }
   };
 
-  const CHAR_RE = /hiragana|katakana|kanji|hangul|hanzi/;
+  // The journey (starter track = N5/HSK1/TOPIK1) only surfaces the beginner script:
+  // kana/hangul + the first kanji/hanzi level. Higher levels stay browsable in the
+  // Characters page and reviewable via SRS, but don't flood the journey.
+  const isScriptDeck = (id: string) =>
+    /hiragana|katakana|hangul/.test(id) || /kanji-n5|hanzi-hsk1/.test(id);
+  const isCharDeck = (id: string) => /hiragana|katakana|hangul|kanji|hanzi|pinyin/.test(id);
+  const scriptRank = (id: string) =>
+    /hiragana|hangul/.test(id) ? 0 : /katakana/.test(id) ? 1 : 2;
+
   for (const lang of LANGUAGES) {
     const language = await prisma.language.findUnique({ where: { code: lang.code } });
     if (!language) continue;
@@ -493,10 +509,16 @@ async function main() {
       include: { _count: { select: { cards: true } } },
       orderBy: { title: "asc" },
     });
-    const charDecks = decks.filter((d) => CHAR_RE.test(d.id));
-    const themeDecks = decks.filter((d) => !CHAR_RE.test(d.id) && d._count.cards >= 6).slice(0, 4);
+    const scriptDecks = decks
+      .filter((d) => isScriptDeck(d.id))
+      .map((d) => ({ id: d.id, title: d.title, count: d._count.cards }))
+      .sort((a, b) => scriptRank(a.id) - scriptRank(b.id));
+    const themeDecks = decks
+      .filter((d) => !isCharDeck(d.id) && d._count.cards >= 6)
+      .slice(0, 4)
+      .map((d) => ({ id: d.id, title: d.title, count: d._count.cards }));
 
-    await makeFlashUnit(track.id, `u-${lang.code}-script`, "Script & Characters", 2, charDecks);
+    await makeFlashUnit(track.id, `u-${lang.code}-script`, "Script & Characters", 2, scriptDecks);
     await makeFlashUnit(track.id, `u-${lang.code}-vocab`, "Core Vocabulary", 3, themeDecks);
   }
 

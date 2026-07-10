@@ -194,21 +194,13 @@ async function main() {
 
   const jaC = await prisma.language.findUnique({ where: { code: "ja" } });
   if (jaC) {
-    const kanji = loadVar<Record<string, unknown[]>>("kanji.js", "KanjiData");
+    // Kanji decks are imported separately (full JLPT + Jōyō set) by import-kanji.ts.
     const hira = loadVar<{ all?: unknown[]; basic?: unknown[] }>("hiragana.js", "HiraganaData");
     const kata = loadVar<{ all?: unknown[]; basic?: unknown[] }>("katakana.js", "KatakanaData");
-    const kanjiMap = (k: Record<string, unknown>): MappedCard => ({
-      front: String(k.char),
-      reading: [...((k.onyomi as string[]) ?? []), ...((k.kunyomi as string[]) ?? [])].join(" · "),
-      back: ((k.meaning as string[]) ?? []).join(", "),
-      example: k.example ? `${rec(k.example).word} (${rec(k.example).reading}) — ${rec(k.example).meaning}` : undefined,
-    });
     const kanaMap = (c: Record<string, unknown>): MappedCard => ({
       front: String(c.char), back: String(c.romaji), reading: null,
       example: c.example ? `${rec(c.example).word} — ${rec(c.example).meaning}` : undefined,
     });
-    await add(jaC.id, "deck-ja-kanji-n5", "Kanji N5", kanji.n5, kanjiMap);
-    await add(jaC.id, "deck-ja-kanji-n4", "Kanji N4", kanji.n4, kanjiMap);
     await add(jaC.id, "deck-ja-hiragana", "Hiragana", hira.all ?? hira.basic, kanaMap);
     await add(jaC.id, "deck-ja-katakana", "Katakana", kata.all ?? kata.basic, kanaMap);
   }

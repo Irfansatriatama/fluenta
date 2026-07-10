@@ -10,7 +10,13 @@
     "postinstall": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:seed": "tsx prisma/seed.ts",
+    "db:import:lingora": "tsx prisma/import-lingora.ts",
+    "db:import:kanji": "tsx prisma/import-kanji.ts",
+    "db:import": "tsx prisma/import-lingora.ts && tsx prisma/import-kanji.ts",
+    "db:rebuild": "npm run db:import && npm run db:seed",
+    "gen:content": "tsx scripts/gen-content.ts",
+    "gen:kanji": "tsx scripts/gen-kanji.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",

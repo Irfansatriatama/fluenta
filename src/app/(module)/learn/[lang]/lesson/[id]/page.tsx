@@ -43,11 +43,13 @@ export default async function LessonPage({
   }
 
   if (lesson.kind === LESSON_KIND.FLASHCARD) {
-    const meta = (lesson.metadata ?? {}) as { deckId?: string };
+    const meta = (lesson.metadata ?? {}) as { deckId?: string; offset?: number; limit?: number };
     const deck = meta.deckId
       ? await prisma.deck.findUnique({ where: { id: meta.deckId }, include: { cards: { orderBy: { sortOrder: "asc" } } } })
       : null;
-    const cards = (deck?.cards ?? []).slice(0, 12).map((c) => ({
+    const offset = meta.offset ?? 0;
+    const limit = meta.limit ?? 12;
+    const cards = (deck?.cards ?? []).slice(offset, offset + limit).map((c) => ({
       id: c.id,
       front: c.front,
       back: c.back,
