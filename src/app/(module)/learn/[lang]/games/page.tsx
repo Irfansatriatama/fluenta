@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Grid3x3, Repeat, Shuffle, SquareStack } from "lucide-react";
+import { Grid3x3, Repeat, Shuffle, Sparkles, SquareStack } from "lucide-react";
 import { getLanguage } from "@/lib/theme";
 
 const GAMES = [
+  { href: "games/quiz", icon: Sparkles, title: "AI Quiz", sub: "Fresh AI-made questions, verified" },
   { href: "games/memory", icon: Grid3x3, title: "Memory Match", sub: "Match words with meanings" },
   { href: "games/scramble", icon: Shuffle, title: "Word Scramble", sub: "Unscramble the letters" },
   { href: "games/particles", icon: SquareStack, title: "Particle Cloze", sub: "Fill in は・が・を・に…", langs: ["ja"] },

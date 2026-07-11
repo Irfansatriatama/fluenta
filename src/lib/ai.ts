@@ -22,7 +22,18 @@ const OPENAI_COMPAT: Record<Exclude<Provider, "anthropic">, OpenAICompat> = {
   openai: { envKey: "OPENAI_API_KEY", model: "gpt-4o-mini" },
 };
 
+const KEY_ENV: Record<Provider, string> = {
+  groq: "GROQ_API_KEY",
+  gemini: "GEMINI_API_KEY",
+  openai: "OPENAI_API_KEY",
+  anthropic: "ANTHROPIC_API_KEY",
+};
+
 export function detectProvider(): Provider | null {
+  // AI_PROVIDER forces a specific provider (accuracy: e.g. prefer Gemini for
+  // Japanese), as long as its key is set. Otherwise fall back to priority order.
+  const forced = process.env.AI_PROVIDER?.toLowerCase() as Provider | undefined;
+  if (forced && KEY_ENV[forced] && process.env[KEY_ENV[forced]]) return forced;
   if (process.env.GROQ_API_KEY) return "groq";
   if (process.env.GEMINI_API_KEY) return "gemini";
   if (process.env.OPENAI_API_KEY) return "openai";
