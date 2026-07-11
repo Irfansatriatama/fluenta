@@ -116,6 +116,13 @@ body {
 .fl-lift { transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease; }
 .fl-lift:hover { transform: translateY(-3px); }
 
+/* 3D flashcard flip. */
+.fl-flip-scene { perspective: 1400px; }
+.fl-flip-card { transform-style: preserve-3d; transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.fl-flip-card.is-flipped { transform: rotateY(180deg); }
+.fl-flip-face { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.fl-flip-back { transform: rotateY(180deg); }
+
 /* Skeleton shimmer for loading states. */
 @keyframes fl-shimmer {
   0% { background-position: 200% 0; }

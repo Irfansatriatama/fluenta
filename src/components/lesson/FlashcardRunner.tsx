@@ -154,49 +154,51 @@ export function FlashcardRunner({
 
       <p className="mt-4 text-center text-xs font-bold uppercase tracking-wide text-ink-soft">{title}</p>
 
-      <button
-        onClick={() => setFlipped((f) => !f)}
-        className="relative mt-8 w-full select-none rounded-3xl border bg-paper px-8 pb-10 pt-9 text-center shadow-lift transition-colors"
-        style={{ borderColor: "color-mix(in srgb, var(--accent) 22%, transparent)" }}
-      >
-        {/* spiral notebook binding */}
-        <span className="pointer-events-none absolute inset-x-0 -top-3 flex justify-center gap-2.5">
-          {Array.from({ length: 9 }).map((_, i) => (
-            <span
-              key={i}
-              className="h-5 w-3.5 rounded-full border-2 bg-ivory"
-              style={{ borderColor: "color-mix(in srgb, var(--accent) 45%, transparent)" }}
-            />
+      <div className="fl-flip-scene mt-8">
+        <div className={`fl-flip-card relative w-full ${flipped ? "is-flipped" : ""}`}>
+          {[false, true].map((isBack) => (
+            <button
+              key={isBack ? "back" : "front"}
+              onClick={() => setFlipped((f) => !f)}
+              className={`fl-flip-face block w-full select-none rounded-3xl border bg-paper px-8 pb-10 pt-9 text-center shadow-lift ${isBack ? "fl-flip-back absolute inset-0" : "relative"}`}
+              style={{ borderColor: "color-mix(in srgb, var(--accent) 22%, transparent)" }}
+            >
+              {/* spiral notebook binding */}
+              <span className="pointer-events-none absolute inset-x-0 -top-3 flex justify-center gap-2.5">
+                {Array.from({ length: 9 }).map((_, i) => (
+                  <span key={i} className="h-5 w-3.5 rounded-full border-2 bg-ivory" style={{ borderColor: "color-mix(in srgb, var(--accent) 45%, transparent)" }} />
+                ))}
+              </span>
+              {/* audio — pronounce the native word/char (stops the flip) */}
+              <span
+                role="button"
+                tabIndex={-1}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  speak(card.front, lang);
+                }}
+                className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full text-ink-soft transition-colors hover:bg-paper-2"
+                aria-label="Play pronunciation"
+              >
+                <Volume2 className="h-5 w-5" />
+              </span>
+
+              <div className="grid min-h-[13rem] place-items-center">
+                {isBack ? (
+                  backFace
+                ) : (
+                  <div>
+                    {frontFace}
+                    <p className="mt-6 inline-flex items-center gap-1.5 text-xs text-ink-faint">
+                      <RotateCw className="h-3.5 w-3.5" /> Tap or press Space to flip
+                    </p>
+                  </div>
+                )}
+              </div>
+            </button>
           ))}
-        </span>
-
-        {/* audio — pronounce the native word/char (stops the flip) */}
-        <span
-          role="button"
-          tabIndex={-1}
-          onClick={(e) => {
-            e.stopPropagation();
-            speak(card.front, lang);
-          }}
-          className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full text-ink-soft transition-colors hover:bg-paper-2"
-          aria-label="Play pronunciation"
-        >
-          <Volume2 className="h-5 w-5" />
-        </span>
-
-        <div className="grid min-h-[13rem] place-items-center">
-          {!flipped ? (
-            <div>
-              {frontFace}
-              <p className="mt-6 inline-flex items-center gap-1.5 text-xs text-ink-faint">
-                <RotateCw className="h-3.5 w-3.5" /> Tap or press Space to flip
-              </p>
-            </div>
-          ) : (
-            backFace
-          )}
         </div>
-      </button>
+      </div>
 
       <div className="mt-5 grid grid-cols-2 gap-3">
         <button
