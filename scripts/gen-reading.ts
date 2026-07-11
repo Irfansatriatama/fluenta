@@ -14,7 +14,7 @@
 import "dotenv/config";
 import fs from "node:fs";
 import path from "node:path";
-import Anthropic from "@anthropic-ai/sdk";
+import { aiChat, isAiConfigured, parseJson } from "../src/lib/ai";
 
 type Spec = { type: "news" | "conversation" | "story"; level: string; topic: string };
 
@@ -38,55 +38,6 @@ const READING_NOTE: Record<string, string> = {
   en: "leave as an empty string",
 };
 
-const PASSAGE_SCHEMA = {
-  type: "object",
-  additionalProperties: false,
-  properties: {
-    title: { type: "string" },
-    titleEn: { type: "string" },
-    summary: { type: "string" },
-    minutes: { type: "integer" },
-    blocks: {
-      type: "array",
-      items: {
-        type: "object",
-        additionalProperties: false,
-        properties: {
-          speaker: { type: "string" },
-          jp: { type: "string" },
-          reading: { type: "string" },
-          en: { type: "string" },
-        },
-        required: ["jp", "reading", "en"],
-      },
-    },
-    vocab: {
-      type: "array",
-      items: {
-        type: "object",
-        additionalProperties: false,
-        properties: { word: { type: "string" }, reading: { type: "string" }, meaning: { type: "string" } },
-        required: ["word", "reading", "meaning"],
-      },
-    },
-    questions: {
-      type: "array",
-      items: {
-        type: "object",
-        additionalProperties: false,
-        properties: {
-          q: { type: "string" },
-          options: { type: "array", items: { type: "string" } },
-          answer: { type: "integer" },
-          explanation: { type: "string" },
-        },
-        required: ["q", "options", "answer", "explanation"],
-      },
-    },
-  },
-  required: ["title", "titleEn", "summary", "minutes", "blocks", "vocab", "questions"],
-};
-
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 async function main() {
@@ -94,8 +45,8 @@ async function main() {
   const lang = langArg ? langArg.split("=")[1] : "ja";
   const langName = LANG_NAME[lang] ?? "Japanese";
 
-  if (!process.env.ANTHROPIC_API_KEY) {
-    console.error("ANTHROPIC_API_KEY is not set. Add it to .env to generate reading content.");
+  if (!isAiConfigured()) {
+    console.error("No AI provider configured. Set GROQ_API_KEY (or GEMINI/OPENAI/ANTHROPIC) in .env.");
     process.exit(1);
   }
 
@@ -105,7 +56,11 @@ async function main() {
     : { passages: [] };
   const haveIds = new Set(existing.passages.map((p) => (p as { id: string }).id));
 
-  const client = new Anthropic();
+  const shape =
+    'Return ONLY a JSON object: { "title": string, "titleEn": string, "summary": string, ' +
+    '"minutes": integer, "blocks": [ { "speaker"?: string, "jp": string, "reading": string, "en": string } ], ' +
+    '"vocab": [ { "word": string, "reading": string, "meaning": string } ], ' +
+    '"questions": [ { "q": string, "options": [4 strings], "answer": integer (0-based), "explanation": string } ] }';
 
   for (const spec of SPECS) {
     const id = `${lang}-${spec.type}-${slug(spec.topic)}`;
@@ -114,27 +69,27 @@ async function main() {
       continue;
     }
 
-    const response = await client.messages.create({
-      model: "claude-opus-4-8",
-      max_tokens: 4000,
-      thinking: { type: "adaptive" },
-      system:
-        `You write graded ${langName} reading material for learners at JLPT-style levels. ` +
-        `Produce ONE ${spec.type} at level ${spec.level} about "${spec.topic}". ` +
-        `Constrain vocabulary and grammar to the level. For a conversation, set "speaker" on each block; ` +
-        `for news/story, omit "speaker" and use sentences/short paragraphs. ` +
-        `"jp" is the ${langName} text; "reading" is the ${READING_NOTE[lang] ?? "reading"}; "en" is a natural English translation. ` +
-        `Add 5–7 vocab items and 3 comprehension questions (4 options each, "answer" is the 0-based index). ` +
-        `Keep it culturally natural and never use emoji.`,
-      messages: [{ role: "user", content: `Write the ${spec.level} ${spec.type} about: ${spec.topic}.` }],
-      output_config: { format: { type: "json_schema", schema: PASSAGE_SCHEMA } },
-    });
-
-    const block = response.content.find((b) => b.type === "text");
-    const body = JSON.parse(block && "text" in block ? block.text : "{}");
-    existing.passages.push({ id, type: spec.type, level: spec.level, topic: spec.topic, ...body });
-    haveIds.add(id);
-    console.log(`+ ${id} — ${body.title}`);
+    try {
+      const text = await aiChat({
+        json: true,
+        maxTokens: 4000,
+        system:
+          `You write graded ${langName} reading material for learners at JLPT-style levels. ` +
+          `Produce ONE ${spec.type} at level ${spec.level} about "${spec.topic}". ` +
+          `Constrain vocabulary and grammar to the level. For a conversation, set "speaker" on each block; ` +
+          `for news/story, omit "speaker" and use sentences/short paragraphs. ` +
+          `"jp" is the ${langName} text; "reading" is the ${READING_NOTE[lang] ?? "reading"}; "en" is a natural English translation. ` +
+          `Add 5–7 vocab items and 3 comprehension questions. Keep it culturally natural and never use emoji. ` +
+          shape,
+        messages: [{ role: "user", content: `Write the ${spec.level} ${spec.type} about: ${spec.topic}.` }],
+      });
+      const body = parseJson<{ title?: string }>(text);
+      existing.passages.push({ id, type: spec.type, level: spec.level, topic: spec.topic, ...body });
+      haveIds.add(id);
+      console.log(`+ ${id} — ${body.title ?? "(untitled)"}`);
+    } catch (e) {
+      console.error(`! failed ${id}:`, (e as Error).message);
+    }
   }
 
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
