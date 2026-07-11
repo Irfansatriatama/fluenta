@@ -2,7 +2,8 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { HelpCircle } from "lucide-react";
+import { Grid3x3, HelpCircle, Zap } from "lucide-react";
+import { Celebration } from "@/components/lesson/Celebration";
 import { awardGameXp } from "@/lib/gameActions";
 
 export type MemoryPair = { cardId: string; front: string; back: string };
@@ -58,14 +59,17 @@ export function MemoryGame({ lang, pairs }: { lang: string; pairs: MemoryPair[] 
 
   if (done) {
     return (
-      <div className="mx-auto flex min-h-[50vh] max-w-md flex-col items-center justify-center text-center">
-        <h1 className="font-display text-3xl font-extrabold" style={{ color: "var(--accent)" }}>Matched!</h1>
-        <p className="mt-2 text-sm text-ink-soft">Cleared in {moves} moves · +15 XP</p>
-        <div className="mt-6 flex gap-3">
-          <button onClick={() => router.refresh()} className="rounded-xl px-5 py-2.5 text-sm font-bold text-white" style={{ backgroundColor: "var(--accent)" }}>Play again</button>
-          <button onClick={() => router.push(`/learn/${lang}/games`)} className="rounded-xl border border-edge px-5 py-2.5 text-sm font-bold text-ink">Back</button>
-        </div>
-      </div>
+      <Celebration
+        title="Matched!"
+        stats={[
+          { icon: <Grid3x3 className="h-5 w-5" />, value: moves, label: "moves" },
+          { icon: <Zap className="h-5 w-5" />, value: 15, label: "XP", prefix: "+", countUp: true },
+        ]}
+        continueLabel="Play again"
+        onContinue={() => router.refresh()}
+        secondaryLabel="Back to games"
+        onSecondary={() => router.push(`/learn/${lang}/games`)}
+      />
     );
   }
 

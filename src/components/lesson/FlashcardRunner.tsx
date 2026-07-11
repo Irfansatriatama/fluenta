@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeftRight, Check, RotateCw, Volume2, X } from "lucide-react";
+import { ArrowLeftRight, Check, Layers, RotateCw, Volume2, X } from "lucide-react";
+import { Celebration } from "@/components/lesson/Celebration";
 import { reviewCard } from "@/lib/cardActions";
 import { completeLesson } from "@/lib/lessonActions";
 
@@ -103,20 +104,15 @@ export function FlashcardRunner({
 
   if (finished) {
     return (
-      <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center text-center">
-        <h1 className="font-display text-3xl font-extrabold" style={{ color: "var(--accent)" }}>Nice work!</h1>
-        <p className="mt-2 text-sm text-ink-soft">You reviewed {done} card{done === 1 ? "" : "s"}.</p>
-        <button
-          onClick={() => {
-            router.push(backHref);
-            router.refresh();
-          }}
-          className="mt-8 w-full rounded-xl px-5 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90"
-          style={{ backgroundColor: "var(--accent)" }}
-        >
-          Done
-        </button>
-      </div>
+      <Celebration
+        title="Nice work!"
+        stats={[{ icon: <Layers className="h-5 w-5" />, value: done, label: done === 1 ? "card reviewed" : "cards reviewed" }]}
+        continueLabel="Done"
+        onContinue={() => {
+          router.push(backHref);
+          router.refresh();
+        }}
+      />
     );
   }
 

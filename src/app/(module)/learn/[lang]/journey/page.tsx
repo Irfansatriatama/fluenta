@@ -21,7 +21,7 @@ function starCount(score: number | null): number {
 function Stars({ score }: { score: number | null }) {
   const filled = starCount(score);
   return (
-    <div className="mb-1 flex items-center gap-0.5">
+    <div className="fl-pop mb-1 flex items-center gap-0.5">
       {[0, 1, 2].map((i) => (
         <Star
           key={i}
@@ -45,7 +45,7 @@ function MapNode({ lang, lesson, offset, first }: { lang: string; lesson: Lesson
 
   const circle = (
     <span
-      className="relative grid h-16 w-16 place-items-center rounded-full border-[3px] shadow-lift transition-transform hover:scale-105"
+      className={`relative grid h-16 w-16 place-items-center rounded-full border-[3px] shadow-lift transition-transform hover:scale-105 ${current ? "fl-unlock" : ""}`}
       style={
         completed
           ? { backgroundColor: "var(--accent)", borderColor: "var(--accent)", color: "#fff" }

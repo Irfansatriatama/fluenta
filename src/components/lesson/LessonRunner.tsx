@@ -2,7 +2,7 @@
 
 import { type CSSProperties, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Play, RotateCcw, Sparkles, X } from "lucide-react";
+import { ArrowRight, Flame, Play, RotateCcw, Sparkles, Target, X, Zap } from "lucide-react";
 import { Celebration } from "@/components/lesson/Celebration";
 import { completeLesson } from "@/lib/lessonActions";
 import { gradeWriting, type WritingFeedback } from "@/lib/aiActions";
@@ -163,9 +163,13 @@ export function LessonRunner({
   if (result) {
     return (
       <Celebration
-        xp={result.xp}
-        streakCurrent={result.streakCurrent}
         score={result.score}
+        subtitle="よくがんばりました！"
+        stats={[
+          { icon: <Zap className="h-5 w-5" />, value: result.xp, label: "XP", prefix: "+", countUp: true },
+          { icon: <Flame className="h-5 w-5 text-flame" />, value: result.streakCurrent, label: "day streak" },
+          { icon: <Target className="h-5 w-5" />, value: result.score, label: "accuracy", suffix: "%" },
+        ]}
         onContinue={() => {
           router.push(`/learn/${lang}/journey`);
           router.refresh();

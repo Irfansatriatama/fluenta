@@ -1,7 +1,8 @@
 "use client";
 
+import { type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Flame, Star, Target, Zap } from "lucide-react";
+import { Star, Trophy } from "lucide-react";
 import { CountUp, Stagger, StaggerItem } from "@/components/motion/motion";
 
 function starCount(score: number): number {
@@ -10,28 +11,43 @@ function starCount(score: number): number {
   return 1;
 }
 
-// Shared lesson-complete celebration: the app's one deliberately big moment.
+export type CelebrationStat = {
+  icon: ReactNode;
+  value: number | string;
+  label: string;
+  prefix?: string;
+  suffix?: string;
+  countUp?: boolean;
+};
+
+// The app's one deliberately big moment, shared by every runner and module.
+// Pass `score` (0–100) to show a 3-star rating, or omit it for a trophy.
 export function Celebration({
-  xp,
-  streakCurrent,
-  score,
+  title = "Lesson complete!",
+  subtitle,
+  score = null,
+  stats,
   onContinue,
   continueLabel = "Continue",
-  subtitle = "よくがんばりました！",
+  secondaryLabel,
+  onSecondary,
 }: {
-  xp: number;
-  streakCurrent: number;
-  score: number;
+  title?: string;
+  subtitle?: string;
+  score?: number | null;
+  stats: CelebrationStat[];
   onContinue: () => void;
   continueLabel?: string;
-  subtitle?: string;
+  secondaryLabel?: string;
+  onSecondary?: () => void;
 }) {
   const reduce = useReducedMotion();
-  const stars = starCount(score);
+  const stars = score === null ? 0 : starCount(score);
+  const cols = stats.length >= 3 ? "grid-cols-3" : stats.length === 2 ? "grid-cols-2" : "grid-cols-1";
 
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-md flex-col items-center justify-center text-center">
-      {/* stars with a soft gold burst behind them */}
+      {/* stars (scored) or a trophy, over a soft gold burst */}
       <div className="relative grid h-24 place-items-center">
         {!reduce && (
           <motion.span
@@ -43,26 +59,36 @@ export function Celebration({
             transition={{ duration: 0.9, ease: "easeOut", delay: 0.1 }}
           />
         )}
-        <div className="flex items-end gap-1.5">
-          {[0, 1, 2].map((i) => {
-            const filled = i < stars;
-            const mid = i === 1;
-            return (
-              <motion.span
-                key={i}
-                initial={reduce ? false : { scale: 0, y: 8, rotate: -25, opacity: 0 }}
-                animate={{ scale: mid ? 1.15 : 1, y: mid ? -6 : 0, rotate: 0, opacity: 1 }}
-                transition={{ delay: 0.15 + i * 0.18, type: "spring", stiffness: 420, damping: 13 }}
-              >
-                <Star
-                  className={mid ? "h-11 w-11" : "h-9 w-9"}
-                  style={{ color: filled ? "#D9A441" : "var(--color-edge)", fill: filled ? "#D9A441" : "transparent" }}
-                  strokeWidth={1.8}
-                />
-              </motion.span>
-            );
-          })}
-        </div>
+        {score === null ? (
+          <motion.span
+            initial={reduce ? false : { scale: 0, rotate: -20, opacity: 0 }}
+            animate={{ scale: 1, rotate: 0, opacity: 1 }}
+            transition={{ delay: 0.15, type: "spring", stiffness: 400, damping: 13 }}
+          >
+            <Trophy className="h-12 w-12" style={{ color: "#D9A441", fill: "#D9A44133" }} strokeWidth={1.8} />
+          </motion.span>
+        ) : (
+          <div className="flex items-end gap-1.5">
+            {[0, 1, 2].map((i) => {
+              const filled = i < stars;
+              const mid = i === 1;
+              return (
+                <motion.span
+                  key={i}
+                  initial={reduce ? false : { scale: 0, y: 8, rotate: -25, opacity: 0 }}
+                  animate={{ scale: mid ? 1.15 : 1, y: mid ? -6 : 0, rotate: 0, opacity: 1 }}
+                  transition={{ delay: 0.15 + i * 0.18, type: "spring", stiffness: 420, damping: 13 }}
+                >
+                  <Star
+                    className={mid ? "h-11 w-11" : "h-9 w-9"}
+                    style={{ color: filled ? "#D9A441" : "var(--color-edge)", fill: filled ? "#D9A441" : "transparent" }}
+                    strokeWidth={1.8}
+                  />
+                </motion.span>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       <motion.h1
@@ -72,37 +98,40 @@ export function Celebration({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
-        Lesson complete!
+        {title}
       </motion.h1>
-      <motion.p
-        className="mt-2 text-ink-soft"
-        lang="ja"
-        initial={reduce ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.65 }}
-      >
-        {subtitle}
-      </motion.p>
+      {subtitle && (
+        <motion.p
+          className="mt-2 text-ink-soft"
+          lang="ja"
+          initial={reduce ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.65 }}
+        >
+          {subtitle}
+        </motion.p>
+      )}
 
-      <Stagger className="mt-8 grid w-full grid-cols-3 gap-3" delayChildren={0.75} gap={0.1}>
-        <StaggerItem>
-          <Stat icon={<Zap className="h-5 w-5" />}>
-            <CountUp to={xp} prefix="+" className="font-display text-xl font-extrabold text-ink" />
-            <p className="text-[0.65rem] text-ink-soft">XP</p>
-          </Stat>
-        </StaggerItem>
-        <StaggerItem>
-          <Stat icon={<Flame className="h-5 w-5 text-flame" />}>
-            <p className="font-display text-xl font-extrabold text-ink">{streakCurrent}</p>
-            <p className="text-[0.65rem] text-ink-soft">day streak</p>
-          </Stat>
-        </StaggerItem>
-        <StaggerItem>
-          <Stat icon={<Target className="h-5 w-5" />}>
-            <p className="font-display text-xl font-extrabold text-ink">{score}%</p>
-            <p className="text-[0.65rem] text-ink-soft">accuracy</p>
-          </Stat>
-        </StaggerItem>
+      <Stagger className={`mt-8 grid w-full gap-3 ${cols}`} delayChildren={0.75} gap={0.1}>
+        {stats.map((s, i) => (
+          <StaggerItem key={i}>
+            <div className="rounded-2xl border hairline bg-paper p-4">
+              <div className="flex justify-center text-gold">{s.icon}</div>
+              <div className="mt-1">
+                {s.countUp && typeof s.value === "number" ? (
+                  <CountUp to={s.value} prefix={s.prefix} suffix={s.suffix} className="font-display text-xl font-extrabold text-ink" />
+                ) : (
+                  <p className="font-display text-xl font-extrabold text-ink">
+                    {s.prefix}
+                    {s.value}
+                    {s.suffix}
+                  </p>
+                )}
+                <p className="text-[0.65rem] text-ink-soft">{s.label}</p>
+              </div>
+            </div>
+          </StaggerItem>
+        ))}
       </Stagger>
 
       <motion.button
@@ -115,15 +144,17 @@ export function Celebration({
       >
         {continueLabel}
       </motion.button>
-    </div>
-  );
-}
-
-function Stat({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
-  return (
-    <div className="rounded-2xl border hairline bg-paper p-4">
-      <div className="flex justify-center text-gold">{icon}</div>
-      <div className="mt-1">{children}</div>
+      {onSecondary && secondaryLabel && (
+        <motion.button
+          onClick={onSecondary}
+          className="mt-3 text-sm font-semibold text-ink-soft transition-colors hover:text-ink"
+          initial={reduce ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.25 }}
+        >
+          {secondaryLabel}
+        </motion.button>
+      )}
     </div>
   );
 }

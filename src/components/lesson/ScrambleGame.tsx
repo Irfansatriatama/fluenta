@@ -2,6 +2,8 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { Shuffle, Zap } from "lucide-react";
+import { Celebration } from "@/components/lesson/Celebration";
 import { awardGameXp } from "@/lib/gameActions";
 
 export type ScrambleItem = { answer: string; hint: string; reading?: string };
@@ -60,14 +62,17 @@ export function ScrambleGame({ lang, items }: { lang: string; items: ScrambleIte
 
   if (finished) {
     return (
-      <div className="mx-auto flex min-h-[50vh] max-w-md flex-col items-center justify-center text-center">
-        <h1 className="font-display text-3xl font-extrabold" style={{ color: "var(--accent)" }}>Well done!</h1>
-        <p className="mt-2 text-sm text-ink-soft">You solved {items.length} words · +{items.length * 3} XP</p>
-        <div className="mt-6 flex gap-3">
-          <button onClick={() => router.refresh()} className="rounded-xl px-5 py-2.5 text-sm font-bold text-white" style={{ backgroundColor: "var(--accent)" }}>Play again</button>
-          <button onClick={() => router.push(`/learn/${lang}/games`)} className="rounded-xl border border-edge px-5 py-2.5 text-sm font-bold text-ink">Back</button>
-        </div>
-      </div>
+      <Celebration
+        title="Well done!"
+        stats={[
+          { icon: <Shuffle className="h-5 w-5" />, value: items.length, label: items.length === 1 ? "word solved" : "words solved" },
+          { icon: <Zap className="h-5 w-5" />, value: items.length * 3, label: "XP", prefix: "+", countUp: true },
+        ]}
+        continueLabel="Play again"
+        onContinue={() => router.refresh()}
+        secondaryLabel="Back to games"
+        onSecondary={() => router.push(`/learn/${lang}/games`)}
+      />
     );
   }
 

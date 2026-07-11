@@ -2,7 +2,8 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { X } from "lucide-react";
+import { Check, X, Zap } from "lucide-react";
+import { Celebration } from "@/components/lesson/Celebration";
 import { awardGameXp } from "@/lib/gameActions";
 
 export type ClozeItem = {
@@ -70,15 +71,20 @@ export function ParticleCloze({ items }: { items: ClozeItem[] }) {
   }
 
   if (finished) {
+    const pct = questions.length > 0 ? Math.round((score / questions.length) * 100) : 0;
     return (
-      <div className="mx-auto flex min-h-[50vh] max-w-md flex-col items-center justify-center text-center">
-        <h1 className="font-display text-3xl font-extrabold" style={{ color: "var(--accent)" }}>Nicely done!</h1>
-        <p className="mt-2 text-sm text-ink-soft">{score}/{questions.length} correct · +{questions.length * 2} XP</p>
-        <div className="mt-6 flex gap-3">
-          <button onClick={() => router.refresh()} className="rounded-xl px-5 py-2.5 text-sm font-bold text-white" style={{ backgroundColor: "var(--accent)" }}>Again</button>
-          <button onClick={() => router.push("games")} className="rounded-xl border border-edge px-5 py-2.5 text-sm font-bold text-ink">Back</button>
-        </div>
-      </div>
+      <Celebration
+        title="Nicely done!"
+        score={pct}
+        stats={[
+          { icon: <Check className="h-5 w-5" />, value: `${score}/${questions.length}`, label: "correct" },
+          { icon: <Zap className="h-5 w-5" />, value: questions.length * 2, label: "XP", prefix: "+", countUp: true },
+        ]}
+        continueLabel="Play again"
+        onContinue={() => router.refresh()}
+        secondaryLabel="Back to games"
+        onSecondary={() => router.push("games")}
+      />
     );
   }
 
