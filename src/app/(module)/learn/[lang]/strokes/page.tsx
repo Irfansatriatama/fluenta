@@ -12,6 +12,9 @@ const WANT: { src: RegExp; title: string }[] = [
   { src: /katakana/i, title: "Katakana" },
   { src: /n5/i, title: "Kanji N5" },
   { src: /n4/i, title: "Kanji N4" },
+  { src: /n3/i, title: "Kanji N3" },
+  { src: /n2/i, title: "Kanji N2" },
+  { src: /n1/i, title: "Kanji N1" },
 ];
 
 export default async function StrokesPage({

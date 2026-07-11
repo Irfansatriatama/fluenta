@@ -16,7 +16,8 @@ const set = new Set();
 for (const g of CHARS.groups) {
   if (/hiragana|katakana/i.test(g.title)) for (const it of g.items) set.add(it.char);
 }
-for (const k of KANJI) if (k.jlpt === 5 || k.jlpt === 4) set.add(k.char);
+// All JLPT kanji (N5→N1) so every level can be traced.
+for (const k of KANJI) if (k.jlpt) set.add(k.char);
 
 const chars = [...set].filter((c) => c && [...c].length === 1);
 const hex = (c) => c.codePointAt(0).toString(16).padStart(5, "0");
