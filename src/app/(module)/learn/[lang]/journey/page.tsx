@@ -100,15 +100,22 @@ function MapNode({ lang, lesson, offset, first }: { lang: string; lesson: Lesson
 
 export default async function JourneyPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ lang: string }>;
+  searchParams: Promise<{ level?: string }>;
 }) {
   const { lang } = await params;
+  const { level } = await searchParams;
   const language = getLanguage(lang);
   if (!language) notFound();
 
   const session = await getSession();
-  const data = await getModuleData(lang, session!.user.id);
+  let data = await getModuleData(lang, session!.user.id);
+  if (level && data && data.trackLevel !== level) {
+    const t = data.tracks.find((s) => s.level === level && s.unlocked);
+    if (t) data = await getModuleData(lang, session!.user.id, t.code);
+  }
   const percent = data && data.total > 0 ? Math.round((data.completed / data.total) * 100) : 0;
 
   return (
@@ -134,38 +141,54 @@ export default async function JourneyPage({
           {/* level ladder — the journey covers one level at a time */}
           {(() => {
             const levels = FRAMEWORK_LEVELS[data.trackFramework] ?? [];
-            const activeIdx = levels.indexOf(data.trackLevel);
             if (levels.length === 0) return null;
             const labelOf = (lv: string) =>
               data.trackFramework === "JLPT" || data.trackFramework === "CEFR" ? lv : `${data.trackFramework} ${lv}`;
+            const summaryOf = (lv: string) => data.tracks.find((s) => s.level === lv);
+            const current = summaryOf(data.trackLevel);
+            const currentDone = current ? current.total > 0 && current.completed === current.total : false;
+            const nextUnlocked = data.tracks.some((s) => s.unlocked && s.completed < s.total && s.level !== data.trackLevel);
             return (
               <div className="relative overflow-hidden rounded-2xl border hairline bg-paper p-4 shadow-soft">
                 <Pattern variant="seigaiha" className="pointer-events-none absolute -right-4 -top-4 h-24 w-40 text-[color:var(--accent)]" opacity={0.09} />
                 <p className="relative text-[0.65rem] font-bold uppercase tracking-wide text-ink-faint">{data.trackFramework} path</p>
                 <div className="relative mt-2 flex items-center gap-1.5 overflow-x-auto pb-1">
                   {levels.map((lv, i) => {
-                    const active = i === activeIdx;
-                    const future = i > activeIdx;
+                    const s = summaryOf(lv);
+                    const active = lv === data.trackLevel;
+                    const unlocked = !!s?.unlocked;
+                    const done = s ? s.total > 0 && s.completed === s.total : false;
+                    const pill = (
+                      <span
+                        className="inline-flex items-center gap-1 whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-bold transition-colors"
+                        style={
+                          active
+                            ? { borderColor: "var(--accent)", backgroundColor: "color-mix(in srgb, var(--accent) 12%, transparent)", color: "var(--accent)" }
+                            : unlocked
+                              ? { borderColor: "color-mix(in srgb, var(--accent) 30%, transparent)", color: "var(--accent)" }
+                              : { borderColor: "var(--color-edge)", color: "var(--color-ink-faint)" }
+                        }
+                      >
+                        {!unlocked && <Lock className="h-3 w-3" />}
+                        {done && <Check className="h-3 w-3" strokeWidth={3} />}
+                        {labelOf(lv)}
+                      </span>
+                    );
                     return (
                       <div key={lv} className="flex items-center gap-1.5">
-                        <span
-                          className="inline-flex items-center gap-1 whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-bold"
-                          style={
-                            active
-                              ? { borderColor: "var(--accent)", backgroundColor: "color-mix(in srgb, var(--accent) 12%, transparent)", color: "var(--accent)" }
-                              : { borderColor: "var(--color-edge)", color: "var(--color-ink-faint)" }
-                          }
-                        >
-                          {future && <Lock className="h-3 w-3" />}
-                          {labelOf(lv)}
-                        </span>
+                        {s && unlocked && !active ? (
+                          <Link href={`/learn/${lang}/journey?level=${lv}`}>{pill}</Link>
+                        ) : (
+                          pill
+                        )}
                         {i < levels.length - 1 && <span className="h-px w-3 shrink-0" style={{ backgroundColor: "var(--color-edge)" }} />}
                       </div>
                     );
                   })}
                 </div>
                 <p className="relative mt-2 text-xs text-ink-soft">
-                  You&apos;re on <span className="font-semibold text-ink">{labelOf(data.trackLevel)}</span>. Finish it to open the next level.
+                  You&apos;re on <span className="font-semibold text-ink">{labelOf(data.trackLevel)}</span>.{" "}
+                  {currentDone && nextUnlocked ? "The next level is unlocked — tap it above." : "Finish it to open the next level."}
                 </p>
               </div>
             );

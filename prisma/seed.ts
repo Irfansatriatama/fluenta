@@ -13,11 +13,26 @@ const LANGUAGES = [
   { code: "en", name: "English", nativeName: "English", accentHex: "#5B4B9E", sortOrder: 4 },
 ];
 
-const TRACKS: Record<string, { code: string; framework: string; level: string; title: string }> = {
-  ja: { code: "jlpt-n5", framework: "JLPT", level: "N5", title: "JLPT N5" },
-  ko: { code: "topik-1", framework: "TOPIK", level: "1", title: "TOPIK I" },
-  zh: { code: "hsk-1", framework: "HSK", level: "1", title: "HSK 1" },
-  en: { code: "cefr-a1", framework: "CEFR", level: "A1", title: "CEFR A1" },
+type TrackDef = {
+  code: string;
+  framework: string;
+  level: string;
+  title: string;
+  sortOrder: number;
+  scriptDeckIds: string[]; // decks that become the "Script & Characters" unit
+  vocab: boolean; // include a "Core Vocabulary" unit from theme decks
+};
+
+// A language may have several level tracks; the journey shows one at a time and
+// the next unlocks when the previous is complete.
+const TRACKS: Record<string, TrackDef[]> = {
+  ja: [
+    { code: "jlpt-n5", framework: "JLPT", level: "N5", title: "JLPT N5", sortOrder: 1, scriptDeckIds: ["deck-ja-hiragana", "deck-ja-katakana", "deck-ja-kanji-n5"], vocab: true },
+    { code: "jlpt-n4", framework: "JLPT", level: "N4", title: "JLPT N4", sortOrder: 2, scriptDeckIds: ["deck-ja-kanji-n4"], vocab: false },
+  ],
+  ko: [{ code: "topik-1", framework: "TOPIK", level: "1", title: "TOPIK I", sortOrder: 1, scriptDeckIds: ["deck-ko-hangul"], vocab: true }],
+  zh: [{ code: "hsk-1", framework: "HSK", level: "1", title: "HSK 1", sortOrder: 1, scriptDeckIds: ["deck-zh-hanzi-hsk1"], vocab: true }],
+  en: [{ code: "cefr-a1", framework: "CEFR", level: "A1", title: "CEFR A1", sortOrder: 1, scriptDeckIds: [], vocab: true }],
 };
 
 type Q = {
@@ -46,7 +61,7 @@ type Unit = { id: string; title: string; sortOrder: number; lessons: L[] };
 
 // One starter "Everyday Life" unit per language: reading / listening / writing / quiz.
 const UNITS: Record<string, Unit> = {
-  ja: {
+  "jlpt-n5": {
     id: "u-ja-everyday",
     title: "Everyday Life",
     sortOrder: 1,
@@ -136,7 +151,56 @@ const UNITS: Record<string, Unit> = {
     ],
   },
 
-  ko: {
+  "jlpt-n4": {
+    id: "u-ja-n4-everyday", title: "Everyday Life", sortOrder: 1,
+    lessons: [
+      {
+        id: "l-ja-n4-read1", title: "週末の予定", kind: "reading", xpReward: 25, estMinutes: 6, sortOrder: 1,
+        metadata: {
+          passage: "今週の週末、友達と京都に行くことにしました。\n朝早く電車に乗って、古いお寺やお城を見る予定です。\n昼ごはんは有名なうどん屋で食べようと思っています。\nもし時間があれば、着物を借りて写真も撮りたいです。\n日曜日の夜には帰らなければなりません。",
+          highlight: "昼ごはんは有名なうどん屋で食べようと思っています。",
+        },
+        questions: [{
+          id: "q-ja-n4-read1-1", kind: "mcq", prompt: "昼ごはんはどこで食べる予定ですか。",
+          options: [{ text: "お寺" }, { text: "うどん屋" }, { text: "家" }, { text: "ホテル" }],
+          answer: 1, explanation: "「有名なうどん屋で食べようと思っています」。", sortOrder: 1,
+        }],
+      },
+      {
+        id: "l-ja-n4-listen1", title: "電車の案内", kind: "listening", xpReward: 25, estMinutes: 5, sortOrder: 2,
+        metadata: { transcript: "この電車は各駅停車です。お急ぎの方は次の駅で特急にお乗り換えください。" },
+        questions: [{
+          id: "q-ja-n4-listen1-1", kind: "mcq", prompt: "急ぐ人はどうすればいいですか。",
+          options: [
+            { text: "この電車に乗り続ける", sub: "Stay on this train" },
+            { text: "次の駅で特急に乗り換える", sub: "Transfer to the express at the next station" },
+            { text: "すぐに降りる", sub: "Get off immediately" },
+            { text: "バスに乗る", sub: "Take a bus" },
+          ],
+          answer: 1, sortOrder: 1,
+        }],
+      },
+      {
+        id: "l-ja-n4-write1", title: "できる形を使う", kind: "writing", xpReward: 30, estMinutes: 7, sortOrder: 3,
+        metadata: { example: "私は漢字が少し読めるようになりました。", focus: "potential form (〜られる / 〜える)" },
+        questions: [{
+          id: "q-ja-n4-write1-1", kind: "writing",
+          prompt: "Write a sentence using the potential form (can do / became able to).",
+          answer: { sample: "私は日本料理が作れます。" }, sortOrder: 1,
+        }],
+      },
+      {
+        id: "l-ja-n4-quiz1", title: "文法チェック", kind: "quiz", xpReward: 20, estMinutes: 5, sortOrder: 4,
+        questions: [
+          { id: "q-ja-n4-quiz1-1", kind: "mcq", prompt: "正しい助詞を選んでください：雨が降っている（　）、試合は中止です。", options: [{ text: "ので" }, { text: "のに" }, { text: "ながら" }, { text: "たり" }], answer: 0, explanation: "「ので」＝理由（because）。", sortOrder: 1 },
+          { id: "q-ja-n4-quiz1-2", kind: "mcq", prompt: "「病院」の読み方は？", options: [{ text: "びょういん" }, { text: "びょうき" }, { text: "へいいん" }, { text: "びよういん" }], answer: 0, sortOrder: 2 },
+          { id: "q-ja-n4-quiz1-3", kind: "mcq", prompt: "正しい形を選んでください：宿題をしなければ（　）。", options: [{ text: "なりません" }, { text: "いいです" }, { text: "ください" }, { text: "ましょう" }], answer: 0, explanation: "「〜なければなりません」＝must.", sortOrder: 3 },
+        ],
+      },
+    ],
+  },
+
+  "topik-1": {
     id: "u-ko-everyday", title: "Everyday Life", sortOrder: 1,
     lessons: [
       {
@@ -223,7 +287,7 @@ const UNITS: Record<string, Unit> = {
     ],
   },
 
-  zh: {
+  "hsk-1": {
     id: "u-zh-everyday", title: "Everyday Life", sortOrder: 1,
     lessons: [
       {
@@ -311,7 +375,7 @@ const UNITS: Record<string, Unit> = {
     ],
   },
 
-  en: {
+  "cefr-a1": {
     id: "u-en-everyday", title: "Everyday Life", sortOrder: 1,
     lessons: [
       {
@@ -430,23 +494,25 @@ async function main() {
       update: lang,
     });
 
-    const t = TRACKS[lang.code];
-    const track = await prisma.track.upsert({
-      where: { code: t.code },
-      create: { ...t, languageId: language.id, isPublished: true },
-      update: { ...t, languageId: language.id, isPublished: true },
-    });
-
-    const unit = UNITS[lang.code];
-    if (unit) {
-      await prisma.unit.upsert({
-        where: { id: unit.id },
-        create: { id: unit.id, trackId: track.id, title: unit.title, sortOrder: unit.sortOrder },
-        update: { trackId: track.id, title: unit.title, sortOrder: unit.sortOrder },
+    for (const t of TRACKS[lang.code]) {
+      const data = { framework: t.framework, level: t.level, title: t.title, sortOrder: t.sortOrder, languageId: language.id, isPublished: true };
+      const track = await prisma.track.upsert({
+        where: { code: t.code },
+        create: { code: t.code, ...data },
+        update: data,
       });
-      for (const lesson of unit.lessons) {
-        await createLesson(unit.id, lesson);
-        lessonCount += 1;
+
+      const unit = UNITS[t.code];
+      if (unit) {
+        await prisma.unit.upsert({
+          where: { id: unit.id },
+          create: { id: unit.id, trackId: track.id, title: unit.title, sortOrder: unit.sortOrder },
+          update: { trackId: track.id, title: unit.title, sortOrder: unit.sortOrder },
+        });
+        for (const lesson of unit.lessons) {
+          await createLesson(unit.id, lesson);
+          lessonCount += 1;
+        }
       }
     }
   }
@@ -489,37 +555,32 @@ async function main() {
     }
   };
 
-  // The journey (starter track = N5/HSK1/TOPIK1) only surfaces the beginner script:
-  // kana/hangul + the first kanji/hanzi level. Higher levels stay browsable in the
-  // Characters page and reviewable via SRS, but don't flood the journey.
-  const isScriptDeck = (id: string) =>
-    /hiragana|katakana|hangul/.test(id) || /kanji-n5|hanzi-hsk1/.test(id);
+  // Each track surfaces its own beginner script (from scriptDeckIds); higher-level
+  // kanji stay browsable in Characters + reviewable via SRS without flooding the map.
   const isCharDeck = (id: string) => /hiragana|katakana|hangul|kanji|hanzi|pinyin/.test(id);
-  const scriptRank = (id: string) =>
-    /hiragana|hangul/.test(id) ? 0 : /katakana/.test(id) ? 1 : 2;
 
   for (const lang of LANGUAGES) {
     const language = await prisma.language.findUnique({ where: { code: lang.code } });
     if (!language) continue;
-    const track = await prisma.track.findFirst({ where: { languageId: language.id }, orderBy: { sortOrder: "asc" } });
-    if (!track) continue;
 
     const decks = await prisma.deck.findMany({
       where: { languageId: language.id, isSystem: true },
       include: { _count: { select: { cards: true } } },
       orderBy: { title: "asc" },
     });
-    const scriptDecks = decks
-      .filter((d) => isScriptDeck(d.id))
-      .map((d) => ({ id: d.id, title: d.title, count: d._count.cards }))
-      .sort((a, b) => scriptRank(a.id) - scriptRank(b.id));
+    const deckById = new Map(decks.map((d) => [d.id, { id: d.id, title: d.title, count: d._count.cards }]));
     const themeDecks = decks
       .filter((d) => !isCharDeck(d.id) && d._count.cards >= 6)
       .slice(0, 4)
       .map((d) => ({ id: d.id, title: d.title, count: d._count.cards }));
 
-    await makeFlashUnit(track.id, `u-${lang.code}-script`, "Script & Characters", 2, scriptDecks);
-    await makeFlashUnit(track.id, `u-${lang.code}-vocab`, "Core Vocabulary", 3, themeDecks);
+    for (const t of TRACKS[lang.code]) {
+      const track = await prisma.track.findFirst({ where: { code: t.code } });
+      if (!track) continue;
+      const scriptDecks = t.scriptDeckIds.map((id) => deckById.get(id)).filter((d): d is { id: string; title: string; count: number } => !!d);
+      await makeFlashUnit(track.id, `u-${t.code}-script`, "Script & Characters", 2, scriptDecks);
+      if (t.vocab) await makeFlashUnit(track.id, `u-${t.code}-vocab`, "Core Vocabulary", 3, themeDecks);
+    }
   }
 
   console.log(`Seeded ${LANGUAGES.length} languages, tracks, and ${lessonCount} lessons across all languages.`);
