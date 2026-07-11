@@ -6,8 +6,10 @@ import {
 import { DialogRunner, type DialogData } from "@/components/lesson/DialogRunner";
 import { SpeakRunner, type SpeakData } from "@/components/lesson/SpeakRunner";
 import { FlashcardRunner } from "@/components/lesson/FlashcardRunner";
+import { ReadingRunner } from "@/components/lesson/ReadingRunner";
 import { LESSON_KIND } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
+import { getReadingPassage } from "@/lib/staticContent";
 
 export default async function LessonPage({
   params,
@@ -40,6 +42,13 @@ export default async function LessonPage({
   if (lesson.kind === LESSON_KIND.SCRIPT || lesson.kind === "speaking") {
     const d = (lesson.metadata ?? {}) as Omit<SpeakData, "id" | "xpReward">;
     return <SpeakRunner lang={lang} data={{ id: lesson.id, xpReward: lesson.xpReward, ...d }} />;
+  }
+
+  if (lesson.kind === LESSON_KIND.PASSAGE) {
+    const meta = (lesson.metadata ?? {}) as { readingId?: string };
+    const passage = meta.readingId ? getReadingPassage(lang, meta.readingId) : null;
+    if (!passage) notFound();
+    return <ReadingRunner passage={passage} lang={lang} backHref={`/learn/${lang}/journey`} lessonId={lesson.id} />;
   }
 
   if (lesson.kind === LESSON_KIND.FLASHCARD) {

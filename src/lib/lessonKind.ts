@@ -19,6 +19,7 @@ export const KIND_META: Record<string, { icon: Glyph; label: string }> = {
   flashcard: { icon: FlashcardGlyph, label: "Flashcards" },
   dialog: { icon: DialogGlyph, label: "Dialog" },
   speaking: { icon: SpeakingGlyph, label: "Speaking" },
+  passage: { icon: ReadingGlyph, label: "Reading" },
 };
 
 export function kindMeta(kind: string) {

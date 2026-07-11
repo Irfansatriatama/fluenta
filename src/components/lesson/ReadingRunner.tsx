@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { BookOpen, Check, Languages, Volume2, X } from "lucide-react";
+import { completeLesson } from "@/lib/lessonActions";
 import { completeReading } from "@/lib/readingActions";
 import type { ReadingPassage } from "@/lib/staticContent";
 
@@ -27,10 +28,12 @@ export function ReadingRunner({
   passage,
   lang,
   backHref,
+  lessonId,
 }: {
   passage: ReadingPassage;
   lang: string;
   backHref: string;
+  lessonId?: string;
 }) {
   const router = useRouter();
   const [furigana, setFurigana] = useState(true);
@@ -48,8 +51,15 @@ export function ReadingRunner({
   function finish() {
     setChecked(true);
     startTransition(async () => {
-      const res = await completeReading({ correct: correctCount, total: q.length });
-      setXp(res.xp);
+      // In the journey a reading is a real lesson (XP + streak + stars);
+      // standalone it just awards reading XP.
+      if (lessonId) {
+        const res = await completeLesson({ lessonId, correct: correctCount, total: q.length });
+        setXp(res.ok ? res.xp : 0);
+      } else {
+        const res = await completeReading({ correct: correctCount, total: q.length });
+        setXp(res.xp);
+      }
       setFinished(true);
     });
   }

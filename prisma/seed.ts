@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "../src/generated/prisma/client";
+import readingJa from "../src/content/reading/ja.json";
 
 // Seed uses the DIRECT connection (no pgbouncer).
 const adapter = new PrismaPg({ connectionString: process.env.DIRECT_URL });
@@ -580,6 +581,38 @@ async function main() {
       const scriptDecks = t.scriptDeckIds.map((id) => deckById.get(id)).filter((d): d is { id: string; title: string; count: number } => !!d);
       await makeFlashUnit(track.id, `u-${t.code}-script`, "Script & Characters", 2, scriptDecks);
       if (t.vocab) await makeFlashUnit(track.id, `u-${t.code}-vocab`, "Core Vocabulary", 3, themeDecks);
+    }
+  }
+
+  // Weave authored reading passages into the JP journey, matched to each level.
+  const jaLanguage = await prisma.language.findUnique({ where: { code: "ja" } });
+  if (jaLanguage) {
+    const passages = readingJa.passages as { id: string; level: string; titleEn: string; minutes: number }[];
+    for (const t of TRACKS.ja) {
+      const track = await prisma.track.findFirst({ where: { code: t.code } });
+      if (!track) continue;
+      const levelPassages = passages.filter((p) => p.level === t.level);
+      if (levelPassages.length === 0) continue;
+      const unitId = `u-${t.code}-reading`;
+      await prisma.unit.create({ data: { id: unitId, trackId: track.id, title: "Reading", sortOrder: 4 } });
+      let so = 1;
+      for (const p of levelPassages) {
+        await prisma.lesson.create({
+          data: {
+            id: `${unitId}-l${so}`,
+            unitId,
+            title: `Read: ${p.titleEn}`,
+            kind: "passage",
+            xpReward: 20,
+            estMinutes: p.minutes ?? 5,
+            sortOrder: so,
+            isPublished: true,
+            metadata: { readingId: p.id },
+          },
+        });
+        so += 1;
+        lessonCount += 1;
+      }
     }
   }
 
