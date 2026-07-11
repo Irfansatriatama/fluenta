@@ -16,7 +16,7 @@ export default async function DialogsPage({
   const dialogs = getDialogs(lang);
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="fl-enter mx-auto max-w-3xl">
       <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
         {meta.name} Dialogs
       </h1>

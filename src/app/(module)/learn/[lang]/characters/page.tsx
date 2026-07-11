@@ -16,7 +16,7 @@ export default async function CharactersPage({
   const groups = getCharacters(lang);
 
   return (
-    <div className="mx-auto max-w-4xl">
+    <div className="fl-enter mx-auto max-w-4xl">
       <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
         {meta.name} Characters
       </h1>

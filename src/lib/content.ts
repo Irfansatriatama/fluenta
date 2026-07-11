@@ -20,6 +20,8 @@ export type UnitNode = {
 
 export type ModuleData = {
   trackTitle: string;
+  trackLevel: string;
+  trackFramework: string;
   units: UnitNode[];
   completed: number;
   total: number;
@@ -45,7 +47,7 @@ export async function getModuleData(
       },
     },
   });
-  if (!track) return { trackTitle: "", units: [], completed: 0, total: 0, nextLessonId: null };
+  if (!track) return { trackTitle: "", trackLevel: "", trackFramework: "", units: [], completed: 0, total: 0, nextLessonId: null };
 
   const lessonIds = track.units.flatMap((u) => u.lessons.map((l) => l.id));
   const progress = await prisma.lessonProgress.findMany({
@@ -83,5 +85,13 @@ export async function getModuleData(
     }),
   }));
 
-  return { trackTitle: track.title, units, completed, total: lessonIds.length, nextLessonId };
+  return {
+    trackTitle: track.title,
+    trackLevel: track.level,
+    trackFramework: track.framework,
+    units,
+    completed,
+    total: lessonIds.length,
+    nextLessonId,
+  };
 }

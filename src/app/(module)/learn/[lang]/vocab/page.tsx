@@ -23,7 +23,7 @@ export default async function VocabPage({
     : [];
 
   return (
-    <div className="mx-auto max-w-4xl">
+    <div className="fl-enter mx-auto max-w-4xl">
       <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
         {meta.name} Vocabulary
       </h1>

@@ -1,20 +1,26 @@
+import { type ComponentType } from "react";
 import {
-  BookOpen,
-  Gamepad2,
-  Headphones,
-  Layers,
-  PencilLine,
-  type LucideIcon,
-} from "lucide-react";
+  DialogGlyph,
+  FlashcardGlyph,
+  ListeningGlyph,
+  QuizGlyph,
+  ReadingGlyph,
+  SpeakingGlyph,
+  WritingGlyph,
+} from "@/components/lesson/LessonGlyph";
 
-export const KIND_META: Record<string, { icon: LucideIcon; label: string }> = {
-  reading: { icon: BookOpen, label: "Reading" },
-  listening: { icon: Headphones, label: "Listening" },
-  writing: { icon: PencilLine, label: "Writing" },
-  quiz: { icon: Gamepad2, label: "Quiz" },
-  flashcard: { icon: Layers, label: "Flashcards" },
+type Glyph = ComponentType<{ className?: string; strokeWidth?: number }>;
+
+export const KIND_META: Record<string, { icon: Glyph; label: string }> = {
+  reading: { icon: ReadingGlyph, label: "Reading" },
+  listening: { icon: ListeningGlyph, label: "Listening" },
+  writing: { icon: WritingGlyph, label: "Writing" },
+  quiz: { icon: QuizGlyph, label: "Quiz" },
+  flashcard: { icon: FlashcardGlyph, label: "Flashcards" },
+  dialog: { icon: DialogGlyph, label: "Dialog" },
+  speaking: { icon: SpeakingGlyph, label: "Speaking" },
 };
 
 export function kindMeta(kind: string) {
-  return KIND_META[kind] ?? { icon: BookOpen, label: kind };
+  return KIND_META[kind] ?? { icon: ReadingGlyph, label: kind };
 }

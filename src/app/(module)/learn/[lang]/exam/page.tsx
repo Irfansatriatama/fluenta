@@ -73,7 +73,7 @@ export default async function ExamPrepPage({
   };
 
   return (
-    <div className="mx-auto max-w-4xl">
+    <div className="fl-enter mx-auto max-w-4xl">
       <div className="flex items-center gap-3">
         <span className="grid h-10 w-10 place-items-center rounded-xl bg-ivory ring-1 ring-edge" style={{ color: "var(--accent)" }}>
           <GraduationCap className="h-5 w-5" />

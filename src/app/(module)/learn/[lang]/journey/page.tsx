@@ -1,9 +1,18 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Check, Lock, Star } from "lucide-react";
+import { Mascot } from "@/components/lesson/Mascot";
 import { Stagger, StaggerItem } from "@/components/motion/motion";
 import { ProgressRing } from "@/components/ui/ProgressRing";
 import { getModuleData, type LessonNode } from "@/lib/content";
+
+// The level ladder per framework — the journey covers one level at a time.
+const FRAMEWORK_LEVELS: Record<string, string[]> = {
+  JLPT: ["N5", "N4", "N3", "N2", "N1"],
+  TOPIK: ["1", "2", "3", "4", "5", "6"],
+  HSK: ["1", "2", "3", "4", "5", "6"],
+  CEFR: ["A1", "A2", "B1", "B2", "C1", "C2"],
+};
 import { kindMeta } from "@/lib/lessonKind";
 import { getSession } from "@/lib/session";
 import { getLanguage } from "@/lib/theme";
@@ -72,7 +81,7 @@ function MapNode({ lang, lesson, offset, first }: { lang: string; lesson: Lesson
           style={{ borderColor: completed || current ? "color-mix(in srgb, var(--accent) 55%, transparent)" : "var(--color-edge)" }}
         />
       )}
-      {completed ? <Stars score={lesson.score} /> : <div className="mb-1 h-4" />}
+      {completed ? <Stars score={lesson.score} /> : current ? <Mascot className="fl-bob mb-1" /> : <div className="mb-1 h-4" />}
 
       {locked ? (
         <div className="opacity-70">{circle}</div>
@@ -82,15 +91,7 @@ function MapNode({ lang, lesson, offset, first }: { lang: string; lesson: Lesson
         </Link>
       )}
 
-      {current && (
-        <span
-          className="mt-2 animate-bounce rounded-full px-2.5 py-0.5 text-[0.6rem] font-extrabold uppercase tracking-wide text-white"
-          style={{ backgroundColor: "var(--accent)" }}
-        >
-          Start
-        </span>
-      )}
-      <p className={`mt-1.5 max-w-[10rem] text-center text-xs font-semibold ${locked ? "text-ink-faint" : "text-ink"}`}>{lesson.title}</p>
+      <p className={`mt-2 max-w-[10rem] text-center text-xs font-semibold ${locked ? "text-ink-faint" : "text-ink"}`}>{lesson.title}</p>
       <p className="text-[0.6rem] uppercase tracking-wide text-ink-faint">{completed ? label : locked ? "Locked" : `${label} · +${lesson.xpReward}`}</p>
     </div>
   );
@@ -114,7 +115,11 @@ export default async function JourneyPage({
       <div className="flex items-center justify-between gap-4">
         <div>
           <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">{language.name} Journey</h1>
-          <p className="mt-1 text-sm text-ink-soft">{data?.trackTitle}</p>
+          {data?.trackTitle && (
+            <span className="mt-1.5 inline-block rounded-full px-3 py-1 text-xs font-bold text-white" style={{ backgroundColor: "var(--accent)" }}>
+              {data.trackTitle} level
+            </span>
+          )}
         </div>
         <ProgressRing percent={percent} size={64} color="var(--accent)">
           <span className="text-xs font-bold text-ink">{percent}%</span>
@@ -125,6 +130,44 @@ export default async function JourneyPage({
         <p className="mt-8 rounded-2xl border hairline bg-paper p-6 text-sm text-ink-soft">Lessons for this language are coming soon.</p>
       ) : (
         <div className="mt-6 flex flex-col gap-2">
+          {/* level ladder — the journey covers one level at a time */}
+          {(() => {
+            const levels = FRAMEWORK_LEVELS[data.trackFramework] ?? [];
+            const activeIdx = levels.indexOf(data.trackLevel);
+            if (levels.length === 0) return null;
+            const labelOf = (lv: string) =>
+              data.trackFramework === "JLPT" || data.trackFramework === "CEFR" ? lv : `${data.trackFramework} ${lv}`;
+            return (
+              <div className="rounded-2xl border hairline bg-paper p-4 shadow-soft">
+                <p className="text-[0.65rem] font-bold uppercase tracking-wide text-ink-faint">{data.trackFramework} path</p>
+                <div className="mt-2 flex items-center gap-1.5 overflow-x-auto pb-1">
+                  {levels.map((lv, i) => {
+                    const active = i === activeIdx;
+                    const future = i > activeIdx;
+                    return (
+                      <div key={lv} className="flex items-center gap-1.5">
+                        <span
+                          className="inline-flex items-center gap-1 whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-bold"
+                          style={
+                            active
+                              ? { borderColor: "var(--accent)", backgroundColor: "color-mix(in srgb, var(--accent) 12%, transparent)", color: "var(--accent)" }
+                              : { borderColor: "var(--color-edge)", color: "var(--color-ink-faint)" }
+                          }
+                        >
+                          {future && <Lock className="h-3 w-3" />}
+                          {labelOf(lv)}
+                        </span>
+                        {i < levels.length - 1 && <span className="h-px w-3 shrink-0" style={{ backgroundColor: "var(--color-edge)" }} />}
+                      </div>
+                    );
+                  })}
+                </div>
+                <p className="mt-2 text-xs text-ink-soft">
+                  You&apos;re on <span className="font-semibold text-ink">{labelOf(data.trackLevel)}</span>. Finish it to open the next level.
+                </p>
+              </div>
+            );
+          })()}
           {data.units.map((unit) => {
             const done = unit.lessons.filter((l) => l.state === "completed").length;
             return (
