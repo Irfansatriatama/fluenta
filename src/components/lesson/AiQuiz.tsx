@@ -4,14 +4,14 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Check, RefreshCw, Sparkles, X } from "lucide-react";
 import { awardGameXp } from "@/lib/gameActions";
-import { generateQuiz, type QuizQuestion } from "@/lib/quizActions";
+import { buildQuiz, type QuizQuestion } from "@/lib/quizActions";
 
 const LEVELS = ["N5", "N4", "N3", "N2"];
 const FOCUS = [
   { key: "mixed", label: "Mixed" },
   { key: "vocab", label: "Vocabulary" },
   { key: "grammar", label: "Grammar" },
-  { key: "reading", label: "Reading" },
+  { key: "kanji", label: "Kanji" },
 ];
 
 export function AiQuiz({ lang, languageName }: { lang: string; languageName: string }) {
@@ -29,7 +29,7 @@ export function AiQuiz({ lang, languageName }: { lang: string; languageName: str
   function start() {
     setPhase("loading");
     startTransition(async () => {
-      const res = await generateQuiz({ languageName, level, focus });
+      const res = await buildQuiz({ languageName, level, focus });
       if (!res.available) setPhase("unavailable");
       else if (res.questions.length === 0) setPhase("empty");
       else {
@@ -70,10 +70,10 @@ export function AiQuiz({ lang, languageName }: { lang: string; languageName: str
     return (
       <div className="mx-auto max-w-xl">
         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide" style={{ color: "var(--accent)" }}>
-          <Sparkles className="h-4 w-4" /> AI Quiz
+          <Sparkles className="h-4 w-4" /> Practice Quiz
         </div>
         <h1 className="mt-2 font-display text-2xl font-extrabold text-ink">Fresh questions every time</h1>
-        <p className="mt-1 text-sm text-ink-soft">Pick a level and focus — the AI builds a new, verified quiz.</p>
+        <p className="mt-1 text-sm text-ink-soft">A new quiz drawn from your verified material — every answer is accurate.</p>
 
         <p className="mt-6 text-xs font-bold uppercase tracking-wide text-ink-soft">Level</p>
         <div className="mt-2 flex flex-wrap gap-2">
@@ -92,6 +92,7 @@ export function AiQuiz({ lang, languageName }: { lang: string; languageName: str
         <button onClick={start} disabled={phase === "loading"} className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-60" style={{ backgroundColor: "var(--accent)" }}>
           {phase === "loading" ? <><RefreshCw className="h-4 w-4 animate-spin" /> Building your quiz…</> : "Start quiz"}
         </button>
+        <p className="mt-3 text-center text-[0.7rem] text-ink-faint">Questions are built from Fluenta&apos;s verified grammar, vocabulary, and kanji.</p>
       </div>
     );
   }
