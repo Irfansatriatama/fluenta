@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, BookOpen, BookText, Check, Flame, Gamepad2, GraduationCap, Languages, Layers, Lock, MessagesSquare, Newspaper, PenLine, Repeat2 } from "lucide-react";
-import { LanguageSeal } from "@/components/brand/LanguageSeal";
-import { Pattern } from "@/components/brand/Pattern";
+import { HeroScene } from "@/components/brand/HeroScene";
 import { CountUp } from "@/components/motion/motion";
 import { ProgressRing } from "@/components/ui/ProgressRing";
 import { getModuleData } from "@/lib/content";
@@ -12,7 +11,7 @@ import { getSession } from "@/lib/session";
 import { studyTools } from "@/lib/staticContent";
 import { getLanguage } from "@/lib/theme";
 
-const card = "rounded-2xl border hairline bg-paper p-5 shadow-soft";
+const card = "fl-lift rounded-2xl border hairline bg-paper p-5 shadow-soft hover:shadow-lift";
 
 export default async function ModuleHomePage({
   params,
@@ -76,7 +75,7 @@ export default async function ModuleHomePage({
         </div>
       </div>
 
-      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="fl-enter mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3" style={{ animationDelay: "0.05s" }}>
         <div className={`${card} flex items-center gap-4`}>
           <ProgressRing percent={percent} size={64} color="var(--accent)">
             <span className="text-xs font-bold text-ink">{percent}%</span>
@@ -105,18 +104,19 @@ export default async function ModuleHomePage({
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-[1.6fr_1fr]">
+      <div className="fl-enter mt-4 grid grid-cols-1 gap-4 lg:grid-cols-[1.6fr_1fr]" style={{ animationDelay: "0.12s" }}>
         <div
-          className="relative overflow-hidden rounded-2xl border bg-paper p-6 shadow-soft"
+          className="relative flex min-h-[15rem] flex-col justify-end overflow-hidden rounded-3xl border shadow-lift"
           style={{ borderColor: "color-mix(in srgb, var(--accent) 28%, transparent)" }}
         >
+          <HeroScene className="pointer-events-none absolute inset-0 h-full w-full" />
           <span
             aria-hidden
-            className="pointer-events-none absolute inset-0"
-            style={{ background: "linear-gradient(135deg, color-mix(in srgb, var(--accent) 13%, transparent), transparent 55%)" }}
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3"
+            style={{ background: "linear-gradient(to top, var(--color-paper) 8%, color-mix(in srgb, var(--color-paper) 82%, transparent) 42%, transparent 100%)" }}
           />
-          <Pattern variant="seigaiha" className="pointer-events-none absolute inset-x-0 bottom-0 h-24 w-full text-[color:var(--accent)]" opacity={0.1} />
-          <p className="relative text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "var(--accent)" }}>
+          <div className="relative p-6">
+          <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "var(--accent)" }}>
             {nextLesson ? kindMeta(nextLesson.kind).label : language.name}
           </p>
           <h2 className="relative mt-2 font-display text-2xl font-extrabold text-ink">
@@ -142,8 +142,6 @@ export default async function ModuleHomePage({
               View journey
             </Link>
           )}
-          <div className="pointer-events-none absolute -right-2 top-1/2 -translate-y-1/2 opacity-90">
-            <LanguageSeal language={language} size={110} showLabel={false} />
           </div>
         </div>
 
@@ -194,7 +192,7 @@ export default async function ModuleHomePage({
       </div>
 
       {/* study tools */}
-      <section className="mt-6">
+      <section className="fl-enter mt-6" style={{ animationDelay: "0.19s" }}>
         <h2 className="flex items-center gap-2 font-display text-base font-bold text-ink">
           <span className="inline-block h-4 w-1 rounded-full" style={{ backgroundColor: "var(--accent)" }} />
           Study tools

@@ -103,6 +103,19 @@ body {
   background: var(--accent);
 }
 
+/* Hero illustration ambient motion (auto-stilled under reduced motion). */
+@keyframes fl-sun-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+.fl-sun { animation: fl-sun-pulse 6s ease-in-out infinite; }
+@keyframes fl-cloud { from { transform: translateX(-8px); } to { transform: translateX(30px); } }
+.fl-drift { animation: fl-cloud 22s ease-in-out infinite alternate; }
+.fl-drift-slow { animation: fl-cloud 34s ease-in-out infinite alternate; }
+@keyframes fl-wave-shift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(2px); } }
+.fl-wave { animation: fl-wave-shift 5s ease-in-out infinite; }
+
+/* Card hover: lift with a bit of depth. */
+.fl-lift { transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease; }
+.fl-lift:hover { transform: translateY(-3px); }
+
 /* Skeleton shimmer for loading states. */
 @keyframes fl-shimmer {
   0% { background-position: 200% 0; }

@@ -9,6 +9,7 @@ export const LESSON_KIND = {
   DIALOG: "dialog",
   SCRIPT: "script",
   PASSAGE: "passage",
+  CONVERSATION: "conversation",
 } as const;
 
 export const QUESTION_KIND = {
