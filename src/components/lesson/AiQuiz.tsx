@@ -152,8 +152,9 @@ export function AiQuiz({ lang, languageName }: { lang: string; languageName: str
           let style: React.CSSProperties = { borderColor: "var(--color-edge)" };
           if (picked !== null && isAns) style = { borderColor: "#2F7D53", backgroundColor: "color-mix(in srgb, #2F7D53 10%, transparent)" };
           else if (picked !== null && isPicked && !isAns) style = { borderColor: "#B23A2E", backgroundColor: "color-mix(in srgb, #B23A2E 10%, transparent)" };
+          const fx = picked !== null && isAns ? "fl-pop" : picked !== null && isPicked && !isAns ? "fl-shake" : "";
           return (
-            <button key={oi} onClick={() => choose(oi)} disabled={picked !== null} className="rounded-xl border px-4 py-3 text-left text-sm text-ink transition-colors disabled:cursor-default" style={style} lang={lang}>
+            <button key={oi} onClick={() => choose(oi)} disabled={picked !== null} className={`rounded-xl border px-4 py-3 text-left text-sm text-ink transition-colors disabled:cursor-default ${fx}`} style={style} lang={lang}>
               {opt}
             </button>
           );

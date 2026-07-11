@@ -49,6 +49,22 @@ body {
   border-color: color-mix(in srgb, var(--color-edge) 85%, transparent);
 }
 
+/* Quiz answer feedback — auto-neutralized by the reduced-motion block below. */
+@keyframes fl-shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-4px); }
+  40%, 60% { transform: translateX(4px); }
+}
+.fl-shake { animation: fl-shake 0.4s both; }
+
+@keyframes fl-pop {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+.fl-pop { animation: fl-pop 0.35s ease-out both; }
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

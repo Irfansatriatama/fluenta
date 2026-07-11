@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, BookOpen, BookText, Check, Flame, Gamepad2, GraduationCap, Languages, Layers, Lock, MessagesSquare, Newspaper, PenLine, Repeat2 } from "lucide-react";
 import { LanguageSeal } from "@/components/brand/LanguageSeal";
+import { CountUp } from "@/components/motion/motion";
 import { ProgressRing } from "@/components/ui/ProgressRing";
 import { getModuleData } from "@/lib/content";
 import { kindMeta } from "@/lib/lessonKind";
@@ -89,9 +90,7 @@ export default async function ModuleHomePage({
         </div>
         <div className={card}>
           <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">XP</p>
-          <p className="mt-2 font-display text-3xl font-extrabold text-ink">
-            {totalXp.toLocaleString()}
-          </p>
+          <CountUp to={totalXp} className="mt-2 block font-display text-3xl font-extrabold text-ink" />
           <p className="text-xs text-ink-soft">Total XP</p>
         </div>
         <div className={card}>

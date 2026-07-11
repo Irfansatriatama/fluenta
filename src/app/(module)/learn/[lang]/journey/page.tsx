@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Check, Lock, Star } from "lucide-react";
+import { Stagger, StaggerItem } from "@/components/motion/motion";
 import { ProgressRing } from "@/components/ui/ProgressRing";
 import { getModuleData, type LessonNode } from "@/lib/content";
 import { kindMeta } from "@/lib/lessonKind";
@@ -140,11 +141,13 @@ export default async function JourneyPage({
                   <span className="h-px flex-1" style={{ backgroundColor: "var(--color-edge)" }} />
                 </div>
 
-                <div className="flex flex-col items-center">
+                <Stagger className="flex flex-col items-center" gap={0.05}>
                   {unit.lessons.map((lesson, i) => (
-                    <MapNode key={lesson.id} lang={lang} lesson={lesson} offset={WAVE[i % WAVE.length]} first={i === 0} />
+                    <StaggerItem key={lesson.id}>
+                      <MapNode lang={lang} lesson={lesson} offset={WAVE[i % WAVE.length]} first={i === 0} />
+                    </StaggerItem>
                   ))}
-                </div>
+                </Stagger>
               </section>
             );
           })}

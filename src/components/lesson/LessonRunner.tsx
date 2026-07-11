@@ -1,8 +1,9 @@
 "use client";
 
-import { type CSSProperties, type ReactNode, useState, useTransition } from "react";
+import { type CSSProperties, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Check, Flame, Play, RotateCcw, Sparkles, Star, Target, X } from "lucide-react";
+import { ArrowRight, Play, RotateCcw, Sparkles, X } from "lucide-react";
+import { Celebration } from "@/components/lesson/Celebration";
 import { completeLesson } from "@/lib/lessonActions";
 import { gradeWriting, type WritingFeedback } from "@/lib/aiActions";
 
@@ -161,29 +162,15 @@ export function LessonRunner({
 
   if (result) {
     return (
-      <div className="mx-auto flex min-h-[70vh] max-w-md flex-col items-center justify-center text-center">
-        <h1 className="font-display text-3xl font-extrabold" style={{ color: "var(--accent)" }}>
-          Lesson complete!
-        </h1>
-        <p className="mt-2 text-ink-soft" lang="ja">
-          よくがんばりました！
-        </p>
-        <div className="mt-8 grid w-full grid-cols-3 gap-3">
-          <Stat icon={<Star className="h-5 w-5" />} value={`+${result.xp}`} label="XP" />
-          <Stat icon={<Flame className="h-5 w-5 text-flame" />} value={`${result.streakCurrent}`} label="day streak" />
-          <Stat icon={<Target className="h-5 w-5" />} value={`${result.score}%`} label="Accuracy" />
-        </div>
-        <button
-          onClick={() => {
-            router.push(`/learn/${lang}/journey`);
-            router.refresh();
-          }}
-          className="mt-8 w-full rounded-xl px-5 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90"
-          style={{ backgroundColor: "var(--accent)" }}
-        >
-          Continue
-        </button>
-      </div>
+      <Celebration
+        xp={result.xp}
+        streakCurrent={result.streakCurrent}
+        score={result.score}
+        onContinue={() => {
+          router.push(`/learn/${lang}/journey`);
+          router.refresh();
+        }}
+      />
     );
   }
 
@@ -333,16 +320,6 @@ export function LessonRunner({
           </button>
         )}
       </div>
-    </div>
-  );
-}
-
-function Stat({ icon, value, label }: { icon: ReactNode; value: string; label: string }) {
-  return (
-    <div className="rounded-2xl border hairline bg-paper p-4">
-      <div className="flex justify-center text-gold">{icon}</div>
-      <p className="mt-1 font-display text-xl font-extrabold text-ink">{value}</p>
-      <p className="text-[0.65rem] text-ink-soft">{label}</p>
     </div>
   );
 }
