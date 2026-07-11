@@ -1,0 +1,28 @@
+{
+  "items": [
+    { "id": "p1", "level": "N5", "before": "わたし", "after": "がくせいです。", "answer": "は", "options": ["は", "が", "を", "に"], "en": "I am a student.", "explain": "は marks the topic of the sentence." },
+    { "id": "p2", "level": "N5", "before": "パン", "after": "たべます。", "answer": "を", "options": ["を", "は", "で", "に"], "en": "I eat bread.", "explain": "を marks the direct object of a transitive verb." },
+    { "id": "p3", "level": "N5", "before": "がっこう", "after": "いきます。", "answer": "に", "options": ["に", "を", "で", "と"], "en": "I go to school.", "explain": "に marks the destination with movement verbs (いく/くる/かえる)." },
+    { "id": "p4", "level": "N5", "before": "としょかん", "after": "べんきょうします。", "answer": "で", "options": ["で", "に", "を", "へ"], "en": "I study at the library.", "explain": "で marks the place where an action happens." },
+    { "id": "p5", "level": "N5", "before": "ともだち", "after": "はなします。", "answer": "と", "options": ["と", "を", "が", "に"], "en": "I talk with a friend.", "explain": "と marks the person you do something together with." },
+    { "id": "p6", "level": "N5", "before": "これ", "after": "わたしのかばんです。", "answer": "は", "options": ["は", "を", "で", "と"], "en": "This is my bag.", "explain": "は marks the topic 'this'." },
+    { "id": "p7", "level": "N5", "before": "ねこ", "after": "います。", "answer": "が", "options": ["が", "は", "を", "に"], "en": "There is a cat.", "explain": "が marks the subject of existence (います/あります)." },
+    { "id": "p8", "level": "N5", "before": "くじ", "after": "おきます。", "answer": "に", "options": ["に", "で", "を", "から"], "en": "I wake up at nine.", "explain": "に marks a specific point in time." },
+    { "id": "p9", "level": "N5", "before": "でんしゃ", "after": "いきます。", "answer": "で", "options": ["で", "に", "を", "と"], "en": "I go by train.", "explain": "で marks the means or method (transport, tools)." },
+    { "id": "p10", "level": "N5", "before": "わたしのほん", "after": "どこですか。", "answer": "は", "options": ["は", "が", "を", "に"], "en": "Where is my book?", "explain": "は sets 'my book' as the topic being asked about." },
+    { "id": "p11", "level": "N5", "before": "みず", "after": "のみたいです。", "answer": "が", "options": ["が", "を", "は", "に"], "en": "I want to drink water.", "explain": "With 〜たい, the object often takes が (を is also acceptable)." },
+    { "id": "p12", "level": "N5", "before": "うち", "after": "かえります。", "answer": "に", "options": ["に", "で", "を", "から"], "en": "I return home.", "explain": "に marks the destination for かえる." },
+    { "id": "p13", "level": "N4", "before": "にほんご", "after": "にほんご", "middle": "", "answer": "が", "options": ["が", "を", "は", "に"], "en": "I am good at Japanese.", "sentence": "にほんご＿じょうずです。", "explain": "じょうず/へた/すき take が for the thing you are good at / like." },
+    { "id": "p14", "level": "N4", "before": "あさ", "after": "ばんまではたらきます。", "answer": "から", "options": ["から", "まで", "に", "で"], "en": "I work from morning until night.", "explain": "から marks the starting point (time or place)." },
+    { "id": "p15", "level": "N4", "before": "えき", "after": "あるきます。", "answer": "まで", "options": ["まで", "から", "に", "を"], "en": "I walk up to the station.", "explain": "まで marks the end point of movement or time." },
+    { "id": "p16", "level": "N4", "before": "こうえん", "after": "さんぽします。", "answer": "を", "options": ["を", "で", "に", "へ"], "en": "I take a walk through the park.", "explain": "を marks the path traversed with motion verbs (さんぽする/あるく/わたる)." },
+    { "id": "p17", "level": "N4", "before": "わたし", "after": "いきます。", "answer": "も", "options": ["も", "は", "が", "を"], "sentence": "わたし＿いきます。", "en": "I will go too.", "explain": "も means 'also/too', replacing は/が." },
+    { "id": "p18", "level": "N4", "before": "きょうと", "after": "いきました。", "answer": "へ", "options": ["へ", "を", "で", "から"], "en": "I went to Kyoto.", "explain": "へ marks direction of movement (interchangeable with に here)." },
+    { "id": "p19", "level": "N4", "before": "ちち", "after": "プレゼントをもらいました。", "answer": "に", "options": ["に", "を", "が", "で"], "en": "I received a present from my father.", "explain": "に marks the giver/source with もらう." },
+    { "id": "p20", "level": "N4", "before": "この", "after": "つくりました。", "answer": "で", "sentence": "この りょうり＿つくりました。", "options": ["で", "を", "に", "が"], "en": "I made this dish (using this).", "explain": "で marks the material or means used." },
+    { "id": "p21", "level": "N4", "before": "あめ", "after": "ふっています。", "answer": "が", "options": ["が", "を", "は", "で"], "en": "It is raining.", "explain": "が marks the subject of a natural phenomenon." },
+    { "id": "p22", "level": "N4", "before": "コーヒー", "after": "おちゃをのみます。", "answer": "か", "sentence": "コーヒー＿おちゃをのみます。", "options": ["か", "と", "も", "を"], "en": "I'll drink coffee or tea.", "explain": "か between nouns means 'or'." },
+    { "id": "p23", "level": "N4", "before": "せんせい", "after": "しつもんします。", "answer": "に", "options": ["に", "を", "が", "で"], "en": "I ask the teacher a question.", "explain": "に marks the person the action is directed to." },
+    { "id": "p24", "level": "N4", "before": "にく", "after": "やさいをかいました。", "answer": "と", "sentence": "にく＿やさいをかいました。", "options": ["と", "や", "も", "を"], "en": "I bought meat and vegetables.", "explain": "と links nouns as a complete 'and' list." }
+  ]
+}
