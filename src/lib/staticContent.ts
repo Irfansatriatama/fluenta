@@ -5,6 +5,7 @@ import gKo from "@/content/grammar/ko.json";
 import gZh from "@/content/grammar/zh.json";
 import gEn from "@/content/grammar/en.json";
 import dJa from "@/content/dialogs/ja.json";
+import dJaExtra from "@/content/dialogs/ja-extra.json";
 import dKo from "@/content/dialogs/ko.json";
 import dZh from "@/content/dialogs/zh.json";
 import dEn from "@/content/dialogs/en.json";
@@ -84,8 +85,13 @@ export function getGrammar(lang: string): GrammarPattern[] {
   const extra = (GRAMMAR_EXTRA[lang] ?? []).flatMap((g) => g.patterns);
   return [...(GRAMMAR[lang]?.patterns ?? []), ...extra];
 }
+// Hand-authored conversation supplements (regen-safe).
+const DIALOGS_EXTRA: Record<string, { dialogs: Dialog[] }> = {
+  ja: dJaExtra as { dialogs: Dialog[] },
+};
+
 export function getDialogs(lang: string): Dialog[] {
-  return DIALOGS[lang]?.dialogs ?? [];
+  return [...(DIALOGS[lang]?.dialogs ?? []), ...(DIALOGS_EXTRA[lang]?.dialogs ?? [])];
 }
 export function getDialog(lang: string, id: string): Dialog | null {
   return getDialogs(lang).find((d) => d.id === id) ?? null;

@@ -1,0 +1,145 @@
+{
+  "dialogs": [
+    {
+      "id": "ja-x-yoyaku",
+      "title": "Reserving a table by phone",
+      "level": "N4",
+      "description": "Book a restaurant table over the phone.",
+      "lines": [
+        { "speaker": "店員", "native": "はい、レストランさくらです。", "roman": "Hai, resutoran Sakura desu.", "gloss": "Hello, this is Restaurant Sakura." },
+        { "speaker": "客", "native": "もしもし、予約をお願いしたいのですが。", "roman": "Moshimoshi, yoyaku o onegai shitai no desu ga.", "gloss": "Hello, I'd like to make a reservation." },
+        { "speaker": "店員", "native": "ありがとうございます。何名様ですか。", "roman": "Arigatō gozaimasu. Nanmei-sama desu ka.", "gloss": "Thank you. For how many people?" },
+        { "speaker": "客", "native": "四人です。今夜七時にお願いします。", "roman": "Yonin desu. Kon'ya shichi-ji ni onegai shimasu.", "gloss": "Four people. For 7 o'clock tonight, please." },
+        { "speaker": "店員", "native": "かしこまりました。お名前をお願いします。", "roman": "Kashikomarimashita. O-namae o onegai shimasu.", "gloss": "Certainly. Your name, please." },
+        { "speaker": "客", "native": "田中です。", "roman": "Tanaka desu.", "gloss": "It's Tanaka." },
+        { "speaker": "店員", "native": "田中様、七時に四名様ですね。お待ちしております。", "roman": "Tanaka-sama, shichi-ji ni yonmei-sama desu ne. Omachi shite orimasu.", "gloss": "Mr. Tanaka, four people at seven. We look forward to seeing you." }
+      ]
+    },
+    {
+      "id": "ja-x-ginko",
+      "title": "Opening a bank account",
+      "level": "N4",
+      "description": "Open a new account at the bank.",
+      "lines": [
+        { "speaker": "客", "native": "すみません、口座を作りたいのですが。", "roman": "Sumimasen, kōza o tsukuritai no desu ga.", "gloss": "Excuse me, I'd like to open an account." },
+        { "speaker": "行員", "native": "はい。身分証明書はお持ちですか。", "roman": "Hai. Mibun shōmeisho wa o-mochi desu ka.", "gloss": "Certainly. Do you have an ID?" },
+        { "speaker": "客", "native": "はい、在留カードがあります。", "roman": "Hai, zairyū kādo ga arimasu.", "gloss": "Yes, I have a residence card." },
+        { "speaker": "行員", "native": "ありがとうございます。この用紙にご記入ください。", "roman": "Arigatō gozaimasu. Kono yōshi ni go-kinyū kudasai.", "gloss": "Thank you. Please fill in this form." },
+        { "speaker": "客", "native": "印鑑も必要ですか。", "roman": "Inkan mo hitsuyō desu ka.", "gloss": "Do I also need a seal (hanko)?" },
+        { "speaker": "行員", "native": "印鑑かサインをお願いします。", "roman": "Inkan ka sain o onegai shimasu.", "gloss": "A seal or a signature, please." }
+      ]
+    },
+    {
+      "id": "ja-x-yubinkyoku",
+      "title": "Sending a package",
+      "level": "N4",
+      "description": "Mail a parcel at the post office.",
+      "lines": [
+        { "speaker": "客", "native": "この荷物を送りたいのですが。", "roman": "Kono nimotsu o okuritai no desu ga.", "gloss": "I'd like to send this package." },
+        { "speaker": "局員", "native": "どちらまでですか。", "roman": "Dochira made desu ka.", "gloss": "Where to?" },
+        { "speaker": "客", "native": "大阪までお願いします。", "roman": "Ōsaka made onegai shimasu.", "gloss": "To Osaka, please." },
+        { "speaker": "局員", "native": "中身は何ですか。", "roman": "Nakami wa nan desu ka.", "gloss": "What are the contents?" },
+        { "speaker": "客", "native": "本と服です。", "roman": "Hon to fuku desu.", "gloss": "Books and clothes." },
+        { "speaker": "局員", "native": "では、八百円です。三日ほどで届きます。", "roman": "Dewa, happyaku-en desu. Mikka hodo de todokimasu.", "gloss": "That'll be 800 yen. It'll arrive in about three days." }
+      ]
+    },
+    {
+      "id": "ja-x-biyoin",
+      "title": "At the hair salon",
+      "level": "N4",
+      "description": "Ask for a haircut the way you want it.",
+      "lines": [
+        { "speaker": "美容師", "native": "今日はどうなさいますか。", "roman": "Kyō wa dō nasaimasu ka.", "gloss": "What would you like today?" },
+        { "speaker": "客", "native": "短く切ってください。", "roman": "Mijikaku kitte kudasai.", "gloss": "Please cut it short." },
+        { "speaker": "美容師", "native": "どのくらい切りますか。", "roman": "Dono kurai kirimasu ka.", "gloss": "How much should I cut?" },
+        { "speaker": "客", "native": "五センチぐらいお願いします。", "roman": "Go-senchi gurai onegai shimasu.", "gloss": "About five centimeters, please." },
+        { "speaker": "美容師", "native": "前髪はどうしますか。", "roman": "Maegami wa dō shimasu ka.", "gloss": "What about your bangs?" },
+        { "speaker": "客", "native": "前髪はそのままでいいです。", "roman": "Maegami wa sono mama de ii desu.", "gloss": "Leave the bangs as they are, please." }
+      ]
+    },
+    {
+      "id": "ja-x-fudosan",
+      "title": "Looking for an apartment",
+      "level": "N4",
+      "description": "Find a room at a real-estate agency.",
+      "lines": [
+        { "speaker": "客", "native": "駅の近くで部屋を探しています。", "roman": "Eki no chikaku de heya o sagashite imasu.", "gloss": "I'm looking for a room near the station." },
+        { "speaker": "店員", "native": "ご予算はどのくらいですか。", "roman": "Go-yosan wa dono kurai desu ka.", "gloss": "What's your budget?" },
+        { "speaker": "客", "native": "家賃七万円ぐらいまでです。", "roman": "Yachin nanaman-en gurai made desu.", "gloss": "Up to about 70,000 yen rent." },
+        { "speaker": "店員", "native": "では、こちらの物件はいかがですか。駅から歩いて五分です。", "roman": "Dewa, kochira no bukken wa ikaga desu ka. Eki kara aruite go-fun desu.", "gloss": "Then how about this property? It's a five-minute walk from the station." },
+        { "speaker": "客", "native": "いいですね。中を見せてもらえますか。", "roman": "Ii desu ne. Naka o misete moraemasu ka.", "gloss": "Nice. Could you show me inside?" },
+        { "speaker": "店員", "native": "もちろんです。今からご案内します。", "roman": "Mochiron desu. Ima kara go-annai shimasu.", "gloss": "Of course. I'll show you now." }
+      ]
+    },
+    {
+      "id": "ja-x-sasou",
+      "title": "Inviting a friend to a movie",
+      "level": "N5",
+      "description": "Make plans to see a film with a friend.",
+      "lines": [
+        { "speaker": "A", "native": "週末、映画を見に行かない？", "roman": "Shūmatsu, eiga o mi ni ikanai?", "gloss": "Want to go see a movie this weekend?" },
+        { "speaker": "B", "native": "いいね。何を見る？", "roman": "Ii ne. Nani o miru?", "gloss": "Sounds good. What should we see?" },
+        { "speaker": "A", "native": "新しいアニメの映画があるよ。", "roman": "Atarashii anime no eiga ga aru yo.", "gloss": "There's a new anime movie." },
+        { "speaker": "B", "native": "面白そう。土曜日は空いてる？", "roman": "Omoshirosō. Doyōbi wa aiteru?", "gloss": "Looks fun. Are you free on Saturday?" },
+        { "speaker": "A", "native": "うん、大丈夫。じゃあ、駅で三時に会おう。", "roman": "Un, daijōbu. Jā, eki de san-ji ni aō.", "gloss": "Yeah, I'm free. Let's meet at the station at three." },
+        { "speaker": "B", "native": "了解。楽しみにしてるね。", "roman": "Ryōkai. Tanoshimi ni shiteru ne.", "gloss": "Got it. Looking forward to it." }
+      ]
+    },
+    {
+      "id": "ja-x-yakkyoku",
+      "title": "At the pharmacy",
+      "level": "N4",
+      "description": "Buy medicine and ask how to take it.",
+      "lines": [
+        { "speaker": "客", "native": "頭が痛いんですが、薬はありますか。", "roman": "Atama ga itai n desu ga, kusuri wa arimasu ka.", "gloss": "I have a headache — do you have medicine for it?" },
+        { "speaker": "薬剤師", "native": "こちらの薬がよく効きますよ。", "roman": "Kochira no kusuri ga yoku kikimasu yo.", "gloss": "This medicine works well." },
+        { "speaker": "客", "native": "一日に何回飲みますか。", "roman": "Ichinichi ni nankai nomimasu ka.", "gloss": "How many times a day do I take it?" },
+        { "speaker": "薬剤師", "native": "食後に一日三回飲んでください。", "roman": "Shokugo ni ichinichi sankai nonde kudasai.", "gloss": "Take it three times a day after meals." },
+        { "speaker": "客", "native": "わかりました。これをください。", "roman": "Wakarimashita. Kore o kudasai.", "gloss": "Understood. I'll take this." },
+        { "speaker": "薬剤師", "native": "お大事に。", "roman": "O-daiji ni.", "gloss": "Take care / Get well soon." }
+      ]
+    },
+    {
+      "id": "ja-x-hoteru",
+      "title": "Hotel check-in",
+      "level": "N4",
+      "description": "Check in and ask about hotel facilities.",
+      "lines": [
+        { "speaker": "フロント", "native": "いらっしゃいませ。", "roman": "Irasshaimase.", "gloss": "Welcome." },
+        { "speaker": "客", "native": "予約した田中です。チェックインをお願いします。", "roman": "Yoyaku shita Tanaka desu. Chekku-in o onegai shimasu.", "gloss": "I'm Tanaka, I have a reservation. Check-in, please." },
+        { "speaker": "フロント", "native": "田中様ですね。お部屋は三〇五号室です。", "roman": "Tanaka-sama desu ne. O-heya wa sanmaru-go gōshitsu desu.", "gloss": "Mr. Tanaka. Your room is 305." },
+        { "speaker": "客", "native": "朝食は何時からですか。", "roman": "Chōshoku wa nanji kara desu ka.", "gloss": "What time does breakfast start?" },
+        { "speaker": "フロント", "native": "朝七時から九時までです。", "roman": "Asa shichi-ji kara ku-ji made desu.", "gloss": "From 7 to 9 in the morning." },
+        { "speaker": "客", "native": "Wi-Fiは使えますか。", "roman": "Wi-Fi wa tsukaemasu ka.", "gloss": "Can I use Wi-Fi?" },
+        { "speaker": "フロント", "native": "はい、こちらがパスワードです。", "roman": "Hai, kochira ga pasuwādo desu.", "gloss": "Yes, here's the password." }
+      ]
+    },
+    {
+      "id": "ja-x-chikoku",
+      "title": "Calling in late to work",
+      "level": "N4",
+      "description": "Phone the office to say you'll be late.",
+      "lines": [
+        { "speaker": "社員", "native": "もしもし、田中です。おはようございます。", "roman": "Moshimoshi, Tanaka desu. Ohayō gozaimasu.", "gloss": "Hello, this is Tanaka. Good morning." },
+        { "speaker": "課長", "native": "おはよう。どうした？", "roman": "Ohayō. Dō shita?", "gloss": "Morning. What's up?" },
+        { "speaker": "社員", "native": "すみません、電車が遅れていて、三十分ほど遅れそうです。", "roman": "Sumimasen, densha ga okurete ite, sanjuppun hodo okuresō desu.", "gloss": "Sorry, the train is delayed, so I'll be about 30 minutes late." },
+        { "speaker": "課長", "native": "わかった。気をつけて来てね。", "roman": "Wakatta. Ki o tsukete kite ne.", "gloss": "Got it. Come safely." },
+        { "speaker": "社員", "native": "はい、申し訳ありません。", "roman": "Hai, mōshiwake arimasen.", "gloss": "Yes, I'm very sorry." }
+      ]
+    },
+    {
+      "id": "ja-x-tenki",
+      "title": "Small talk about the weather",
+      "level": "N5",
+      "description": "Everyday small talk to break the ice.",
+      "lines": [
+        { "speaker": "A", "native": "今日はいい天気ですね。", "roman": "Kyō wa ii tenki desu ne.", "gloss": "Nice weather today, isn't it?" },
+        { "speaker": "B", "native": "そうですね。暖かくて気持ちいいです。", "roman": "Sō desu ne. Atatakakute kimochi ii desu.", "gloss": "Yes. It's warm and pleasant." },
+        { "speaker": "A", "native": "週末も晴れるといいですね。", "roman": "Shūmatsu mo hareru to ii desu ne.", "gloss": "I hope it's sunny on the weekend too." },
+        { "speaker": "B", "native": "ええ。どこか出かけますか。", "roman": "Ē. Dokoka dekakemasu ka.", "gloss": "Yes. Are you going out somewhere?" },
+        { "speaker": "A", "native": "公園に行こうと思っています。", "roman": "Kōen ni ikō to omotte imasu.", "gloss": "I'm thinking of going to the park." },
+        { "speaker": "B", "native": "いいですね。楽しんでください。", "roman": "Ii desu ne. Tanoshinde kudasai.", "gloss": "That's nice. Enjoy!" }
+      ]
+    }
+  ]
+}
