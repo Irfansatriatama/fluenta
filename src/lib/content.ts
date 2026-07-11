@@ -9,6 +9,7 @@ export type LessonNode = {
   kind: string;
   xpReward: number;
   state: LessonState;
+  score: number | null; // 0–100 for completed lessons (drives star rating)
 };
 
 export type UnitNode = {
@@ -53,6 +54,7 @@ export async function getModuleData(
   const doneSet = new Set(
     progress.filter((p) => p.status === PROGRESS_STATUS.COMPLETED).map((p) => p.lessonId),
   );
+  const scoreMap = new Map(progress.map((p) => [p.lessonId, p.score ?? null]));
 
   let prevCompleted = true;
   let completed = 0;
@@ -74,7 +76,10 @@ export async function getModuleData(
       } else {
         state = "locked";
       }
-      return { id: l.id, title: l.title, kind: l.kind, xpReward: l.xpReward, state };
+      return {
+        id: l.id, title: l.title, kind: l.kind, xpReward: l.xpReward, state,
+        score: state === "completed" ? (scoreMap.get(l.id) ?? 100) : null,
+      };
     }),
   }));
 
