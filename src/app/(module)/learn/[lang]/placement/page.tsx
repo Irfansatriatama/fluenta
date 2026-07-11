@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Sparkles } from "lucide-react";
 import { LanguageSeal } from "@/components/brand/LanguageSeal";
 import { getLanguage } from "@/lib/theme";
 import { activateLanguage } from "./actions";
@@ -54,6 +56,24 @@ export default async function PlacementPage({
           Start learning {language.name}
         </button>
       </form>
+
+      {lang === "ja" && (
+        <div className="mt-6 w-full">
+          <div className="flex items-center gap-3">
+            <span className="h-px flex-1" style={{ backgroundColor: "var(--color-edge)" }} />
+            <span className="text-xs text-ink-faint">or</span>
+            <span className="h-px flex-1" style={{ backgroundColor: "var(--color-edge)" }} />
+          </div>
+          <Link
+            href={`/learn/${lang}/placement/test`}
+            className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl border px-5 py-3 text-sm font-bold text-ink transition-colors hover:border-[color:var(--accent)]"
+            style={{ borderColor: "var(--color-edge)" }}
+          >
+            <Sparkles className="h-4 w-4" style={{ color: "var(--accent)" }} />
+            Not sure? Take a 2-minute level test
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

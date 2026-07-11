@@ -1,6 +1,7 @@
 "use server";
 
 import particlesData from "@/content/practice/particles-ja.json";
+import { aiChat, isAiConfigured } from "@/lib/ai";
 import { prisma } from "@/lib/prisma";
 import { getGrammar } from "@/lib/staticContent";
 
@@ -154,4 +155,71 @@ export async function buildQuiz(input: {
     }
   }
   return { available: true, questions };
+}
+
+// ---- AI-assisted placement (accuracy: scoring is grounded, AI only advises) ----
+
+export type PlacementQuestion = QuizQuestion & { level: string };
+
+const PLACEMENT_LEVELS = ["N5", "N4", "N3"];
+
+// Build level-tagged questions from EXACT-level verified content, so per-level
+// accuracy actually discriminates the learner's level.
+export async function buildPlacement(languageName: string): Promise<{ questions: PlacementQuestion[] }> {
+  if (languageName !== "Japanese") return { questions: [] };
+  const language = await prisma.language.findUnique({ where: { code: "ja" } });
+  if (!language) return { questions: [] };
+  const grammarAll = getGrammar("ja");
+  const out: PlacementQuestion[] = [];
+
+  for (const level of PLACEMENT_LEVELS) {
+    const gpool = grammarAll.filter((g) => (g.level || "").toUpperCase() === level).map((g) => g);
+    const kcards = await prisma.card.findMany({
+      where: { deckId: `deck-ja-kanji-${level.toLowerCase()}` },
+      select: { front: true, back: true },
+      take: 200,
+    });
+    const seen = new Set<string>();
+    const push = (q: QuizQuestion | null) => {
+      if (q && !seen.has(q.q)) {
+        seen.add(q.q);
+        out.push({ ...q, level });
+      }
+    };
+    for (let i = 0; i < 3 && gpool.length >= 4; i += 1) {
+      const g = pick(gpool);
+      push(mcq(`「${g.pattern}」の意味は？`, g.meaning, gpool.map((x) => x.meaning), g.explanation ?? "", "grammar"));
+    }
+    for (let i = 0; i < 2 && kcards.length >= 4; i += 1) {
+      const c = pick(kcards);
+      push(mcq(`「${c.front}」の意味は？`, c.back, kcards.map((x) => x.back), "", "kanji"));
+    }
+  }
+  return { questions: shuffle(out) };
+}
+
+// AI writes a warm recommendation from the (deterministic) score breakdown.
+export async function recommendPlacement(input: {
+  languageName: string;
+  startLevel: string;
+  perLevel: { level: string; correct: number; total: number }[];
+}): Promise<{ message: string; aiPowered: boolean }> {
+  const fallback = `Based on your answers, starting at ${input.startLevel} is a good fit. Build a daily flashcard habit and work through the ${input.startLevel} grammar and kanji.`;
+  if (!isAiConfigured()) return { message: fallback, aiPowered: false };
+  try {
+    const summary = input.perLevel.map((p) => `${p.level}: ${p.correct}/${p.total}`).join(", ");
+    const text = await aiChat({
+      maxTokens: 400,
+      system:
+        `You are a warm, encouraging ${input.languageName} learning advisor. In 2-3 short sentences, tell the ` +
+        `learner their recommended starting level and 2 concrete focus areas (skills or topics) based on their ` +
+        `placement results. Be specific and supportive. Never use emoji.`,
+      messages: [
+        { role: "user", content: `Placement results (correct/total per JLPT level): ${summary}. Recommended start: ${input.startLevel}. Write the recommendation.` },
+      ],
+    });
+    return { message: text.trim() || fallback, aiPowered: true };
+  } catch {
+    return { message: fallback, aiPowered: false };
+  }
 }
