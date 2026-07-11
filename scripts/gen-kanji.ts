@@ -18,6 +18,7 @@ type Kanji = {
   on: string[];
   kun: string[];
   meanings: string[];
+  tier: string;
 };
 type CharItem = { char: string; sub: string; meaning: string; example?: string };
 type CharGroup = { title: string; items: CharItem[] };
@@ -40,18 +41,22 @@ const toItem = (k: Kanji): CharItem => ({
   meaning: k.meanings.slice(0, 3).join(", "),
 });
 
-const LEVELS: { title: string; test: (k: Kanji) => boolean }[] = [
-  { title: "Kanji · JLPT N5", test: (k) => k.jlpt === 5 },
-  { title: "Kanji · JLPT N4", test: (k) => k.jlpt === 4 },
-  { title: "Kanji · JLPT N3", test: (k) => k.jlpt === 3 },
-  { title: "Kanji · JLPT N2", test: (k) => k.jlpt === 2 },
-  { title: "Kanji · JLPT N1", test: (k) => k.jlpt === 1 },
-  { title: "Kanji · Jōyō (extra)", test: (k) => k.jlpt == null },
+// The browse grid shows the documented common-use set (JLPT + Jōyō + Jinmeiyō
+// + frequency-ranked). The far rarer "extended" tier lives only in study decks.
+const LEVELS: { title: string; tier: string }[] = [
+  { title: "Kanji · JLPT N5", tier: "N5" },
+  { title: "Kanji · JLPT N4", tier: "N4" },
+  { title: "Kanji · JLPT N3", tier: "N3" },
+  { title: "Kanji · JLPT N2", tier: "N2" },
+  { title: "Kanji · JLPT N1", tier: "N1" },
+  { title: "Kanji · Jōyō (extra)", tier: "jouyo" },
+  { title: "Kanji · Jinmeiyō (name kanji)", tier: "jinmeiyo" },
+  { title: "Kanji · Common (frequency)", tier: "common" },
 ];
 
 const kanjiGroups: CharGroup[] = LEVELS.map((lv) => ({
   title: lv.title,
-  items: kanji.filter(lv.test).map(toItem),
+  items: kanji.filter((k) => k.tier === lv.tier).map(toItem),
 })).filter((g) => g.items.length > 0);
 
 // Keep the existing kana groups, drop any previous kanji group, append the new ones.

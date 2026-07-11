@@ -27,6 +27,7 @@ type Kanji = {
   on: string[];
   kun: string[];
   meanings: string[];
+  tier: string;
 };
 
 const kanji: Kanji[] = JSON.parse(
@@ -59,32 +60,55 @@ function loadLingoraExamples(): Map<string, string> {
   return map;
 }
 
-const DECKS: { id: string; title: string; test: (k: Kanji) => boolean; level: string }[] = [
-  { id: "deck-ja-kanji-n5", title: "Kanji N5", level: "N5", test: (k) => k.jlpt === 5 },
-  { id: "deck-ja-kanji-n4", title: "Kanji N4", level: "N4", test: (k) => k.jlpt === 4 },
-  { id: "deck-ja-kanji-n3", title: "Kanji N3", level: "N3", test: (k) => k.jlpt === 3 },
-  { id: "deck-ja-kanji-n2", title: "Kanji N2", level: "N2", test: (k) => k.jlpt === 2 },
-  { id: "deck-ja-kanji-n1", title: "Kanji N1", level: "N1", test: (k) => k.jlpt === 1 },
-  { id: "deck-ja-kanji-jouyou", title: "Kanji · Jōyō (extra)", level: "Jōyō", test: (k) => k.jlpt == null },
-];
+type DeckDef = { id: string; title: string; level: string; test: (k: Kanji) => boolean };
+
+// Fixed tiers plus dynamically-chunked "extended" (rare) decks.
+const EXT_CHUNK = 800;
+function buildDeckDefs(kanji: Kanji[]): DeckDef[] {
+  const defs: DeckDef[] = [
+    { id: "deck-ja-kanji-n5", title: "Kanji N5", level: "N5", test: (k) => k.tier === "N5" },
+    { id: "deck-ja-kanji-n4", title: "Kanji N4", level: "N4", test: (k) => k.tier === "N4" },
+    { id: "deck-ja-kanji-n3", title: "Kanji N3", level: "N3", test: (k) => k.tier === "N3" },
+    { id: "deck-ja-kanji-n2", title: "Kanji N2", level: "N2", test: (k) => k.tier === "N2" },
+    { id: "deck-ja-kanji-n1", title: "Kanji N1", level: "N1", test: (k) => k.tier === "N1" },
+    { id: "deck-ja-kanji-jouyou", title: "Kanji · Jōyō (extra)", level: "Jōyō", test: (k) => k.tier === "jouyo" },
+    { id: "deck-ja-kanji-jinmeiyo", title: "Kanji · Jinmeiyō (names)", level: "Jinmeiyō", test: (k) => k.tier === "jinmeiyo" },
+    { id: "deck-ja-kanji-common", title: "Kanji · Common (frequency)", level: "Common", test: (k) => k.tier === "common" },
+  ];
+  const ext = kanji.filter((k) => k.tier === "extended");
+  const chunks = Math.ceil(ext.length / EXT_CHUNK);
+  for (let i = 0; i < chunks; i += 1) {
+    const set = new Set(ext.slice(i * EXT_CHUNK, (i + 1) * EXT_CHUNK).map((k) => k.char));
+    defs.push({
+      id: `deck-ja-kanji-ext-${i + 1}`,
+      title: `Kanji · Extended ${i + 1}`,
+      level: "Extended",
+      test: (k) => set.has(k.char),
+    });
+  }
+  return defs;
+}
 
 async function main() {
   const language = await prisma.language.findUnique({ where: { code: "ja" } });
   if (!language) throw new Error("Japanese language row not found — run db:seed first.");
 
   const examples = loadLingoraExamples();
+  const decks = buildDeckDefs(kanji);
 
-  // Clear only the kanji decks (and dependents) so this is safe to re-run.
-  const deckIds = DECKS.map((d) => d.id);
-  const oldCards = await prisma.card.findMany({ where: { deckId: { in: deckIds } }, select: { id: true } });
+  // Clear ALL kanji decks (and dependents) by prefix so re-runs stay clean even
+  // if the number of extended chunks changes.
+  const oldDecks = await prisma.deck.findMany({ where: { id: { startsWith: "deck-ja-kanji" } }, select: { id: true } });
+  const oldDeckIds = oldDecks.map((d) => d.id);
+  const oldCards = await prisma.card.findMany({ where: { deckId: { in: oldDeckIds } }, select: { id: true } });
   if (oldCards.length) {
     await prisma.cardReview.deleteMany({ where: { cardId: { in: oldCards.map((c) => c.id) } } });
   }
-  await prisma.card.deleteMany({ where: { deckId: { in: deckIds } } });
-  await prisma.deck.deleteMany({ where: { id: { in: deckIds } } });
+  await prisma.card.deleteMany({ where: { deckId: { in: oldDeckIds } } });
+  await prisma.deck.deleteMany({ where: { id: { in: oldDeckIds } } });
 
   let cardTotal = 0;
-  for (const def of DECKS) {
+  for (const def of decks) {
     const items = kanji.filter(def.test);
     if (items.length === 0) continue;
 
@@ -117,7 +141,7 @@ async function main() {
     console.log(`  ${def.title}: ${rows.length} kanji`);
   }
 
-  console.log(`Imported ${DECKS.length} kanji decks / ${cardTotal} kanji (JLPT N5→N1 + Jōyō).`);
+  console.log(`Imported ${decks.length} kanji decks / ${cardTotal} kanji (JLPT + Jōyō + Jinmeiyō + Common + Extended).`);
 }
 
 main()
