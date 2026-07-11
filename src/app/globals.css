@@ -87,6 +87,22 @@ body {
 }
 .fl-enter { animation: fl-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
+/* Section heading with an accent bar — a small designed touch across pages. */
+.fl-heading {
+  position: relative;
+  padding-left: 0.85rem;
+}
+.fl-heading::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.18em;
+  bottom: 0.18em;
+  width: 4px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
 /* Skeleton shimmer for loading states. */
 @keyframes fl-shimmer {
   0% { background-position: 200% 0; }

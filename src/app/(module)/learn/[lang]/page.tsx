@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, BookOpen, BookText, Check, Flame, Gamepad2, GraduationCap, Languages, Layers, Lock, MessagesSquare, Newspaper, PenLine, Repeat2 } from "lucide-react";
 import { LanguageSeal } from "@/components/brand/LanguageSeal";
+import { Pattern } from "@/components/brand/Pattern";
 import { CountUp } from "@/components/motion/motion";
 import { ProgressRing } from "@/components/ui/ProgressRing";
 import { getModuleData } from "@/lib/content";
@@ -88,12 +89,14 @@ export default async function ModuleHomePage({
             <p className="text-xs text-ink-soft">lessons</p>
           </div>
         </div>
-        <div className={card}>
+        <div className={`${card} relative overflow-hidden`}>
+          <span aria-hidden className="pointer-events-none absolute -right-8 -top-8 h-20 w-20 rounded-full" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%)" }} />
           <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">XP</p>
           <CountUp to={totalXp} className="mt-2 block font-display text-3xl font-extrabold text-ink" />
           <p className="text-xs text-ink-soft">Total XP</p>
         </div>
-        <div className={card}>
+        <div className={`${card} relative overflow-hidden`}>
+          <span aria-hidden className="pointer-events-none absolute -right-8 -top-8 h-20 w-20 rounded-full" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-gold) 18%, transparent), transparent 70%)" }} />
           <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">Daily Goal</p>
           <p className="mt-2 font-display text-2xl font-extrabold text-ink">
             {goal} <span className="text-base font-semibold text-ink-soft">min</span>
@@ -107,19 +110,25 @@ export default async function ModuleHomePage({
           className="relative overflow-hidden rounded-2xl border bg-paper p-6 shadow-soft"
           style={{ borderColor: "color-mix(in srgb, var(--accent) 28%, transparent)" }}
         >
-          <p className="text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "var(--accent)" }}>
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{ background: "linear-gradient(135deg, color-mix(in srgb, var(--accent) 13%, transparent), transparent 55%)" }}
+          />
+          <Pattern variant="seigaiha" className="pointer-events-none absolute inset-x-0 bottom-0 h-24 w-full text-[color:var(--accent)]" opacity={0.1} />
+          <p className="relative text-xs font-bold uppercase tracking-[0.18em]" style={{ color: "var(--accent)" }}>
             {nextLesson ? kindMeta(nextLesson.kind).label : language.name}
           </p>
-          <h2 className="mt-2 font-display text-2xl font-extrabold text-ink">
+          <h2 className="relative mt-2 font-display text-2xl font-extrabold text-ink">
             {nextLesson ? nextLesson.title : "All caught up!"}
           </h2>
-          <p className="mt-1 text-sm text-ink-soft">
+          <p className="relative mt-1 text-sm text-ink-soft">
             {nextLesson ? `+${nextLesson.xpReward} XP` : "You've completed every lesson here."}
           </p>
           {nextLesson ? (
             <Link
               href={`/learn/${lang}/lesson/${nextLesson.id}`}
-              className="mt-5 inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-opacity hover:opacity-90"
+              className="relative mt-5 inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-opacity hover:opacity-90"
               style={{ backgroundColor: "var(--accent)" }}
             >
               Continue
@@ -128,7 +137,7 @@ export default async function ModuleHomePage({
           ) : (
             <Link
               href={`/learn/${lang}/journey`}
-              className="mt-5 inline-flex items-center gap-2 rounded-xl border border-edge px-5 py-2.5 text-sm font-bold text-ink transition-colors hover:border-gold/60"
+              className="relative mt-5 inline-flex items-center gap-2 rounded-xl border border-edge px-5 py-2.5 text-sm font-bold text-ink transition-colors hover:border-gold/60"
             >
               View journey
             </Link>
@@ -186,15 +195,21 @@ export default async function ModuleHomePage({
 
       {/* study tools */}
       <section className="mt-6">
-        <h2 className="font-display text-base font-bold text-ink">Study tools</h2>
+        <h2 className="flex items-center gap-2 font-display text-base font-bold text-ink">
+          <span className="inline-block h-4 w-1 rounded-full" style={{ backgroundColor: "var(--accent)" }} />
+          Study tools
+        </h2>
         <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {toolCards.map(({ href, icon: Icon, title, sub }) => (
             <Link
               key={href}
               href={href}
-              className="flex flex-col gap-2 rounded-2xl border hairline bg-paper p-4 shadow-soft transition-colors hover:border-[color:var(--accent)]"
+              className="group flex flex-col gap-2 rounded-2xl border hairline bg-paper p-4 shadow-soft transition-all hover:-translate-y-0.5 hover:border-[color:var(--accent)] hover:shadow-lift"
             >
-              <span className="grid h-10 w-10 place-items-center rounded-xl bg-ivory ring-1 ring-edge" style={{ color: "var(--accent)" }}>
+              <span
+                className="grid h-10 w-10 place-items-center rounded-xl"
+                style={{ backgroundColor: "color-mix(in srgb, var(--accent) 12%, transparent)", color: "var(--accent)" }}
+              >
                 <Icon className="h-5 w-5" />
               </span>
               <div>

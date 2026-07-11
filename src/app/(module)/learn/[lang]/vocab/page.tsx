@@ -24,7 +24,7 @@ export default async function VocabPage({
 
   return (
     <div className="fl-enter mx-auto max-w-4xl">
-      <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
+      <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
         {meta.name} Vocabulary
       </h1>
       <p className="mt-1 text-sm text-ink-soft">Study word decks with spaced-repetition flashcards.</p>

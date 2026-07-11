@@ -17,7 +17,7 @@ export default async function CharactersPage({
 
   return (
     <div className="fl-enter mx-auto max-w-4xl">
-      <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
+      <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
         {meta.name} Characters
       </h1>
       <p className="mt-1 text-sm text-ink-soft">Writing systems, readings, and examples.</p>

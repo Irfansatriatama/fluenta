@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Check, Lock, Star } from "lucide-react";
 import { Mascot } from "@/components/lesson/Mascot";
+import { Pattern } from "@/components/brand/Pattern";
 import { Stagger, StaggerItem } from "@/components/motion/motion";
 import { ProgressRing } from "@/components/ui/ProgressRing";
 import { getModuleData, type LessonNode } from "@/lib/content";
@@ -138,9 +139,10 @@ export default async function JourneyPage({
             const labelOf = (lv: string) =>
               data.trackFramework === "JLPT" || data.trackFramework === "CEFR" ? lv : `${data.trackFramework} ${lv}`;
             return (
-              <div className="rounded-2xl border hairline bg-paper p-4 shadow-soft">
-                <p className="text-[0.65rem] font-bold uppercase tracking-wide text-ink-faint">{data.trackFramework} path</p>
-                <div className="mt-2 flex items-center gap-1.5 overflow-x-auto pb-1">
+              <div className="relative overflow-hidden rounded-2xl border hairline bg-paper p-4 shadow-soft">
+                <Pattern variant="seigaiha" className="pointer-events-none absolute -right-4 -top-4 h-24 w-40 text-[color:var(--accent)]" opacity={0.09} />
+                <p className="relative text-[0.65rem] font-bold uppercase tracking-wide text-ink-faint">{data.trackFramework} path</p>
+                <div className="relative mt-2 flex items-center gap-1.5 overflow-x-auto pb-1">
                   {levels.map((lv, i) => {
                     const active = i === activeIdx;
                     const future = i > activeIdx;
@@ -162,7 +164,7 @@ export default async function JourneyPage({
                     );
                   })}
                 </div>
-                <p className="mt-2 text-xs text-ink-soft">
+                <p className="relative mt-2 text-xs text-ink-soft">
                   You&apos;re on <span className="font-semibold text-ink">{labelOf(data.trackLevel)}</span>. Finish it to open the next level.
                 </p>
               </div>
