@@ -466,6 +466,203 @@
         { "q": "政府はどんな政策を進めていますか。", "options": ["外国人労働者を受け入れる", "工場を閉じる", "税金を下げる", "学校を増やす"], "answer": 0, "explanation": "「外国人の労働者を受け入れる政策」。" },
         { "q": "これからの大きな課題は何ですか。", "options": ["社会全体で支え合うこと", "旅行すること", "車を作ること", "英語を学ぶこと"], "answer": 0, "explanation": "「社会全体で支え合うことが…大きな課題だ」。" }
       ]
+    },
+    {
+      "id": "ja-news-hatsuyuki", "type": "news", "level": "N5", "title": "東京で初雪", "titleEn": "First snow in Tokyo", "topic": "Weather", "summary": "Original easy-news style piece about the season's first snow.", "minutes": 3,
+      "blocks": [
+        { "jp": "今朝、東京で初雪が降りました。", "reading": "けさ、とうきょうではつゆきがふりました。", "en": "This morning, the first snow of the season fell in Tokyo." },
+        { "jp": "今年は去年より早いです。", "reading": "ことしはきょねんよりはやいです。", "en": "This year it's earlier than last year." },
+        { "jp": "子供たちは公園で雪で遊びました。", "reading": "こどもたちはこうえんでゆきであそびました。", "en": "Children played in the snow at the park." },
+        { "jp": "道が滑るので、気をつけてください。", "reading": "みちがすべるので、きをつけてください。", "en": "The roads are slippery, so please be careful." }
+      ],
+      "vocab": [
+        { "word": "初雪", "reading": "はつゆき", "meaning": "first snow of the season" },
+        { "word": "降る", "reading": "ふる", "meaning": "to fall (rain/snow)" },
+        { "word": "去年", "reading": "きょねん", "meaning": "last year" },
+        { "word": "滑る", "reading": "すべる", "meaning": "to slip, be slippery" },
+        { "word": "気をつける", "reading": "きをつける", "meaning": "to be careful" }
+      ],
+      "questions": [
+        { "q": "いつ初雪が降りましたか。", "options": ["今朝", "昨日の夜", "先週", "去年"], "answer": 0, "explanation": "「今朝、初雪が降りました」。" },
+        { "q": "今年は去年とくらべてどうですか。", "options": ["遅い", "早い", "同じ", "わからない"], "answer": 1, "explanation": "「今年は去年より早いです」。" },
+        { "q": "何に気をつけますか。", "options": ["風が強いこと", "道が滑ること", "電車の遅れ", "暑さ"], "answer": 1, "explanation": "「道が滑るので、気をつけてください」。" }
+      ]
+    },
+    {
+      "id": "ja-news-panda", "type": "news", "level": "N4", "title": "動物園でパンダの赤ちゃん", "titleEn": "A baby panda at the zoo", "topic": "Society", "summary": "Original news-style piece about a baby panda born at a zoo.", "minutes": 4,
+      "blocks": [
+        { "jp": "東京の動物園で、パンダの赤ちゃんが生まれました。", "reading": "とうきょうのどうぶつえんで、パンダのあかちゃんがうまれました。", "en": "A baby panda was born at a zoo in Tokyo." },
+        { "jp": "赤ちゃんはとても小さくて、体重は二百グラムです。", "reading": "あかちゃんはとてもちいさくて、たいじゅうはにひゃくグラムです。", "en": "The baby is very small, weighing 200 grams." },
+        { "jp": "名前はまだ決まっていません。", "reading": "なまえはまだきまっていません。", "en": "Its name has not been decided yet." },
+        { "jp": "動物園は来月、赤ちゃんを公開する予定です。", "reading": "どうぶつえんはらいげつ、あかちゃんをこうかいするよていです。", "en": "The zoo plans to show the baby to the public next month." },
+        { "jp": "多くの人が見に来るでしょう。", "reading": "おおくのひとがみにくるでしょう。", "en": "Many people will probably come to see it." }
+      ],
+      "vocab": [
+        { "word": "動物園", "reading": "どうぶつえん", "meaning": "zoo" },
+        { "word": "生まれる", "reading": "うまれる", "meaning": "to be born" },
+        { "word": "体重", "reading": "たいじゅう", "meaning": "body weight" },
+        { "word": "決まる", "reading": "きまる", "meaning": "to be decided" },
+        { "word": "公開する", "reading": "こうかいする", "meaning": "to make public, show" }
+      ],
+      "questions": [
+        { "q": "赤ちゃんはどこで生まれましたか。", "options": ["公園", "動物園", "病院", "学校"], "answer": 1, "explanation": "「動物園で…生まれました」。" },
+        { "q": "赤ちゃんの体重はどのくらいですか。", "options": ["二百グラム", "二キロ", "二十グラム", "二百キロ"], "answer": 0, "explanation": "「体重は二百グラムです」。" },
+        { "q": "いつ公開しますか。", "options": ["今日", "来週", "来月", "来年"], "answer": 2, "explanation": "「来月、赤ちゃんを公開する予定です」。" }
+      ]
+    },
+    {
+      "id": "ja-news-eki", "type": "news", "level": "N4", "title": "町に新しい駅ができる", "titleEn": "A new station for the town", "topic": "Transport", "summary": "Original news-style piece about a new station opening.", "minutes": 4,
+      "blocks": [
+        { "jp": "来週、町に新しい駅ができます。", "reading": "らいしゅう、まちにあたらしいえきができます。", "en": "Next week, a new station will open in the town." },
+        { "jp": "この駅から空港まで三十分で行けます。", "reading": "このえきからくうこうまでさんじゅっぷんでいけます。", "en": "From this station you can reach the airport in 30 minutes." },
+        { "jp": "駅の中には店やカフェもあります。", "reading": "えきのなかにはみせやカフェもあります。", "en": "Inside the station there are shops and cafés too." },
+        { "jp": "近くに住む人はとても便利になります。", "reading": "ちかくにすむひとはとてもべんりになります。", "en": "It will be very convenient for people living nearby." },
+        { "jp": "開業の日には、イベントも行われます。", "reading": "かいぎょうのひには、イベントもおこなわれます。", "en": "On opening day, an event will also be held." }
+      ],
+      "vocab": [
+        { "word": "空港", "reading": "くうこう", "meaning": "airport" },
+        { "word": "便利", "reading": "べんり", "meaning": "convenient" },
+        { "word": "開業", "reading": "かいぎょう", "meaning": "opening (of a business)" },
+        { "word": "行われる", "reading": "おこなわれる", "meaning": "to be held" },
+        { "word": "住む", "reading": "すむ", "meaning": "to live, reside" }
+      ],
+      "questions": [
+        { "q": "新しい駅はいつできますか。", "options": ["今日", "来週", "来月", "来年"], "answer": 1, "explanation": "「来週、新しい駅ができます」。" },
+        { "q": "駅から空港までどのくらいかかりますか。", "options": ["十分", "三十分", "一時間", "二時間"], "answer": 1, "explanation": "「空港まで三十分で行けます」。" },
+        { "q": "開業の日に何がありますか。", "options": ["セール", "イベント", "花火", "試験"], "answer": 1, "explanation": "「イベントも行われます」。" }
+      ]
+    },
+    {
+      "id": "ja-news-robotto", "type": "news", "level": "N4", "title": "ロボットが働くレストラン", "titleEn": "A restaurant where robots work", "topic": "Technology", "summary": "Original news-style piece about robots serving food.", "minutes": 4,
+      "blocks": [
+        { "jp": "ある町のレストランで、ロボットが料理を運んでいます。", "reading": "あるまちのレストランで、ロボットがりょうりをはこんでいます。", "en": "At a restaurant in a certain town, robots carry the food." },
+        { "jp": "ロボットはテーブルまで料理を届けます。", "reading": "ロボットはテーブルまでりょうりをとどけます。", "en": "The robots deliver the food to the table." },
+        { "jp": "店員が少なくても、店を開けることができます。", "reading": "てんいんがすくなくても、みせをあけることができます。", "en": "Even with few staff, the restaurant can stay open." },
+        { "jp": "子供たちはロボットを見て喜んでいます。", "reading": "こどもたちはロボットをみてよろこんでいます。", "en": "Children are delighted to see the robots." },
+        { "jp": "これからこのような店が増えるかもしれません。", "reading": "これからこのようなみせがふえるかもしれません。", "en": "Restaurants like this may increase from now on." }
+      ],
+      "vocab": [
+        { "word": "運ぶ", "reading": "はこぶ", "meaning": "to carry" },
+        { "word": "届ける", "reading": "とどける", "meaning": "to deliver" },
+        { "word": "店員", "reading": "てんいん", "meaning": "shop staff" },
+        { "word": "喜ぶ", "reading": "よろこぶ", "meaning": "to be glad" },
+        { "word": "増える", "reading": "ふえる", "meaning": "to increase" }
+      ],
+      "questions": [
+        { "q": "ロボットは何をしますか。", "options": ["料理を作る", "料理を運ぶ", "お金を数える", "掃除をする"], "answer": 1, "explanation": "「ロボットが料理を運んでいます」。" },
+        { "q": "この店の良い点は何ですか。", "options": ["店員が少なくても開ける", "料理が安い", "早く閉まる", "駅に近い"], "answer": 0, "explanation": "「店員が少なくても、店を開けることができます」。" },
+        { "q": "子供たちはどう思っていますか。", "options": ["こわがっている", "喜んでいる", "つまらない", "おこっている"], "answer": 1, "explanation": "「ロボットを見て喜んでいます」。" }
+      ]
+    },
+    {
+      "id": "ja-news-marason", "type": "news", "level": "N4", "title": "市でマラソン大会", "titleEn": "A city marathon", "topic": "Sports", "summary": "Original news-style piece about a city marathon.", "minutes": 4,
+      "blocks": [
+        { "jp": "日曜日、市で大きなマラソン大会がありました。", "reading": "にちようび、しでおおきなマラソンたいかいがありました。", "en": "On Sunday, a big marathon was held in the city." },
+        { "jp": "一万人以上の人が走りました。", "reading": "いちまんにんいじょうのひとがはしりました。", "en": "More than 10,000 people ran." },
+        { "jp": "沿道ではたくさんの人が応援しました。", "reading": "えんどうではたくさんのひとがおうえんしました。", "en": "Many people cheered along the route." },
+        { "jp": "外国から来た選手もいました。", "reading": "がいこくからきたせんしゅもいました。", "en": "There were also athletes from abroad." },
+        { "jp": "みんな最後まで一生懸命走りました。", "reading": "みんなさいごまでいっしょうけんめいはしりました。", "en": "Everyone ran their hardest to the finish." }
+      ],
+      "vocab": [
+        { "word": "大会", "reading": "たいかい", "meaning": "tournament, big event" },
+        { "word": "以上", "reading": "いじょう", "meaning": "more than, and above" },
+        { "word": "応援", "reading": "おうえん", "meaning": "cheering, support" },
+        { "word": "選手", "reading": "せんしゅ", "meaning": "athlete, player" },
+        { "word": "一生懸命", "reading": "いっしょうけんめい", "meaning": "with all one's effort" }
+      ],
+      "questions": [
+        { "q": "何人ぐらいが走りましたか。", "options": ["百人", "千人", "一万人以上", "十人"], "answer": 2, "explanation": "「一万人以上の人が走りました」。" },
+        { "q": "沿道の人は何をしましたか。", "options": ["走った", "応援した", "寝ていた", "買い物した"], "answer": 1, "explanation": "「たくさんの人が応援しました」。" },
+        { "q": "どんな選手がいましたか。", "options": ["子供だけ", "外国から来た選手", "先生だけ", "ロボット"], "answer": 1, "explanation": "「外国から来た選手もいました」。" }
+      ]
+    },
+    {
+      "id": "ja-news-hanabi", "type": "news", "level": "N4", "title": "川で花火大会", "titleEn": "A fireworks festival by the river", "topic": "Culture", "summary": "Original news-style piece about a summer fireworks festival.", "minutes": 4,
+      "blocks": [
+        { "jp": "夏の夜、川の近くで花火大会が開かれました。", "reading": "なつのよる、かわのちかくではなびたいかいがひらかれました。", "en": "On a summer night, a fireworks festival was held near the river." },
+        { "jp": "空に大きくてきれいな花火が上がりました。", "reading": "そらにおおきくてきれいなはなびがあがりました。", "en": "Big, beautiful fireworks rose into the sky." },
+        { "jp": "多くの人が浴衣を着て見に来ました。", "reading": "おおくのひとがゆかたをきてみにきました。", "en": "Many people came to watch wearing yukata." },
+        { "jp": "屋台では食べ物や飲み物を売っていました。", "reading": "やたいではたべものやのみものをうっていました。", "en": "Street stalls were selling food and drinks." },
+        { "jp": "花火は一時間続きました。", "reading": "はなびはいちじかんつづきました。", "en": "The fireworks lasted for an hour." }
+      ],
+      "vocab": [
+        { "word": "花火", "reading": "はなび", "meaning": "fireworks" },
+        { "word": "上がる", "reading": "あがる", "meaning": "to go up, rise" },
+        { "word": "浴衣", "reading": "ゆかた", "meaning": "yukata (summer kimono)" },
+        { "word": "屋台", "reading": "やたい", "meaning": "food stall" },
+        { "word": "続く", "reading": "つづく", "meaning": "to continue, last" }
+      ],
+      "questions": [
+        { "q": "花火大会はどこで開かれましたか。", "options": ["山の上", "川の近く", "駅の前", "学校"], "answer": 1, "explanation": "「川の近くで花火大会が開かれました」。" },
+        { "q": "人々は何を着ていましたか。", "options": ["浴衣", "スーツ", "コート", "水着"], "answer": 0, "explanation": "「浴衣を着て見に来ました」。" },
+        { "q": "花火はどのくらい続きましたか。", "options": ["十分", "三十分", "一時間", "三時間"], "answer": 2, "explanation": "「一時間続きました」。" }
+      ]
+    },
+    {
+      "id": "ja-news-densha-app", "type": "news", "level": "N3", "title": "電車の新しいアプリ", "titleEn": "A new train app", "topic": "Technology", "summary": "Original news-style piece about a railway smartphone app.", "minutes": 5,
+      "blocks": [
+        { "jp": "ある鉄道会社が、新しいスマートフォンのアプリを始めた。", "reading": "あるてつどうがいしゃが、あたらしいスマートフォンのアプリをはじめた。", "en": "A railway company launched a new smartphone app." },
+        { "jp": "このアプリを使うと、電車の遅れがすぐにわかる。", "reading": "このアプリをつかうと、でんしゃのおくれがすぐにわかる。", "en": "With this app, you can immediately see train delays." },
+        { "jp": "切符を買わなくても、スマホで改札を通れる。", "reading": "きっぷをかわなくても、スマホでかいさつをとおれる。", "en": "Without buying a ticket, you can pass the gate with your phone." },
+        { "jp": "利用者は「とても便利になった」と話している。", "reading": "りようしゃは「とてもべんりになった」とはなしている。", "en": "Users say it has become very convenient." },
+        { "jp": "会社は来年、他の地域でもサービスを始める予定だ。", "reading": "かいしゃはらいねん、ほかのちいきでもサービスをはじめるよていだ。", "en": "The company plans to start the service in other regions next year." }
+      ],
+      "vocab": [
+        { "word": "鉄道", "reading": "てつどう", "meaning": "railway" },
+        { "word": "遅れ", "reading": "おくれ", "meaning": "delay" },
+        { "word": "改札", "reading": "かいさつ", "meaning": "ticket gate" },
+        { "word": "利用者", "reading": "りようしゃ", "meaning": "user" },
+        { "word": "地域", "reading": "ちいき", "meaning": "region, area" }
+      ],
+      "questions": [
+        { "q": "アプリで何がわかりますか。", "options": ["天気", "電車の遅れ", "店の場所", "ニュース"], "answer": 1, "explanation": "「電車の遅れがすぐにわかる」。" },
+        { "q": "切符がなくてもどうできますか。", "options": ["電車に乗れない", "改札を通れる", "お金がもらえる", "席に座れる"], "answer": 1, "explanation": "「スマホで改札を通れる」。" },
+        { "q": "会社の来年の予定は何ですか。", "options": ["アプリをやめる", "他の地域でサービスを始める", "料金を上げる", "駅を閉める"], "answer": 1, "explanation": "「他の地域でもサービスを始める予定だ」。" }
+      ]
+    },
+    {
+      "id": "ja-news-volunteer", "type": "news", "level": "N3", "title": "高校生が町を掃除", "titleEn": "High schoolers clean the town", "topic": "Society", "summary": "Original news-style piece about students volunteering.", "minutes": 5,
+      "blocks": [
+        { "jp": "先週末、高校生たちが町の掃除をした。", "reading": "せんしゅうまつ、こうこうせいたちがまちのそうじをした。", "en": "Last weekend, high school students cleaned the town." },
+        { "jp": "公園や道に落ちているごみを集めた。", "reading": "こうえんやみちにおちているごみをあつめた。", "en": "They collected trash that had been dropped in parks and streets." },
+        { "jp": "参加した生徒は五十人ほどだった。", "reading": "さんかしたせいとはごじゅうにんほどだった。", "en": "About fifty students took part." },
+        { "jp": "「町がきれいになってうれしい」と生徒は話した。", "reading": "「まちがきれいになってうれしい」とせいとははなした。", "en": "\"I'm happy the town became clean,\" a student said." },
+        { "jp": "来月もまた行う予定だという。", "reading": "らいげつもまたおこなうよていだという。", "en": "They say they plan to do it again next month." }
+      ],
+      "vocab": [
+        { "word": "掃除", "reading": "そうじ", "meaning": "cleaning" },
+        { "word": "落ちる", "reading": "おちる", "meaning": "to fall, be dropped" },
+        { "word": "集める", "reading": "あつめる", "meaning": "to gather, collect" },
+        { "word": "参加", "reading": "さんか", "meaning": "participation" },
+        { "word": "生徒", "reading": "せいと", "meaning": "student, pupil" }
+      ],
+      "questions": [
+        { "q": "高校生は何をしましたか。", "options": ["町の掃除", "スポーツ大会", "試験", "料理"], "answer": 0, "explanation": "「高校生たちが町の掃除をした」。" },
+        { "q": "何人ぐらい参加しましたか。", "options": ["五人", "十五人", "五十人ほど", "五百人"], "answer": 2, "explanation": "「参加した生徒は五十人ほどだった」。" },
+        { "q": "来月はどうしますか。", "options": ["もうしない", "また行う", "旅行する", "試験をする"], "answer": 1, "explanation": "「来月もまた行う予定だ」。" }
+      ]
+    },
+    {
+      "id": "ja-news-jishin-kunren", "type": "news", "level": "N4", "title": "学校で地震の訓練", "titleEn": "An earthquake drill at school", "topic": "Disaster (JFT)", "summary": "Original news-style piece about an earthquake drill.", "minutes": 4,
+      "blocks": [
+        { "jp": "今日、学校で地震の訓練が行われました。", "reading": "きょう、がっこうでじしんのくんれんがおこなわれました。", "en": "Today, an earthquake drill was held at the school." },
+        { "jp": "地震のベルが鳴ると、生徒は机の下に隠れました。", "reading": "じしんのベルがなると、せいとはつくえのしたにかくれました。", "en": "When the earthquake bell rang, the students hid under their desks." },
+        { "jp": "その後、みんな静かに校庭に出ました。", "reading": "そのご、みんなしずかにこうていにでました。", "en": "After that, everyone quietly went out to the schoolyard." },
+        { "jp": "先生は「本当の地震のときも落ち着いて」と話しました。", "reading": "せんせいは「ほんとうのじしんのときもおちついて」とはなしました。", "en": "The teacher said, \"Stay calm during a real earthquake too.\"" },
+        { "jp": "訓練は十分で終わりました。", "reading": "くんれんはじゅっぷんでおわりました。", "en": "The drill finished in ten minutes." }
+      ],
+      "vocab": [
+        { "word": "訓練", "reading": "くんれん", "meaning": "drill, training" },
+        { "word": "鳴る", "reading": "なる", "meaning": "to ring, sound" },
+        { "word": "隠れる", "reading": "かくれる", "meaning": "to hide" },
+        { "word": "校庭", "reading": "こうてい", "meaning": "schoolyard" },
+        { "word": "落ち着く", "reading": "おちつく", "meaning": "to calm down" }
+      ],
+      "questions": [
+        { "q": "学校で何が行われましたか。", "options": ["運動会", "地震の訓練", "音楽会", "試験"], "answer": 1, "explanation": "「地震の訓練が行われました」。" },
+        { "q": "ベルが鳴ったとき、生徒はどうしましたか。", "options": ["外に走った", "机の下に隠れた", "歌った", "帰った"], "answer": 1, "explanation": "「机の下に隠れました」。" },
+        { "q": "先生は何と言いましたか。", "options": ["急いで", "落ち着いて", "早く帰って", "静かにしないで"], "answer": 1, "explanation": "「落ち着いて」と話しました。" }
+      ]
     }
   ]
 }
