@@ -87,6 +87,22 @@ body {
 }
 .fl-enter { animation: fl-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
+/* Skeleton shimmer for loading states. */
+@keyframes fl-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.fl-skeleton {
+  background-image: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-edge) 45%, transparent) 25%,
+    color-mix(in srgb, var(--color-edge) 18%, transparent) 37%,
+    color-mix(in srgb, var(--color-edge) 45%, transparent) 63%
+  );
+  background-size: 200% 100%;
+  animation: fl-shimmer 1.5s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
