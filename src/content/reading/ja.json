@@ -233,6 +233,239 @@
         { "q": "何を別々に分けますか。", "options": ["プラスチックと紙", "缶とびん", "生ごみと紙", "服と本"], "answer": 0, "explanation": "「プラスチックと紙を、別々に分けます」。" },
         { "q": "分け方がわからないときは、どうしますか。", "options": ["市役所に電話する", "市のホームページを見る", "近所の人に聞く", "何もしない"], "answer": 1, "explanation": "「市のホームページを見てください」。" }
       ]
+    },
+    {
+      "id": "ja-conv-byoin",
+      "type": "conversation",
+      "level": "N4",
+      "title": "病院で",
+      "titleEn": "At the hospital",
+      "topic": "Health (JFT)",
+      "summary": "A patient describes symptoms to a doctor.",
+      "minutes": 4,
+      "blocks": [
+        { "speaker": "医者", "jp": "どうしましたか。", "reading": "いしゃ：どうしましたか。", "en": "What seems to be the problem?" },
+        { "speaker": "患者", "jp": "きのうから頭が痛くて、熱もあります。", "reading": "かんじゃ：きのうからあたまがいたくて、ねつもあります。", "en": "I've had a headache since yesterday, and I also have a fever." },
+        { "speaker": "医者", "jp": "そうですか。のども痛いですか。", "reading": "そうですか。のどもいたいですか。", "en": "I see. Does your throat hurt too?" },
+        { "speaker": "患者", "jp": "はい、少し痛いです。", "reading": "はい、すこしいたいです。", "en": "Yes, it hurts a little." },
+        { "speaker": "医者", "jp": "風邪ですね。薬を出しますから、ゆっくり休んでください。", "reading": "かぜですね。くすりをだしますから、ゆっくりやすんでください。", "en": "It's a cold. I'll prescribe some medicine, so please rest well." }
+      ],
+      "vocab": [
+        { "word": "頭", "reading": "あたま", "meaning": "head" },
+        { "word": "熱", "reading": "ねつ", "meaning": "fever" },
+        { "word": "のど", "reading": "のど", "meaning": "throat" },
+        { "word": "風邪", "reading": "かぜ", "meaning": "a cold" },
+        { "word": "薬", "reading": "くすり", "meaning": "medicine" }
+      ],
+      "questions": [
+        { "q": "患者はいつから頭が痛いですか。", "options": ["今日から", "きのうから", "先週から", "今朝から"], "answer": 1, "explanation": "「きのうから頭が痛くて」。" },
+        { "q": "医者は何と言いましたか。", "options": ["インフルエンザです", "風邪です", "大丈夫です", "入院してください"], "answer": 1, "explanation": "「風邪ですね」。" },
+        { "q": "医者は患者に何をするように言いましたか。", "options": ["運動する", "ゆっくり休む", "水を飲まない", "仕事に行く"], "answer": 1, "explanation": "「ゆっくり休んでください」。" }
+      ]
+    },
+    {
+      "id": "ja-conv-yasumi",
+      "type": "conversation",
+      "level": "N4",
+      "title": "休みを取る",
+      "titleEn": "Asking for a day off",
+      "topic": "Workplace (JFT)",
+      "summary": "A worker asks a manager for time off.",
+      "minutes": 4,
+      "blocks": [
+        { "speaker": "社員", "jp": "課長、少しよろしいでしょうか。", "reading": "しゃいん：かちょう、すこしよろしいでしょうか。", "en": "Section chief, do you have a moment?" },
+        { "speaker": "課長", "jp": "はい、どうぞ。", "reading": "かちょう：はい、どうぞ。", "en": "Yes, go ahead." },
+        { "speaker": "社員", "jp": "来週の金曜日、休みをいただきたいのですが。", "reading": "らいしゅうのきんようび、やすみをいただきたいのですが。", "en": "I'd like to take next Friday off, if possible." },
+        { "speaker": "課長", "jp": "金曜日ですね。理由を聞いてもいいですか。", "reading": "きんようびですね。りゆうをきいてもいいですか。", "en": "Friday, I see. May I ask the reason?" },
+        { "speaker": "社員", "jp": "家族の用事があります。", "reading": "かぞくのようじがあります。", "en": "I have some family matters to attend to." },
+        { "speaker": "課長", "jp": "わかりました。では、休んでもいいですよ。", "reading": "わかりました。では、やすんでもいいですよ。", "en": "Understood. Then you may take the day off." }
+      ],
+      "vocab": [
+        { "word": "課長", "reading": "かちょう", "meaning": "section chief" },
+        { "word": "休み", "reading": "やすみ", "meaning": "day off, holiday" },
+        { "word": "理由", "reading": "りゆう", "meaning": "reason" },
+        { "word": "用事", "reading": "ようじ", "meaning": "errand, business to attend to" },
+        { "word": "いただく", "reading": "いただく", "meaning": "to receive (humble)" }
+      ],
+      "questions": [
+        { "q": "社員はいつ休みたいですか。", "options": ["来週の月曜日", "来週の金曜日", "今日", "明日"], "answer": 1, "explanation": "「来週の金曜日、休みをいただきたい」。" },
+        { "q": "課長は何を聞きましたか。", "options": ["休みの理由", "仕事の予定", "給料", "会議の時間"], "answer": 0, "explanation": "「理由を聞いてもいいですか」。" },
+        { "q": "課長は最後に何と言いましたか。", "options": ["だめです", "休んでもいい", "後で話そう", "働いてください"], "answer": 1, "explanation": "「休んでもいいですよ」。" }
+      ]
+    },
+    {
+      "id": "ja-news-taifuu",
+      "type": "news",
+      "level": "N5",
+      "title": "台風に注意してください",
+      "titleEn": "Please be careful of the typhoon",
+      "topic": "Disaster (JFT)",
+      "summary": "A simple public warning about an approaching typhoon.",
+      "minutes": 3,
+      "blocks": [
+        { "jp": "大きな台風が近づいています。", "reading": "おおきなたいふうがちかづいています。", "en": "A large typhoon is approaching." },
+        { "jp": "明日の午後、強い雨と風が来ます。", "reading": "あしたのごご、つよいあめとかぜがきます。", "en": "Tomorrow afternoon, heavy rain and strong wind will come." },
+        { "jp": "危ないですから、外に出ないでください。", "reading": "あぶないですから、そとにでないでください。", "en": "It's dangerous, so please don't go outside." },
+        { "jp": "水や食べ物を用意しておきましょう。", "reading": "みずやたべものをよういしておきましょう。", "en": "Let's prepare water and food in advance." },
+        { "jp": "電車も止まるかもしれません。", "reading": "でんしゃもとまるかもしれません。", "en": "The trains may stop too." }
+      ],
+      "vocab": [
+        { "word": "台風", "reading": "たいふう", "meaning": "typhoon" },
+        { "word": "近づく", "reading": "ちかづく", "meaning": "to approach" },
+        { "word": "危ない", "reading": "あぶない", "meaning": "dangerous" },
+        { "word": "用意する", "reading": "よういする", "meaning": "to prepare" },
+        { "word": "止まる", "reading": "とまる", "meaning": "to stop" }
+      ],
+      "questions": [
+        { "q": "いつ強い雨と風が来ますか。", "options": ["今日の朝", "明日の午後", "来週", "今夜"], "answer": 1, "explanation": "「明日の午後、強い雨と風が来ます」。" },
+        { "q": "何をするように言っていますか。", "options": ["外に出る", "外に出ない", "旅行する", "運動する"], "answer": 1, "explanation": "「外に出ないでください」。" },
+        { "q": "何を用意しますか。", "options": ["お金", "水や食べ物", "服", "本"], "answer": 1, "explanation": "「水や食べ物を用意しておきましょう」。" }
+      ]
+    },
+    {
+      "id": "ja-conv-michi",
+      "type": "conversation",
+      "level": "N5",
+      "title": "道を聞く",
+      "titleEn": "Asking for directions",
+      "topic": "Transport (JFT)",
+      "summary": "A traveler asks how to get to the station.",
+      "minutes": 3,
+      "blocks": [
+        { "speaker": "旅行者", "jp": "すみません、駅はどこですか。", "reading": "りょこうしゃ：すみません、えきはどこですか。", "en": "Excuse me, where is the station?" },
+        { "speaker": "通行人", "jp": "この道をまっすぐ行ってください。", "reading": "つうこうにん：このみちをまっすぐいってください。", "en": "Go straight down this road." },
+        { "speaker": "旅行者", "jp": "どのくらいかかりますか。", "reading": "どのくらいかかりますか。", "en": "About how long does it take?" },
+        { "speaker": "通行人", "jp": "歩いて五分ぐらいです。二つ目の信号を右に曲がってください。", "reading": "あるいてごふんぐらいです。ふたつめのしんごうをみぎにまがってください。", "en": "About five minutes on foot. Turn right at the second traffic light." },
+        { "speaker": "旅行者", "jp": "ありがとうございます。助かりました。", "reading": "ありがとうございます。たすかりました。", "en": "Thank you very much. That helps a lot." }
+      ],
+      "vocab": [
+        { "word": "まっすぐ", "reading": "まっすぐ", "meaning": "straight" },
+        { "word": "信号", "reading": "しんごう", "meaning": "traffic light" },
+        { "word": "曲がる", "reading": "まがる", "meaning": "to turn" },
+        { "word": "歩く", "reading": "あるく", "meaning": "to walk" },
+        { "word": "助かる", "reading": "たすかる", "meaning": "to be helped, saved" }
+      ],
+      "questions": [
+        { "q": "駅まで歩いてどのくらいかかりますか。", "options": ["一分", "五分ぐらい", "三十分", "一時間"], "answer": 1, "explanation": "「歩いて五分ぐらいです」。" },
+        { "q": "どこを右に曲がりますか。", "options": ["一つ目の信号", "二つ目の信号", "三つ目の信号", "駅の前"], "answer": 1, "explanation": "「二つ目の信号を右に曲がってください」。" },
+        { "q": "旅行者は何を探していますか。", "options": ["トイレ", "駅", "銀行", "病院"], "answer": 1, "explanation": "「駅はどこですか」と聞いています。" }
+      ]
+    },
+    {
+      "id": "ja-conv-resutoran",
+      "type": "conversation",
+      "level": "N4",
+      "title": "レストランで注文",
+      "titleEn": "Ordering at a restaurant",
+      "topic": "Shopping (JFT)",
+      "summary": "A customer orders and mentions a food allergy.",
+      "minutes": 4,
+      "blocks": [
+        { "speaker": "店員", "jp": "ご注文はお決まりですか。", "reading": "てんいん：ごちゅうもんはおきまりですか。", "en": "Are you ready to order?" },
+        { "speaker": "客", "jp": "はい、このランチセットをお願いします。", "reading": "きゃく：はい、このランチセットをおねがいします。", "en": "Yes, I'll have this lunch set, please." },
+        { "speaker": "店員", "jp": "お飲み物はいかがですか。", "reading": "おのみものはいかがですか。", "en": "Would you like a drink?" },
+        { "speaker": "客", "jp": "コーヒーをお願いします。あと、卵アレルギーがあります。", "reading": "コーヒーをおねがいします。あと、たまごアレルギーがあります。", "en": "Coffee, please. Also, I have an egg allergy." },
+        { "speaker": "店員", "jp": "かしこまりました。卵を使わないように伝えます。", "reading": "かしこまりました。たまごをつかわないようにつたえます。", "en": "Certainly. I'll tell the kitchen not to use egg." }
+      ],
+      "vocab": [
+        { "word": "注文", "reading": "ちゅうもん", "meaning": "order" },
+        { "word": "決まる", "reading": "きまる", "meaning": "to be decided" },
+        { "word": "飲み物", "reading": "のみもの", "meaning": "drink" },
+        { "word": "アレルギー", "reading": "アレルギー", "meaning": "allergy" },
+        { "word": "伝える", "reading": "つたえる", "meaning": "to convey, tell" }
+      ],
+      "questions": [
+        { "q": "客は何を注文しましたか。", "options": ["ランチセット", "ケーキ", "サラダだけ", "何も注文していない"], "answer": 0, "explanation": "「このランチセットをお願いします」。" },
+        { "q": "客は何のアレルギーがありますか。", "options": ["牛乳", "卵", "小麦", "そば"], "answer": 1, "explanation": "「卵アレルギーがあります」。" },
+        { "q": "店員はどうすると言いましたか。", "options": ["卵を使わないように伝える", "料理を変える", "店を閉める", "お金を返す"], "answer": 0, "explanation": "「卵を使わないように伝えます」。" }
+      ]
+    },
+    {
+      "id": "ja-news-remote",
+      "type": "news",
+      "level": "N2",
+      "title": "リモートワークが広がる",
+      "titleEn": "Remote work is spreading",
+      "topic": "Society",
+      "summary": "A news piece on the spread of remote work and its effects.",
+      "minutes": 5,
+      "blocks": [
+        { "jp": "近年、自宅で働く「リモートワーク」が急速に広がっている。", "reading": "きんねん、じたくではたらく「リモートワーク」がきゅうそくにひろがっている。", "en": "In recent years, 'remote work' — working from home — has spread rapidly." },
+        { "jp": "通勤の時間が減り、生活にゆとりができたという人が多い。", "reading": "つうきんのじかんがへり、せいかつにゆとりができたというひとがおおい。", "en": "Many people say that with less commuting time, they now have more room in their lives." },
+        { "jp": "一方で、同僚とのコミュニケーションが難しくなったという声もある。", "reading": "いっぽうで、どうりょうとのコミュニケーションがむずかしくなったというこえもある。", "en": "On the other hand, some say communication with colleagues has become harder." },
+        { "jp": "会社によっては、週に数日だけ出社する制度を取り入れている。", "reading": "かいしゃによっては、しゅうにすうじつだけしゅっしゃするせいどをとりいれている。", "en": "Depending on the company, some have adopted a system of coming into the office only a few days a week." },
+        { "jp": "働き方はこれからもさらに多様になっていくだろう。", "reading": "はたらきかたはこれからもさらにたようになっていくだろう。", "en": "Ways of working will likely become even more diverse from now on." }
+      ],
+      "vocab": [
+        { "word": "近年", "reading": "きんねん", "meaning": "in recent years" },
+        { "word": "急速に", "reading": "きゅうそくに", "meaning": "rapidly" },
+        { "word": "ゆとり", "reading": "ゆとり", "meaning": "room, leeway, comfort" },
+        { "word": "同僚", "reading": "どうりょう", "meaning": "colleague" },
+        { "word": "多様", "reading": "たよう", "meaning": "diverse" }
+      ],
+      "questions": [
+        { "q": "リモートワークで生活はどう変わりましたか。", "options": ["通勤時間が増えた", "生活にゆとりができた", "給料が上がった", "仕事が減った"], "answer": 1, "explanation": "「通勤の時間が減り、生活にゆとりができた」。" },
+        { "q": "難しくなったと言われていることは何ですか。", "options": ["料理", "同僚とのコミュニケーション", "運動", "買い物"], "answer": 1, "explanation": "「同僚とのコミュニケーションが難しくなった」。" },
+        { "q": "一部の会社はどんな制度を取り入れていますか。", "options": ["毎日出社する", "週に数日だけ出社する", "夜だけ働く", "会社をなくす"], "answer": 1, "explanation": "「週に数日だけ出社する制度」。" }
+      ]
+    },
+    {
+      "id": "ja-story-hikkoshi",
+      "type": "story",
+      "level": "N2",
+      "title": "新しい町へ",
+      "titleEn": "To a new town",
+      "topic": "Life",
+      "summary": "A first-person reflection on moving to an unfamiliar city.",
+      "minutes": 5,
+      "blocks": [
+        { "jp": "四月から、知らない町で一人暮らしを始めることになった。", "reading": "しがつから、しらないまちでひとりぐらしをはじめることになった。", "en": "From April, I ended up starting to live alone in an unfamiliar town." },
+        { "jp": "最初は不安で、道に迷ってばかりいた。", "reading": "さいしょはふあんで、みちにまよってばかりいた。", "en": "At first I was anxious, and I kept getting lost." },
+        { "jp": "しかし、近所の人が親切に話しかけてくれた。", "reading": "しかし、きんじょのひとがしんせつにはなしかけてくれた。", "en": "However, the neighbors kindly spoke to me." },
+        { "jp": "少しずつ知り合いが増え、町にも慣れてきた。", "reading": "すこしずつしりあいがふえ、まちにもなれてきた。", "en": "Little by little my acquaintances grew, and I got used to the town." },
+        { "jp": "今では、この町が自分の場所だと感じている。", "reading": "いまでは、このまちがじぶんのばしょだとかんじている。", "en": "Now I feel that this town is my own place." }
+      ],
+      "vocab": [
+        { "word": "一人暮らし", "reading": "ひとりぐらし", "meaning": "living alone" },
+        { "word": "不安", "reading": "ふあん", "meaning": "anxiety, unease" },
+        { "word": "迷う", "reading": "まよう", "meaning": "to get lost, hesitate" },
+        { "word": "親切", "reading": "しんせつ", "meaning": "kind" },
+        { "word": "慣れる", "reading": "なれる", "meaning": "to get used to" }
+      ],
+      "questions": [
+        { "q": "最初、この人はどんな気持ちでしたか。", "options": ["うれしかった", "不安だった", "怒っていた", "眠かった"], "answer": 1, "explanation": "「最初は不安で」。" },
+        { "q": "近所の人はどうしましたか。", "options": ["無視した", "親切に話しかけた", "引っ越した", "怒った"], "answer": 1, "explanation": "「近所の人が親切に話しかけてくれた」。" },
+        { "q": "今、この人は町をどう感じていますか。", "options": ["自分の場所だと感じる", "帰りたい", "きらいだ", "こわい"], "answer": 0, "explanation": "「この町が自分の場所だと感じている」。" }
+      ]
+    },
+    {
+      "id": "ja-news-kourei",
+      "type": "news",
+      "level": "N2",
+      "title": "進む高齢化社会",
+      "titleEn": "An aging society advances",
+      "topic": "Society",
+      "summary": "A short article on Japan's aging population and responses to it.",
+      "minutes": 5,
+      "blocks": [
+        { "jp": "日本では高齢化が進み、六十五歳以上の人口が全体の約三割を占めている。", "reading": "にほんではこうれいかがすすみ、ろくじゅうごさいいじょうのじんこうがぜんたいのやくさんわりをしめている。", "en": "In Japan, aging is advancing, and people aged 65 and over make up about 30% of the total population." },
+        { "jp": "働く人が減る一方で、介護が必要な人は増えている。", "reading": "はたらくひとがへるいっぽうで、かいごがひつようなひとはふえている。", "en": "While the number of working people decreases, those needing nursing care are increasing." },
+        { "jp": "政府は、外国人の労働者を受け入れる政策を進めている。", "reading": "せいふは、がいこくじんのろうどうしゃをうけいれるせいさくをすすめている。", "en": "The government is promoting policies to accept foreign workers." },
+        { "jp": "また、高齢者が元気に働ける仕組みも求められている。", "reading": "また、こうれいしゃがげんきにはたらけるしくみももとめられている。", "en": "Also, systems that let the elderly work while staying healthy are being sought." },
+        { "jp": "社会全体で支え合うことが、これからの大きな課題だ。", "reading": "しゃかいぜんたいでささえあうことが、これからのおおきなかだいだ。", "en": "Supporting one another as a whole society is a major challenge going forward." }
+      ],
+      "vocab": [
+        { "word": "高齢化", "reading": "こうれいか", "meaning": "aging (of population)" },
+        { "word": "人口", "reading": "じんこう", "meaning": "population" },
+        { "word": "介護", "reading": "かいご", "meaning": "nursing care" },
+        { "word": "政策", "reading": "せいさく", "meaning": "policy" },
+        { "word": "課題", "reading": "かだい", "meaning": "issue, challenge" }
+      ],
+      "questions": [
+        { "q": "六十五歳以上の人口はどのくらいですか。", "options": ["約一割", "約二割", "約三割", "約半分"], "answer": 2, "explanation": "「全体の約三割を占めている」。" },
+        { "q": "政府はどんな政策を進めていますか。", "options": ["外国人労働者を受け入れる", "工場を閉じる", "税金を下げる", "学校を増やす"], "answer": 0, "explanation": "「外国人の労働者を受け入れる政策」。" },
+        { "q": "これからの大きな課題は何ですか。", "options": ["社会全体で支え合うこと", "旅行すること", "車を作ること", "英語を学ぶこと"], "answer": 0, "explanation": "「社会全体で支え合うことが…大きな課題だ」。" }
+      ]
     }
   ]
 }
