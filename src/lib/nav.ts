@@ -4,6 +4,7 @@ import {
   BookOpen,
   BookText,
   Gamepad2,
+  GraduationCap,
   Home,
   Languages,
   Layers,
@@ -42,6 +43,7 @@ export type ModuleNavItem = {
 export const MODULE_NAV: ModuleNavItem[] = [
   { label: "Home", segment: "", icon: Home },
   { label: "Journey", segment: "/journey", icon: Route },
+  { label: "Exam Prep", segment: "/exam", icon: GraduationCap },
   { label: "Vocab", segment: "/vocab", icon: Layers },
   { label: "Characters", segment: "/characters", icon: Languages },
   { label: "Reading", segment: "/reading", icon: BookOpen },

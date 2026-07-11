@@ -18,7 +18,8 @@
     "gen:content": "tsx scripts/gen-content.ts",
     "gen:kanji": "tsx scripts/gen-kanji.ts",
     "gen:strokes": "node scripts/gen-strokes.mjs",
-    "gen:reading": "tsx scripts/gen-reading.ts"
+    "gen:reading": "tsx scripts/gen-reading.ts",
+    "gen:grammar": "tsx scripts/gen-grammar.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",

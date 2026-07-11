@@ -1,0 +1,263 @@
+{
+  "patterns": [
+    {
+      "id": "ja-n4x-takotogaaru", "pattern": "〜たことがある", "reading": "たことがある", "meaning": "have (done) before; experience", "level": "N4", "category": "Experience",
+      "explanation": "Plain past + ことがある expresses that you have experienced something at least once.",
+      "examples": [ { "native": "日本へ行ったことがあります。", "roman": "Nihon e itta koto ga arimasu.", "gloss": "I have been to Japan." } ]
+    },
+    {
+      "id": "ja-n4x-taritari", "pattern": "〜たり〜たりする", "reading": "たりたりする", "meaning": "do things like A and B (representative actions)", "level": "N4", "category": "Listing",
+      "explanation": "Lists example actions without implying order or completeness.",
+      "examples": [ { "native": "週末は本を読んだり、音楽を聞いたりします。", "roman": "Shūmatsu wa hon o yondari, ongaku o kiitari shimasu.", "gloss": "On weekends I do things like read books and listen to music." } ]
+    },
+    {
+      "id": "ja-n4x-nagara", "pattern": "〜ながら", "reading": "ながら", "meaning": "while doing (two actions at once)", "level": "N4", "category": "Conjunction",
+      "explanation": "Verb stem (ます-stem) + ながら shows two actions by the same person at the same time.",
+      "examples": [ { "native": "音楽を聞きながら勉強します。", "roman": "Ongaku o kikinagara benkyō shimasu.", "gloss": "I study while listening to music." } ]
+    },
+    {
+      "id": "ja-n4x-sugiru", "pattern": "〜すぎる", "reading": "すぎる", "meaning": "too much; excessively", "level": "N4", "category": "Degree",
+      "explanation": "Verb stem or adjective stem + すぎる means something is excessive.",
+      "examples": [ { "native": "きのうは食べすぎました。", "roman": "Kinō wa tabesugimashita.", "gloss": "I ate too much yesterday." } ]
+    },
+    {
+      "id": "ja-n4x-temoii", "pattern": "〜てもいい", "reading": "てもいい", "meaning": "may; it's okay to", "level": "N4", "category": "Permission",
+      "explanation": "て-form + もいい gives or asks for permission.",
+      "examples": [ { "native": "ここで写真を撮ってもいいですか。", "roman": "Koko de shashin o totte mo ii desu ka.", "gloss": "May I take photos here?" } ]
+    },
+    {
+      "id": "ja-n4x-tehaikenai", "pattern": "〜てはいけない", "reading": "てはいけない", "meaning": "must not; prohibition", "level": "N4", "category": "Prohibition",
+      "explanation": "て-form + はいけない forbids an action.",
+      "examples": [ { "native": "ここでたばこを吸ってはいけません。", "roman": "Koko de tabako o sutte wa ikemasen.", "gloss": "You must not smoke here." } ]
+    },
+    {
+      "id": "ja-n4x-nakerebanaranai", "pattern": "〜なければならない", "reading": "なければならない", "meaning": "must; have to", "level": "N4", "category": "Obligation",
+      "explanation": "Negative stem + なければならない expresses obligation. Casual: 〜なきゃ.",
+      "examples": [ { "native": "明日は早く起きなければなりません。", "roman": "Ashita wa hayaku okinakereba narimasen.", "gloss": "I have to get up early tomorrow." } ]
+    },
+    {
+      "id": "ja-n4x-tsumori", "pattern": "〜つもりだ", "reading": "つもりだ", "meaning": "intend to; plan to", "level": "N4", "category": "Intention",
+      "explanation": "Dictionary form + つもりだ states an intention.",
+      "examples": [ { "native": "夏休みに国へ帰るつもりです。", "roman": "Natsuyasumi ni kuni e kaeru tsumori desu.", "gloss": "I intend to go back to my home country during summer vacation." } ]
+    },
+    {
+      "id": "ja-n4x-younninaru", "pattern": "〜ようになる", "reading": "ようになる", "meaning": "come to; reach the point where", "level": "N4", "category": "Change",
+      "explanation": "Dictionary/potential form + ようになる shows a gradual change or a newly gained ability.",
+      "examples": [ { "native": "日本語が話せるようになりました。", "roman": "Nihongo ga hanaseru yō ni narimashita.", "gloss": "I became able to speak Japanese." } ]
+    },
+    {
+      "id": "ja-n4x-ba", "pattern": "〜ば", "reading": "ば", "meaning": "if (conditional)", "level": "N4", "category": "Conditional",
+      "explanation": "The ば-conditional states a general or hypothetical condition.",
+      "examples": [ { "native": "時間があれば、行きます。", "roman": "Jikan ga areba, ikimasu.", "gloss": "If I have time, I'll go." } ]
+    },
+    {
+      "id": "ja-n4x-noni", "pattern": "〜のに", "reading": "のに", "meaning": "although; even though (unexpected)", "level": "N4", "category": "Conjunction",
+      "explanation": "Connects two clauses where the result is contrary to expectation.",
+      "examples": [ { "native": "薬を飲んだのに、まだ熱があります。", "roman": "Kusuri o nonda noni, mada netsu ga arimasu.", "gloss": "Even though I took medicine, I still have a fever." } ]
+    },
+    {
+      "id": "ja-n4x-souda-you", "pattern": "〜そうだ (様態)", "reading": "そうだ", "meaning": "looks like; seems (from appearance)", "level": "N4", "category": "Modality",
+      "explanation": "Verb stem / adjective stem + そうだ describes an impression from what you see.",
+      "examples": [ { "native": "この ケーキは おいしそうです。", "roman": "Kono kēki wa oishisō desu.", "gloss": "This cake looks delicious." } ],
+      "notes": "Different from hearsay そうだ, which attaches to the plain form."
+    },
+
+    {
+      "id": "ja-n3-younisuru", "pattern": "〜ようにする", "reading": "ようにする", "meaning": "make an effort to; try to (habitually)", "level": "N3", "category": "Effort",
+      "explanation": "Dictionary/negative form + ようにする shows a conscious, ongoing effort.",
+      "examples": [ { "native": "毎日運動するようにしています。", "roman": "Mainichi undō suru yō ni shite imasu.", "gloss": "I try to exercise every day." } ]
+    },
+    {
+      "id": "ja-n3-babahodo", "pattern": "〜ば〜ほど", "reading": "ばほど", "meaning": "the more … the more …", "level": "N3", "category": "Correlation",
+      "explanation": "Repeats the ば-form and the dictionary form + ほど to show proportional change.",
+      "examples": [ { "native": "練習すればするほど上手になります。", "roman": "Renshū sureba suru hodo jōzu ni narimasu.", "gloss": "The more you practice, the better you get." } ]
+    },
+    {
+      "id": "ja-n3-wakeda", "pattern": "〜わけだ", "reading": "わけだ", "meaning": "no wonder; that means; naturally", "level": "N3", "category": "Explanation",
+      "explanation": "Presents a logical conclusion that follows naturally from the situation.",
+      "examples": [ { "native": "三年も日本にいたのか。日本語が上手なわけだ。", "roman": "San-nen mo Nihon ni ita no ka. Nihongo ga jōzu na wake da.", "gloss": "You were in Japan for three years? No wonder your Japanese is good." } ]
+    },
+    {
+      "id": "ja-n3-hazuda", "pattern": "〜はずだ", "reading": "はずだ", "meaning": "should be; is expected to", "level": "N3", "category": "Expectation",
+      "explanation": "Expresses a confident expectation based on reason or evidence.",
+      "examples": [ { "native": "彼はもう着いているはずです。", "roman": "Kare wa mō tsuite iru hazu desu.", "gloss": "He should have arrived already." } ]
+    },
+    {
+      "id": "ja-n3-mitaida", "pattern": "〜みたいだ", "reading": "みたいだ", "meaning": "seems like; looks like (casual)", "level": "N3", "category": "Modality",
+      "explanation": "A casual form for conjecture or resemblance, attaching to plain forms and nouns.",
+      "examples": [ { "native": "外は雨が降っているみたいです。", "roman": "Soto wa ame ga futte iru mitai desu.", "gloss": "It seems to be raining outside." } ]
+    },
+    {
+      "id": "ja-n3-rashii", "pattern": "〜らしい", "reading": "らしい", "meaning": "seems; apparently (based on info)", "level": "N3", "category": "Modality",
+      "explanation": "Conjecture based on information you heard or read; also 'typical of'.",
+      "examples": [ { "native": "田中さんは来月結婚するらしいです。", "roman": "Tanaka-san wa raigetsu kekkon suru rashii desu.", "gloss": "Apparently Tanaka is getting married next month." } ]
+    },
+    {
+      "id": "ja-n3-souda-denbun", "pattern": "〜そうだ (伝聞)", "reading": "そうだ", "meaning": "I heard that; they say that", "level": "N3", "category": "Hearsay",
+      "explanation": "Plain form + そうだ reports information from another source.",
+      "examples": [ { "native": "天気予報によると、明日は晴れるそうです。", "roman": "Tenki yohō ni yoru to, ashita wa hareru sō desu.", "gloss": "According to the forecast, it will be sunny tomorrow." } ]
+    },
+    {
+      "id": "ja-n3-tameni", "pattern": "〜ために", "reading": "ために", "meaning": "in order to; for the sake of", "level": "N3", "category": "Purpose",
+      "explanation": "Dictionary form or noun + の + ために shows purpose or beneficiary.",
+      "examples": [ { "native": "健康のために、毎朝歩いています。", "roman": "Kenkō no tame ni, maiasa aruite imasu.", "gloss": "For my health, I walk every morning." } ]
+    },
+    {
+      "id": "ja-n3-teoku", "pattern": "〜ておく", "reading": "ておく", "meaning": "do in advance; leave something done", "level": "N3", "category": "Aspect",
+      "explanation": "て-form + おく means doing something ahead of time as preparation. Casual: 〜とく.",
+      "examples": [ { "native": "旅行の前にホテルを予約しておきます。", "roman": "Ryokō no mae ni hoteru o yoyaku shite okimasu.", "gloss": "I'll book the hotel in advance before the trip." } ]
+    },
+    {
+      "id": "ja-n3-teshimau", "pattern": "〜てしまう", "reading": "てしまう", "meaning": "finish completely; do by accident (regret)", "level": "N3", "category": "Aspect",
+      "explanation": "て-form + しまう marks completion or an unintended, regrettable result. Casual: 〜ちゃう.",
+      "examples": [ { "native": "宿題を忘れてしまいました。", "roman": "Shukudai o wasurete shimaimashita.", "gloss": "I (unfortunately) forgot my homework." } ]
+    },
+    {
+      "id": "ja-n3-tokoroda", "pattern": "〜ところだ", "reading": "ところだ", "meaning": "about to / in the middle of / just did", "level": "N3", "category": "Aspect",
+      "explanation": "Dictionary/〜ている/〜た before ところだ marks the stage of an action.",
+      "examples": [ { "native": "今から出かけるところです。", "roman": "Ima kara dekakeru tokoro desu.", "gloss": "I'm just about to go out now." } ]
+    },
+    {
+      "id": "ja-n3-niyoruto", "pattern": "〜によると", "reading": "によると", "meaning": "according to (a source)", "level": "N3", "category": "Reporting",
+      "explanation": "Marks the source of reported information, often paired with 〜そうだ/らしい.",
+      "examples": [ { "native": "ニュースによると、地震があったそうです。", "roman": "Nyūsu ni yoru to, jishin ga atta sō desu.", "gloss": "According to the news, there was an earthquake." } ]
+    },
+    {
+      "id": "ja-n3-mama", "pattern": "〜まま", "reading": "まま", "meaning": "as it is; unchanged state", "level": "N3", "category": "State",
+      "explanation": "Shows an action done while a state remains unchanged.",
+      "examples": [ { "native": "電気をつけたまま寝てしまった。", "roman": "Denki o tsuketa mama nete shimatta.", "gloss": "I fell asleep with the light left on." } ]
+    },
+    {
+      "id": "ja-n3-zuni", "pattern": "〜ずに", "reading": "ずに", "meaning": "without doing", "level": "N3", "category": "Manner",
+      "explanation": "A formal equivalent of 〜ないで. する becomes せずに.",
+      "examples": [ { "native": "朝ごはんを食べずに学校へ行きました。", "roman": "Asagohan o tabezu ni gakkō e ikimashita.", "gloss": "I went to school without eating breakfast." } ]
+    },
+
+    {
+      "id": "ja-n2-nichigainai", "pattern": "〜に違いない", "reading": "にちがいない", "meaning": "must be; no doubt that", "level": "N2", "category": "Certainty",
+      "explanation": "Expresses the speaker's strong conviction based on evidence.",
+      "examples": [ { "native": "この字は彼が書いたに違いない。", "roman": "Kono ji wa kare ga kaita ni chigainai.", "gloss": "This handwriting must be his." } ]
+    },
+    {
+      "id": "ja-n2-wakeganai", "pattern": "〜わけがない", "reading": "わけがない", "meaning": "there's no way that", "level": "N2", "category": "Certainty",
+      "explanation": "Strongly denies a possibility.",
+      "examples": [ { "native": "彼女がそんなことを言うわけがない。", "roman": "Kanojo ga sonna koto o iu wake ga nai.", "gloss": "There's no way she would say such a thing." } ]
+    },
+    {
+      "id": "ja-n2-wakedehanai", "pattern": "〜わけではない", "reading": "わけではない", "meaning": "it doesn't mean that; not necessarily", "level": "N2", "category": "Nuance",
+      "explanation": "Partially denies a natural assumption.",
+      "examples": [ { "native": "肉が嫌いなわけではないが、あまり食べない。", "roman": "Niku ga kirai na wake de wa nai ga, amari tabenai.", "gloss": "It's not that I dislike meat, but I don't eat much of it." } ]
+    },
+    {
+      "id": "ja-n2-kotoninatteiru", "pattern": "〜ことになっている", "reading": "ことになっている", "meaning": "it is a rule / arrangement that", "level": "N2", "category": "Rule",
+      "explanation": "Describes an established rule, custom, or scheduled arrangement.",
+      "examples": [ { "native": "校内では日本語を話すことになっている。", "roman": "Kōnai de wa Nihongo o hanasu koto ni natte iru.", "gloss": "The rule is to speak Japanese on campus." } ]
+    },
+    {
+      "id": "ja-n2-monoda", "pattern": "〜ものだ", "reading": "ものだ", "meaning": "it's the way things are; used to (nostalgia)", "level": "N2", "category": "Generalization",
+      "explanation": "States a general truth, strong feeling, or reminiscence.",
+      "examples": [ { "native": "子供のころ、よくここで遊んだものだ。", "roman": "Kodomo no koro, yoku koko de asonda mono da.", "gloss": "As a child, I used to play here a lot." } ]
+    },
+    {
+      "id": "ja-n2-kawarini", "pattern": "〜かわりに", "reading": "かわりに", "meaning": "instead of; in exchange for", "level": "N2", "category": "Substitution",
+      "explanation": "Marks a substitution or a trade-off.",
+      "examples": [ { "native": "外食するかわりに、家で料理をした。", "roman": "Gaishoku suru kawari ni, ie de ryōri o shita.", "gloss": "Instead of eating out, I cooked at home." } ]
+    },
+    {
+      "id": "ja-n2-nitaishite", "pattern": "〜に対して", "reading": "にたいして", "meaning": "toward; in contrast to", "level": "N2", "category": "Relation",
+      "explanation": "Indicates the target of an attitude/action, or a contrast between two things.",
+      "examples": [ { "native": "お客様に対して丁寧に話す。", "roman": "Okyakusama ni taishite teinei ni hanasu.", "gloss": "Speak politely toward customers." } ]
+    },
+    {
+      "id": "ja-n2-nikanshite", "pattern": "〜に関して", "reading": "にかんして", "meaning": "regarding; concerning", "level": "N2", "category": "Topic",
+      "explanation": "A more formal equivalent of 〜について.",
+      "examples": [ { "native": "この問題に関して意見を述べた。", "roman": "Kono mondai ni kanshite iken o nobeta.", "gloss": "I stated my opinion regarding this issue." } ]
+    },
+    {
+      "id": "ja-n2-toshitemo", "pattern": "〜としても", "reading": "としても", "meaning": "even if; even supposing", "level": "N2", "category": "Concession",
+      "explanation": "Presents a hypothetical concession.",
+      "examples": [ { "native": "急いだとしても、間に合わないだろう。", "roman": "Isoida to shite mo, ma ni awanai darō.", "gloss": "Even if we hurry, we probably won't make it." } ]
+    },
+    {
+      "id": "ja-n2-uede", "pattern": "〜上で", "reading": "うえで", "meaning": "upon (doing); after; in the process of", "level": "N2", "category": "Sequence",
+      "explanation": "Shows that B is done on the basis of first doing A.",
+      "examples": [ { "native": "よく考えた上で、返事します。", "roman": "Yoku kangaeta ue de, henji shimasu.", "gloss": "I'll reply after thinking it over carefully." } ]
+    },
+    {
+      "id": "ja-n2-zaruoenai", "pattern": "〜ざるを得ない", "reading": "ざるをえない", "meaning": "have no choice but to", "level": "N2", "category": "Obligation",
+      "explanation": "Negative stem + ざるを得ない expresses reluctant inevitability. する→せざるを得ない.",
+      "examples": [ { "native": "台風なので、旅行を中止せざるを得ない。", "roman": "Taifū na node, ryokō o chūshi sezaru o enai.", "gloss": "Because of the typhoon, we have no choice but to cancel the trip." } ]
+    },
+    {
+      "id": "ja-n2-shidai", "pattern": "〜次第", "reading": "しだい", "meaning": "as soon as", "level": "N2", "category": "Time",
+      "explanation": "Verb stem + 次第 means an action happens immediately after another.",
+      "examples": [ { "native": "会議が終わり次第、連絡します。", "roman": "Kaigi ga owari shidai, renraku shimasu.", "gloss": "I'll contact you as soon as the meeting ends." } ]
+    },
+    {
+      "id": "ja-n2-nimotozuite", "pattern": "〜に基づいて", "reading": "にもとづいて", "meaning": "based on", "level": "N2", "category": "Basis",
+      "explanation": "Indicates the basis or foundation for an action.",
+      "examples": [ { "native": "データに基づいて計画を立てる。", "roman": "Dēta ni motozuite keikaku o tateru.", "gloss": "Make a plan based on the data." } ]
+    },
+
+    {
+      "id": "ja-n1-niiataru", "pattern": "〜に至る", "reading": "にいたる", "meaning": "reach the point/place of", "level": "N1", "category": "Culmination",
+      "explanation": "Indicates finally reaching an extreme state or a place after a process.",
+      "examples": [ { "native": "長い議論の末、合意に至った。", "roman": "Nagai giron no sue, gōi ni itatta.", "gloss": "After long discussion, they finally reached an agreement." } ]
+    },
+    {
+      "id": "ja-n1-womegutte", "pattern": "〜をめぐって", "reading": "をめぐって", "meaning": "concerning; over (a dispute)", "level": "N1", "category": "Topic",
+      "explanation": "Marks a matter that people argue, compete, or have differing views about.",
+      "examples": [ { "native": "その土地をめぐって争いが起きた。", "roman": "Sono tochi o megutte arasoi ga okita.", "gloss": "A dispute arose over that land." } ]
+    },
+    {
+      "id": "ja-n1-naradehano", "pattern": "〜ならではの", "reading": "ならではの", "meaning": "unique to; only possible for", "level": "N1", "category": "Uniqueness",
+      "explanation": "Praises something distinctive that only a particular person/place can offer.",
+      "examples": [ { "native": "この店ならではの味が楽しめる。", "roman": "Kono mise naradewa no aji ga tanoshimeru.", "gloss": "You can enjoy a flavor unique to this restaurant." } ]
+    },
+    {
+      "id": "ja-n1-kotonaku", "pattern": "〜ことなく", "reading": "ことなく", "meaning": "without (doing); never once", "level": "N1", "category": "Manner",
+      "explanation": "A formal equivalent of 〜ないで, common in writing.",
+      "examples": [ { "native": "彼は休むことなく働き続けた。", "roman": "Kare wa yasumu koto naku hataraki tsuzuketa.", "gloss": "He kept working without ever resting." } ]
+    },
+    {
+      "id": "ja-n1-yainaya", "pattern": "〜や否や", "reading": "やいなや", "meaning": "the moment that; as soon as", "level": "N1", "category": "Time",
+      "explanation": "Dictionary form + や否や marks an immediate consecutive action, literary in tone.",
+      "examples": [ { "native": "ベルが鳴るや否や、教室を飛び出した。", "roman": "Beru ga naru ya inaya, kyōshitsu o tobidashita.", "gloss": "The moment the bell rang, they dashed out of the classroom." } ]
+    },
+    {
+      "id": "ja-n1-beku", "pattern": "〜べく", "reading": "べく", "meaning": "in order to; with the aim of", "level": "N1", "category": "Purpose",
+      "explanation": "A formal purpose expression; する becomes すべく.",
+      "examples": [ { "native": "試験に合格すべく、必死に勉強した。", "roman": "Shiken ni gōkaku subeku, hisshi ni benkyō shita.", "gloss": "I studied desperately in order to pass the exam." } ]
+    },
+    {
+      "id": "ja-n1-woyoginakusareru", "pattern": "〜を余儀なくされる", "reading": "をよぎなくされる", "meaning": "be forced to; have no choice but", "level": "N1", "category": "Obligation",
+      "explanation": "Something external forces an unwanted outcome upon the subject.",
+      "examples": [ { "native": "けがのため、引退を余儀なくされた。", "roman": "Kega no tame, intai o yoginaku sareta.", "gloss": "Due to injury, he was forced to retire." } ]
+    },
+    {
+      "id": "ja-n1-zunihairarenai", "pattern": "〜ずにはいられない", "reading": "ずにはいられない", "meaning": "can't help but; can't resist", "level": "N1", "category": "Emotion",
+      "explanation": "Expresses an urge one cannot suppress. する→せずにはいられない.",
+      "examples": [ { "native": "この映画を見ると、泣かずにはいられない。", "roman": "Kono eiga o miru to, nakazu ni wa irarenai.", "gloss": "When I watch this movie, I can't help crying." } ]
+    },
+    {
+      "id": "ja-n1-tohaie", "pattern": "〜とはいえ", "reading": "とはいえ", "meaning": "although; even though", "level": "N1", "category": "Concession",
+      "explanation": "Concedes a point while noting the reality differs from what it implies.",
+      "examples": [ { "native": "春とはいえ、まだ寒い日が続く。", "roman": "Haru to wa ie, mada samui hi ga tsuzuku.", "gloss": "Although it's spring, cold days still continue." } ]
+    },
+    {
+      "id": "ja-n1-kagirida", "pattern": "〜限りだ", "reading": "かぎりだ", "meaning": "extremely; couldn't be more", "level": "N1", "category": "Emotion",
+      "explanation": "Emphasizes an intense feeling, attaching to emotion adjectives.",
+      "examples": [ { "native": "一人で行くとは、心細い限りだ。", "roman": "Hitori de iku to wa, kokorobosoi kagiri da.", "gloss": "Going alone — I couldn't feel more uneasy." } ]
+    },
+    {
+      "id": "ja-n1-kiraigaaru", "pattern": "〜きらいがある", "reading": "きらいがある", "meaning": "tend to (a bad habit)", "level": "N1", "category": "Tendency",
+      "explanation": "Points out an undesirable tendency.",
+      "examples": [ { "native": "彼は物事を大げさに言うきらいがある。", "roman": "Kare wa monogoto o ōgesa ni iu kirai ga aru.", "gloss": "He has a tendency to exaggerate things." } ]
+    },
+    {
+      "id": "ja-n1-monono", "pattern": "〜ものの", "reading": "ものの", "meaning": "although; but (concession)", "level": "N1", "category": "Concession",
+      "explanation": "Admits a fact, then presents a contrasting reality, formal in tone.",
+      "examples": [ { "native": "免許は取ったものの、ほとんど運転しない。", "roman": "Menkyo wa totta mono no, hotondo unten shinai.", "gloss": "Although I got my license, I hardly ever drive." } ]
+    }
+  ]
+}

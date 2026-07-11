@@ -1,0 +1,97 @@
+{
+  "exams": [
+    {
+      "id": "jlpt",
+      "name": "JLPT",
+      "fullName": "Japanese-Language Proficiency Test",
+      "note": "Knowledge-based test. Since 2010 the JLPT publishes no official word/kanji lists — the counts below are widely used community estimates. You must clear both the overall pass mark and every sectional minimum.",
+      "levels": [
+        {
+          "code": "N5", "label": "Basic", "cefr": "A1",
+          "targets": { "kanji": 100, "vocab": 800, "grammar": 80 },
+          "hours": "350–460",
+          "pass": "80 / 180",
+          "sections": ["Vocabulary · 20m", "Grammar & Reading · 40m", "Listening · 30m"],
+          "canDo": [
+            "Read hiragana, katakana, and basic kanji expressions",
+            "Follow short, slowly-spoken everyday conversations",
+            "Use greetings and common set phrases"
+          ]
+        },
+        {
+          "code": "N4", "label": "Elementary", "cefr": "A2",
+          "targets": { "kanji": 300, "vocab": 1500, "grammar": 150 },
+          "hours": "550–1,000",
+          "pass": "90 / 180",
+          "sections": ["Vocabulary · 25m", "Grammar & Reading · 55m", "Listening · 35m"],
+          "canDo": [
+            "Read familiar daily-topic passages in basic vocabulary and kanji",
+            "Understand everyday conversations spoken slowly"
+          ]
+        },
+        {
+          "code": "N3", "label": "Intermediate", "cefr": "A2–B1",
+          "targets": { "kanji": 650, "vocab": 3700, "grammar": 200 },
+          "hours": "900–1,700",
+          "pass": "95 / 180 · each section ≥ 19/60",
+          "sections": ["Vocabulary · 30m", "Grammar & Reading · 70m", "Listening · 40m"],
+          "canDo": [
+            "Read concrete everyday materials and grasp headline information",
+            "Understand slightly abstract everyday texts",
+            "Follow coherent conversation at near-natural speed"
+          ]
+        },
+        {
+          "code": "N2", "label": "Upper Intermediate", "cefr": "B1–B2",
+          "targets": { "kanji": 1000, "vocab": 6000, "grammar": 200 },
+          "hours": "1,500–2,200",
+          "pass": "90 / 180 · each section ≥ 19/60",
+          "sections": ["Vocabulary / Grammar & Reading · 105m", "Listening · 50m"],
+          "canDo": [
+            "Read articles, commentaries, and simple critiques on varied topics",
+            "Understand news reports and natural-speed conversation, grasping intent"
+          ]
+        },
+        {
+          "code": "N1", "label": "Advanced", "cefr": "B2–C1",
+          "targets": { "kanji": 2000, "vocab": 10000, "grammar": 200 },
+          "hours": "3,000–4,800",
+          "pass": "100 / 180 · each section ≥ 19/60",
+          "sections": ["Vocabulary / Grammar & Reading · 110m", "Listening · 55m"],
+          "canDo": [
+            "Read logically complex, abstract writing and grasp structure and intent",
+            "Follow lectures, news, and natural-speed conversation in detail"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jft",
+      "name": "JFT-Basic",
+      "fullName": "Japan Foundation Test for Basic Japanese",
+      "note": "Task / can-do based CBT (~50 questions, 60 min), targeting CEFR A2. Accepted as the language requirement for the Specified Skilled Worker (特定技能) visa. The Japan Foundation's free Irodori (いろどり) courseware is the aligned A1–A2 curriculum.",
+      "levels": [
+        {
+          "code": "A2", "label": "Basic — Life in Japan", "cefr": "A2",
+          "targets": { "kanji": 250, "vocab": 1250, "grammar": 80 },
+          "hours": "—",
+          "pass": "200 / 250",
+          "sections": [
+            "Script & Vocabulary (文字と語彙)",
+            "Conversation & Expression (会話と表現)",
+            "Listening (聴解)",
+            "Reading (読解)"
+          ],
+          "canDo": [
+            "Introduce yourself and talk about daily routine",
+            "Shop and order at restaurants (prices, allergies)",
+            "Ask directions and handle transport",
+            "Communicate at the workplace (requests, instructions)",
+            "Describe symptoms at a hospital",
+            "Prepare for disasters (earthquakes, typhoons)"
+          ]
+        }
+      ]
+    }
+  ]
+}

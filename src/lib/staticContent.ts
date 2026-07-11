@@ -1,4 +1,5 @@
 import gJa from "@/content/grammar/ja.json";
+import gJaExtra from "@/content/grammar/ja-extra.json";
 import gKo from "@/content/grammar/ko.json";
 import gZh from "@/content/grammar/zh.json";
 import gEn from "@/content/grammar/en.json";
@@ -72,8 +73,14 @@ const READING: Record<string, { passages: ReadingPassage[] }> = {
   ja: rJa as { passages: ReadingPassage[] },
 };
 
+// Hand-authored supplements kept separate from the generated files so
+// `npm run gen:content` never overwrites them.
+const GRAMMAR_EXTRA: Record<string, { patterns: GrammarPattern[] }> = {
+  ja: gJaExtra as { patterns: GrammarPattern[] },
+};
+
 export function getGrammar(lang: string): GrammarPattern[] {
-  return GRAMMAR[lang]?.patterns ?? [];
+  return [...(GRAMMAR[lang]?.patterns ?? []), ...(GRAMMAR_EXTRA[lang]?.patterns ?? [])];
 }
 export function getDialogs(lang: string): Dialog[] {
   return DIALOGS[lang]?.dialogs ?? [];
