@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, BookOpen, BookText, Check, Flame, Gamepad2, GraduationCap, Languages, Layers, Lock, MessagesSquare, PenLine, Repeat2 } from "lucide-react";
+import { ArrowRight, BookOpen, BookText, Check, Flame, Gamepad2, GraduationCap, Languages, Layers, Lock, MessagesSquare, Newspaper, PenLine, Repeat2 } from "lucide-react";
 import { LanguageSeal } from "@/components/brand/LanguageSeal";
 import { ProgressRing } from "@/components/ui/ProgressRing";
 import { getModuleData } from "@/lib/content";
@@ -46,6 +46,7 @@ export default async function ModuleHomePage({
     { href: `/learn/${lang}/review`, icon: Repeat2, title: "Review", sub: "Due cards", show: true },
     { href: `/learn/${lang}/exam`, icon: GraduationCap, title: "Exam Prep", sub: "JLPT · JFT-Basic", show: lang === "ja" },
     { href: `/learn/${lang}/reading`, icon: BookOpen, title: "Reading", sub: `${t.reading} passages`, show: t.reading > 0 },
+    { href: `/learn/${lang}/news`, icon: Newspaper, title: "News", sub: "Real articles + audio", show: lang === "ja" },
     { href: `/learn/${lang}/grammar`, icon: BookText, title: "Grammar", sub: `${t.grammar} patterns`, show: t.grammar > 0 },
     { href: `/learn/${lang}/characters`, icon: Languages, title: "Characters", sub: `${t.characters} characters`, show: t.characters > 0 },
     { href: `/learn/${lang}/strokes`, icon: PenLine, title: "Stroke Order", sub: "Trace kana & kanji", show: lang === "ja" },
