@@ -11,11 +11,6 @@
       "examples": [ { "native": "週末は本を読んだり、音楽を聞いたりします。", "roman": "Shūmatsu wa hon o yondari, ongaku o kiitari shimasu.", "gloss": "On weekends I do things like read books and listen to music." } ]
     },
     {
-      "id": "ja-n4x-nagara", "pattern": "〜ながら", "reading": "ながら", "meaning": "while doing (two actions at once)", "level": "N4", "category": "Conjunction",
-      "explanation": "Verb stem (ます-stem) + ながら shows two actions by the same person at the same time.",
-      "examples": [ { "native": "音楽を聞きながら勉強します。", "roman": "Ongaku o kikinagara benkyō shimasu.", "gloss": "I study while listening to music." } ]
-    },
-    {
       "id": "ja-n4x-sugiru", "pattern": "〜すぎる", "reading": "すぎる", "meaning": "too much; excessively", "level": "N4", "category": "Degree",
       "explanation": "Verb stem or adjective stem + すぎる means something is excessive.",
       "examples": [ { "native": "きのうは食べすぎました。", "roman": "Kinō wa tabesugimashita.", "gloss": "I ate too much yesterday." } ]

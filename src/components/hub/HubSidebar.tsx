@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Feather } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 import { HUB_NAV } from "@/lib/nav";
 
@@ -41,17 +41,6 @@ export function HubSidebar({ user }: { user: { name: string; email: string } }) 
           );
         })}
       </nav>
-
-      <div className="rounded-2xl border hairline bg-ivory p-4">
-        <Feather className="h-5 w-5 text-gold" />
-        <p className="mt-2 font-display text-sm font-bold text-ink">Go Premium</p>
-        <p className="mt-1 text-xs leading-relaxed text-ink-soft">
-          Unlock all languages, premium lessons, and advanced reports.
-        </p>
-        <Link href="/home/premium" className="mt-3 block w-full rounded-xl bg-gold px-3 py-2 text-center text-sm font-bold text-white transition-colors hover:bg-gold-deep">
-          Upgrade Now
-        </Link>
-      </div>
 
       <Link
         href="/home/profile"
