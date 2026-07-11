@@ -70,7 +70,7 @@ export default async function ReportsPage() {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Reports</h1>
+      <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Reports</h1>
       <p className="mt-1 text-sm text-ink-soft">Your progress across every language.</p>
 
       <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">

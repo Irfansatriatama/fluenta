@@ -37,8 +37,8 @@ export default async function StrokesPage({
       : [];
 
   return (
-    <div className="mx-auto max-w-3xl">
-      <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
+    <div className="fl-enter mx-auto max-w-3xl">
+      <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
         {meta.name} Stroke Order
       </h1>
       <p className="mt-1 text-sm text-ink-soft">

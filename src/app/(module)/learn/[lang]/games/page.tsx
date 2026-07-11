@@ -23,8 +23,8 @@ export default async function GamesPage({
   const games = GAMES.filter((g) => !g.langs || g.langs.includes(lang));
 
   return (
-    <div className="mx-auto max-w-3xl">
-      <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">{meta.name} Games</h1>
+    <div className="fl-enter mx-auto max-w-3xl">
+      <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">{meta.name} Games</h1>
       <p className="mt-1 text-sm text-ink-soft">Quick games and drills to sharpen your skills.</p>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">

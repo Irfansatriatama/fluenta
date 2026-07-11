@@ -60,7 +60,7 @@ export default async function ModuleHomePage({
     <div className="mx-auto max-w-5xl">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
+          <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
             Continue your {language.name}
           </h1>
           <p className="mt-1 text-sm text-ink-soft">One lesson at a time — keep the momentum going.</p>

@@ -30,7 +30,7 @@ export default async function LeaderboardPage() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Leaderboard</h1>
+      <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Leaderboard</h1>
       <p className="mt-1 text-sm text-ink-soft">Top learners by total XP.</p>
 
       {rows.length === 0 ? (
