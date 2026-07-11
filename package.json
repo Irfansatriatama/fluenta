@@ -16,7 +16,9 @@
     "db:import": "tsx prisma/import-lingora.ts && tsx prisma/import-kanji.ts",
     "db:rebuild": "npm run db:import && npm run db:seed",
     "gen:content": "tsx scripts/gen-content.ts",
-    "gen:kanji": "tsx scripts/gen-kanji.ts"
+    "gen:kanji": "tsx scripts/gen-kanji.ts",
+    "gen:strokes": "node scripts/gen-strokes.mjs",
+    "gen:reading": "tsx scripts/gen-reading.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",

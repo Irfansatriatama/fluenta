@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { PenLine } from "lucide-react";
 import { getCharacters } from "@/lib/staticContent";
 import { getLanguage } from "@/lib/theme";
 
@@ -19,6 +21,16 @@ export default async function CharactersPage({
         {meta.name} Characters
       </h1>
       <p className="mt-1 text-sm text-ink-soft">Writing systems, readings, and examples.</p>
+
+      {lang === "ja" && (
+        <Link
+          href={`/learn/${lang}/strokes`}
+          className="mt-4 inline-flex items-center gap-2 rounded-xl border hairline bg-paper px-4 py-2.5 text-sm font-bold text-ink shadow-soft transition-colors hover:border-[color:var(--accent)]"
+        >
+          <PenLine className="h-4 w-4" style={{ color: "var(--accent)" }} />
+          Practice stroke order
+        </Link>
+      )}
 
       {groups.length === 0 ? (
         <p className="mt-8 rounded-2xl border hairline bg-paper p-6 text-sm text-ink-soft">
