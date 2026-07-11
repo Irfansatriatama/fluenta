@@ -140,6 +140,88 @@
         { "speaker": "A", "native": "公園に行こうと思っています。", "roman": "Kōen ni ikō to omotte imasu.", "gloss": "I'm thinking of going to the park." },
         { "speaker": "B", "native": "いいですね。楽しんでください。", "roman": "Ii desu ne. Tanoshinde kudasai.", "gloss": "That's nice. Enjoy!" }
       ]
+    },
+    {
+      "id": "ja-x-eigakan",
+      "title": "Buying movie tickets",
+      "level": "N4",
+      "description": "Buy tickets and choose seats at a cinema.",
+      "lines": [
+        { "speaker": "客", "native": "大人二枚ください。", "roman": "Otona nimai kudasai.", "gloss": "Two adult tickets, please." },
+        { "speaker": "店員", "native": "何の映画ですか。", "roman": "Nan no eiga desu ka.", "gloss": "Which movie?" },
+        { "speaker": "客", "native": "三時からのアニメです。", "roman": "San-ji kara no anime desu.", "gloss": "The anime that starts at three." },
+        { "speaker": "店員", "native": "座席はどこがいいですか。", "roman": "Zaseki wa doko ga ii desu ka.", "gloss": "Where would you like to sit?" },
+        { "speaker": "客", "native": "後ろの方をお願いします。", "roman": "Ushiro no hō o onegai shimasu.", "gloss": "Toward the back, please." },
+        { "speaker": "店員", "native": "二千円です。楽しんでください。", "roman": "Nisen-en desu. Tanoshinde kudasai.", "gloss": "That's 2,000 yen. Enjoy the movie." }
+      ]
+    },
+    {
+      "id": "ja-x-takushi",
+      "title": "Taking a taxi",
+      "level": "N4",
+      "description": "Tell the driver your destination.",
+      "lines": [
+        { "speaker": "客", "native": "東京駅までお願いします。", "roman": "Tōkyō-eki made onegai shimasu.", "gloss": "To Tokyo Station, please." },
+        { "speaker": "運転手", "native": "はい、わかりました。", "roman": "Hai, wakarimashita.", "gloss": "Yes, understood." },
+        { "speaker": "客", "native": "どのくらいかかりますか。", "roman": "Dono kurai kakarimasu ka.", "gloss": "About how long will it take?" },
+        { "speaker": "運転手", "native": "二十分ぐらいです。", "roman": "Nijuppun gurai desu.", "gloss": "About twenty minutes." },
+        { "speaker": "客", "native": "急いでいるので、少し早くお願いします。", "roman": "Isoide iru node, sukoshi hayaku onegai shimasu.", "gloss": "I'm in a hurry, so a bit faster, please." },
+        { "speaker": "運転手", "native": "わかりました。安全に行きます。", "roman": "Wakarimashita. Anzen ni ikimasu.", "gloss": "Understood. I'll drive safely." }
+      ]
+    },
+    {
+      "id": "ja-x-toshokan",
+      "title": "Borrowing a book",
+      "level": "N5",
+      "description": "Borrow a book at the library.",
+      "lines": [
+        { "speaker": "客", "native": "この本を借りたいです。", "roman": "Kono hon o karitai desu.", "gloss": "I'd like to borrow this book." },
+        { "speaker": "司書", "native": "図書館のカードはありますか。", "roman": "Toshokan no kādo wa arimasu ka.", "gloss": "Do you have a library card?" },
+        { "speaker": "客", "native": "はい、これです。", "roman": "Hai, kore desu.", "gloss": "Yes, here it is." },
+        { "speaker": "司書", "native": "二週間で返してください。", "roman": "Nishūkan de kaeshite kudasai.", "gloss": "Please return it within two weeks." },
+        { "speaker": "客", "native": "わかりました。ありがとうございます。", "roman": "Wakarimashita. Arigatō gozaimasu.", "gloss": "Understood. Thank you." }
+      ]
+    },
+    {
+      "id": "ja-x-shiyakusho",
+      "title": "At the city hall",
+      "level": "N4",
+      "description": "Change your registered address after moving.",
+      "lines": [
+        { "speaker": "客", "native": "引っ越したので、住所を変えたいです。", "roman": "Hikkoshita node, jūsho o kaetai desu.", "gloss": "I moved, so I'd like to change my address." },
+        { "speaker": "職員", "native": "では、この書類に記入してください。", "roman": "Dewa, kono shorui ni kinyū shite kudasai.", "gloss": "Then please fill in this form." },
+        { "speaker": "客", "native": "在留カードも必要ですか。", "roman": "Zairyū kādo mo hitsuyō desu ka.", "gloss": "Do I also need my residence card?" },
+        { "speaker": "職員", "native": "はい、お願いします。", "roman": "Hai, onegai shimasu.", "gloss": "Yes, please." },
+        { "speaker": "客", "native": "時間はどのくらいかかりますか。", "roman": "Jikan wa dono kurai kakarimasu ka.", "gloss": "How long does it take?" },
+        { "speaker": "職員", "native": "十五分ほどでできます。", "roman": "Jūgo-fun hodo de dekimasu.", "gloss": "It'll be done in about fifteen minutes." }
+      ]
+    },
+    {
+      "id": "ja-x-jimu",
+      "title": "Joining a gym",
+      "level": "N5",
+      "description": "Sign up for a gym membership.",
+      "lines": [
+        { "speaker": "客", "native": "ジムに入りたいのですが。", "roman": "Jimu ni hairitai no desu ga.", "gloss": "I'd like to join the gym." },
+        { "speaker": "店員", "native": "月に何回来る予定ですか。", "roman": "Tsuki ni nankai kuru yotei desu ka.", "gloss": "How many times a month do you plan to come?" },
+        { "speaker": "客", "native": "週に二回ぐらいです。", "roman": "Shū ni nikai gurai desu.", "gloss": "About twice a week." },
+        { "speaker": "店員", "native": "では、このプランがいいですよ。月五千円です。", "roman": "Dewa, kono puran ga ii desu yo. Tsuki gosen-en desu.", "gloss": "Then this plan is good. It's 5,000 yen a month." },
+        { "speaker": "客", "native": "いいですね。お願いします。", "roman": "Ii desu ne. Onegai shimasu.", "gloss": "Sounds good. I'll take it." }
+      ]
+    },
+    {
+      "id": "ja-x-omiyage",
+      "title": "Buying a souvenir",
+      "level": "N4",
+      "description": "Pick a gift and have it wrapped.",
+      "lines": [
+        { "speaker": "客", "native": "友達へのお土産を探しています。", "roman": "Tomodachi e no o-miyage o sagashite imasu.", "gloss": "I'm looking for a souvenir for a friend." },
+        { "speaker": "店員", "native": "こちらのお菓子が人気ですよ。", "roman": "Kochira no o-kashi ga ninki desu yo.", "gloss": "These sweets are popular." },
+        { "speaker": "客", "native": "じゃあ、これを三つください。", "roman": "Jā, kore o mittsu kudasai.", "gloss": "Then I'll take three of these." },
+        { "speaker": "店員", "native": "プレゼント用に包みますか。", "roman": "Purezento-yō ni tsutsumimasu ka.", "gloss": "Shall I wrap them as gifts?" },
+        { "speaker": "客", "native": "はい、お願いします。", "roman": "Hai, onegai shimasu.", "gloss": "Yes, please." },
+        { "speaker": "店員", "native": "少々お待ちください。", "roman": "Shōshō o-machi kudasai.", "gloss": "One moment, please." }
+      ]
     }
   ]
 }

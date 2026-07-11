@@ -663,6 +663,183 @@
         { "q": "ベルが鳴ったとき、生徒はどうしましたか。", "options": ["外に走った", "机の下に隠れた", "歌った", "帰った"], "answer": 1, "explanation": "「机の下に隠れました」。" },
         { "q": "先生は何と言いましたか。", "options": ["急いで", "落ち着いて", "早く帰って", "静かにしないで"], "answer": 1, "explanation": "「落ち着いて」と話しました。" }
       ]
+    },
+    {
+      "id": "ja-story-ryokou", "type": "story", "level": "N4", "title": "京都への旅行", "titleEn": "A trip to Kyoto", "topic": "Travel", "summary": "A short first-person account of a trip to Kyoto.", "minutes": 4,
+      "blocks": [
+        { "jp": "先月、友達と京都へ旅行に行きました。", "reading": "せんげつ、ともだちときょうとへりょこうにいきました。", "en": "Last month I went on a trip to Kyoto with a friend." },
+        { "jp": "古いお寺をたくさん見ました。", "reading": "ふるいおてらをたくさんみました。", "en": "We saw many old temples." },
+        { "jp": "着物を着て、写真をとりました。", "reading": "きものをきて、しゃしんをとりました。", "en": "We wore kimono and took photos." },
+        { "jp": "抹茶のアイスクリームを食べました。とてもおいしかったです。", "reading": "まっちゃのアイスクリームをたべました。とてもおいしかったです。", "en": "We ate matcha ice cream. It was delicious." },
+        { "jp": "また京都に行きたいです。", "reading": "またきょうとにいきたいです。", "en": "I want to go to Kyoto again." }
+      ],
+      "vocab": [
+        { "word": "旅行", "reading": "りょこう", "meaning": "trip, travel" },
+        { "word": "お寺", "reading": "おてら", "meaning": "temple" },
+        { "word": "着物", "reading": "きもの", "meaning": "kimono" },
+        { "word": "写真", "reading": "しゃしん", "meaning": "photo" },
+        { "word": "抹茶", "reading": "まっちゃ", "meaning": "matcha (green tea)" }
+      ],
+      "questions": [
+        { "q": "いつ京都へ行きましたか。", "options": ["先週", "先月", "去年", "今日"], "answer": 1, "explanation": "「先月…旅行に行きました」。" },
+        { "q": "何を着て写真をとりましたか。", "options": ["浴衣", "着物", "スーツ", "制服"], "answer": 1, "explanation": "「着物を着て、写真をとりました」。" },
+        { "q": "何を食べましたか。", "options": ["抹茶のアイスクリーム", "すし", "ラーメン", "ケーキ"], "answer": 0, "explanation": "「抹茶のアイスクリームを食べました」。" }
+      ]
+    },
+    {
+      "id": "ja-news-uchuu", "type": "news", "level": "N3", "title": "ロケットの打ち上げ", "titleEn": "A rocket launch", "topic": "Science", "summary": "Original news-style piece about a rocket launch.", "minutes": 5,
+      "blocks": [
+        { "jp": "昨日、日本のロケットが宇宙に向けて打ち上げられた。", "reading": "きのう、にほんのロケットがうちゅうにむけてうちあげられた。", "en": "Yesterday, a Japanese rocket was launched toward space." },
+        { "jp": "このロケットには、新しい人工衛星が乗っている。", "reading": "このロケットには、あたらしいじんこうえいせいがのっている。", "en": "This rocket carries a new satellite." },
+        { "jp": "衛星は天気の観測に使われる。", "reading": "えいせいはてんきのかんそくにつかわれる。", "en": "The satellite will be used to observe the weather." },
+        { "jp": "打ち上げは成功し、研究者たちは喜んだ。", "reading": "うちあげはせいこうし、けんきゅうしゃたちはよろこんだ。", "en": "The launch succeeded, and the researchers were pleased." },
+        { "jp": "宇宙の研究はこれからも続く。", "reading": "うちゅうのけんきゅうはこれからもつづく。", "en": "Space research will continue from here on." }
+      ],
+      "vocab": [
+        { "word": "宇宙", "reading": "うちゅう", "meaning": "space, the universe" },
+        { "word": "打ち上げる", "reading": "うちあげる", "meaning": "to launch" },
+        { "word": "人工衛星", "reading": "じんこうえいせい", "meaning": "(artificial) satellite" },
+        { "word": "観測", "reading": "かんそく", "meaning": "observation" },
+        { "word": "成功", "reading": "せいこう", "meaning": "success" }
+      ],
+      "questions": [
+        { "q": "ロケットには何が乗っていますか。", "options": ["人工衛星", "食べ物", "動物", "車"], "answer": 0, "explanation": "「新しい人工衛星が乗っている」。" },
+        { "q": "衛星は何に使われますか。", "options": ["買い物", "天気の観測", "ゲーム", "料理"], "answer": 1, "explanation": "「天気の観測に使われる」。" },
+        { "q": "打ち上げの結果はどうでしたか。", "options": ["失敗した", "成功した", "中止した", "わからない"], "answer": 1, "explanation": "「打ち上げは成功し」。" }
+      ]
+    },
+    {
+      "id": "ja-conv-ryouri", "type": "conversation", "level": "N4", "title": "料理教室", "titleEn": "Cooking class", "topic": "Food", "summary": "A teacher guides a student through making curry.", "minutes": 4,
+      "blocks": [
+        { "speaker": "先生", "jp": "今日はカレーを作りましょう。", "reading": "せんせい：きょうはカレーをつくりましょう。", "en": "Today let's make curry." },
+        { "speaker": "生徒", "jp": "はい。まず何をしますか。", "reading": "せいと：はい。まずなにをしますか。", "en": "Okay. What do we do first?" },
+        { "speaker": "先生", "jp": "野菜を小さく切ってください。", "reading": "やさいをちいさくきってください。", "en": "Please cut the vegetables small." },
+        { "speaker": "生徒", "jp": "切りました。次はどうしますか。", "reading": "きりました。つぎはどうしますか。", "en": "I've cut them. What's next?" },
+        { "speaker": "先生", "jp": "肉と野菜をなべで炒めます。", "reading": "にくとやさいをなべでいためます。", "en": "We stir-fry the meat and vegetables in a pot." },
+        { "speaker": "生徒", "jp": "いいにおいがしますね。", "reading": "いいにおいがしますね。", "en": "It smells good, doesn't it?" }
+      ],
+      "vocab": [
+        { "word": "野菜", "reading": "やさい", "meaning": "vegetable" },
+        { "word": "切る", "reading": "きる", "meaning": "to cut" },
+        { "word": "炒める", "reading": "いためる", "meaning": "to stir-fry" },
+        { "word": "なべ", "reading": "なべ", "meaning": "pot" },
+        { "word": "におい", "reading": "におい", "meaning": "smell" }
+      ],
+      "questions": [
+        { "q": "今日は何を作りますか。", "options": ["カレー", "ラーメン", "すし", "パン"], "answer": 0, "explanation": "「今日はカレーを作りましょう」。" },
+        { "q": "最初に何をしますか。", "options": ["肉を焼く", "野菜を切る", "米をとぐ", "皿を洗う"], "answer": 1, "explanation": "「まず野菜を小さく切ってください」。" },
+        { "q": "生徒は最後に何と言いましたか。", "options": ["おいしい", "いいにおいがする", "難しい", "疲れた"], "answer": 1, "explanation": "「いいにおいがしますね」。" }
+      ]
+    },
+    {
+      "id": "ja-news-setsuden", "type": "news", "level": "N4", "title": "夏の節電", "titleEn": "Saving electricity in summer", "topic": "Environment", "summary": "Original news-style notice about saving electricity.", "minutes": 4,
+      "blocks": [
+        { "jp": "夏は電気をたくさん使います。", "reading": "なつはでんきをたくさんつかいます。", "en": "In summer we use a lot of electricity." },
+        { "jp": "市は「節電にご協力ください」とお願いしています。", "reading": "しは「せつでんにごきょうりょくください」とおねがいしています。", "en": "The city is asking people to cooperate with saving electricity." },
+        { "jp": "エアコンの温度を高くすると、電気が少なくなります。", "reading": "エアコンのおんどをたかくすると、でんきがすくなくなります。", "en": "If you raise the air conditioner's temperature, you use less electricity." },
+        { "jp": "使わない電気は消しましょう。", "reading": "つかわないでんきはけしましょう。", "en": "Let's turn off electricity we aren't using." },
+        { "jp": "少しの工夫で、地球にもやさしくなります。", "reading": "すこしのくふうで、ちきゅうにもやさしくなります。", "en": "With a little effort, we can be kinder to the planet too." }
+      ],
+      "vocab": [
+        { "word": "電気", "reading": "でんき", "meaning": "electricity" },
+        { "word": "節電", "reading": "せつでん", "meaning": "saving electricity" },
+        { "word": "温度", "reading": "おんど", "meaning": "temperature" },
+        { "word": "消す", "reading": "けす", "meaning": "to turn off" },
+        { "word": "工夫", "reading": "くふう", "meaning": "ingenuity, a clever effort" }
+      ],
+      "questions": [
+        { "q": "いつ電気をたくさん使いますか。", "options": ["冬", "夏", "春", "秋"], "answer": 1, "explanation": "「夏は電気をたくさん使います」。" },
+        { "q": "エアコンをどうすると電気が少なくなりますか。", "options": ["温度を高くする", "温度を低くする", "止める", "強くする"], "answer": 0, "explanation": "「温度を高くすると、電気が少なくなります」。" },
+        { "q": "使わない電気はどうしますか。", "options": ["つける", "消す", "そのまま", "強くする"], "answer": 1, "explanation": "「使わない電気は消しましょう」。" }
+      ]
+    },
+    {
+      "id": "ja-news-kenkou", "type": "news", "level": "N3", "title": "運動と健康", "titleEn": "Exercise and health", "topic": "Health", "summary": "Original news-style piece on a study about daily exercise.", "minutes": 5,
+      "blocks": [
+        { "jp": "ある研究によると、毎日歩く人は病気になりにくい。", "reading": "あるけんきゅうによると、まいにちあるくひとはびょうきになりにくい。", "en": "According to a study, people who walk every day are less likely to get sick." },
+        { "jp": "一日三十分ぐらいの運動がいいそうだ。", "reading": "いちにちさんじゅっぷんぐらいのうんどうがいいそうだ。", "en": "About 30 minutes of exercise a day is said to be good." },
+        { "jp": "特に、朝の散歩は体にいいと言われている。", "reading": "とくに、あさのさんぽはからだにいいといわれている。", "en": "A morning walk in particular is said to be good for the body." },
+        { "jp": "無理をせず、続けることが大切だ。", "reading": "むりをせず、つづけることがたいせつだ。", "en": "It's important to continue without overdoing it." },
+        { "jp": "健康のために、今日から始めてみよう。", "reading": "けんこうのために、きょうからはじめてみよう。", "en": "For your health, let's start today." }
+      ],
+      "vocab": [
+        { "word": "研究", "reading": "けんきゅう", "meaning": "research, study" },
+        { "word": "運動", "reading": "うんどう", "meaning": "exercise" },
+        { "word": "散歩", "reading": "さんぽ", "meaning": "a walk, stroll" },
+        { "word": "無理", "reading": "むり", "meaning": "overexertion, unreasonable" },
+        { "word": "続ける", "reading": "つづける", "meaning": "to continue" }
+      ],
+      "questions": [
+        { "q": "どんな人が病気になりにくいですか。", "options": ["毎日歩く人", "よく寝る人", "たくさん食べる人", "薬を飲む人"], "answer": 0, "explanation": "「毎日歩く人は病気になりにくい」。" },
+        { "q": "一日どのくらいの運動がいいですか。", "options": ["五分", "三十分ぐらい", "三時間", "一日中"], "answer": 1, "explanation": "「一日三十分ぐらいの運動がいい」。" },
+        { "q": "何が大切だと言っていますか。", "options": ["速く走ること", "続けること", "たくさんすること", "朝だけすること"], "answer": 1, "explanation": "「続けることが大切だ」。" }
+      ]
+    },
+    {
+      "id": "ja-story-matsuri", "type": "story", "level": "N4", "title": "秋祭りの思い出", "titleEn": "Memories of the autumn festival", "topic": "Culture", "summary": "A nostalgic reflection on a childhood autumn festival.", "minutes": 4,
+      "blocks": [
+        { "jp": "私の町では、秋に大きな祭りがあります。", "reading": "わたしのまちでは、あきにおおきなまつりがあります。", "en": "In my town, there is a big festival in autumn." },
+        { "jp": "子供のとき、毎年家族と行きました。", "reading": "こどものとき、まいとしかぞくといきました。", "en": "As a child, I went every year with my family." },
+        { "jp": "太鼓の音が聞こえると、わくわくしました。", "reading": "たいこのおとがきこえると、わくわくしました。", "en": "When I heard the drums, I got excited." },
+        { "jp": "屋台でりんごあめを買うのが好きでした。", "reading": "やたいでりんごあめをかうのがすきでした。", "en": "I liked buying candy apples at the stalls." },
+        { "jp": "今でも、秋になるとあの祭りを思い出します。", "reading": "いまでも、あきになるとあのまつりをおもいだします。", "en": "Even now, when autumn comes, I remember that festival." }
+      ],
+      "vocab": [
+        { "word": "祭り", "reading": "まつり", "meaning": "festival" },
+        { "word": "太鼓", "reading": "たいこ", "meaning": "drum" },
+        { "word": "わくわく", "reading": "わくわく", "meaning": "to be excited (mimetic)" },
+        { "word": "屋台", "reading": "やたい", "meaning": "stall" },
+        { "word": "思い出す", "reading": "おもいだす", "meaning": "to recall, remember" }
+      ],
+      "questions": [
+        { "q": "祭りはいつありますか。", "options": ["春", "夏", "秋", "冬"], "answer": 2, "explanation": "「秋に大きな祭りがあります」。" },
+        { "q": "何の音でわくわくしましたか。", "options": ["花火", "太鼓", "電車", "音楽"], "answer": 1, "explanation": "「太鼓の音が聞こえると、わくわくしました」。" },
+        { "q": "屋台で何を買うのが好きでしたか。", "options": ["たこ焼き", "りんごあめ", "アイス", "おもちゃ"], "answer": 1, "explanation": "「りんごあめを買うのが好きでした」。" }
+      ]
+    },
+    {
+      "id": "ja-news-ai", "type": "news", "level": "N2", "title": "学校で広がるAI授業", "titleEn": "AI lessons spread in schools", "topic": "Technology", "summary": "Original news-style piece on AI use in classrooms.", "minutes": 5,
+      "blocks": [
+        { "jp": "最近、学校でAIを使った授業が増えている。", "reading": "さいきん、がっこうでエーアイをつかったじゅぎょうがふえている。", "en": "Recently, lessons using AI have been increasing in schools." },
+        { "jp": "AIは生徒一人一人に合った問題を出すことができる。", "reading": "エーアイはせいとひとりひとりにあったもんだいをだすことができる。", "en": "AI can give each student problems suited to them." },
+        { "jp": "苦手な部分を何度も練習できるので、成績が上がる生徒もいる。", "reading": "にがてなぶぶんをなんどもれんしゅうできるので、せいせきがあがるせいともいる。", "en": "Since students can practice their weak points repeatedly, some improve their grades." },
+        { "jp": "一方で、先生の役割も変わってきている。", "reading": "いっぽうで、せんせいのやくわりもかわってきている。", "en": "On the other hand, the teacher's role is also changing." },
+        { "jp": "技術と人が協力して、よりよい教育を目指している。", "reading": "ぎじゅつとひとがきょうりょくして、よりよいきょういくをめざしている。", "en": "Technology and people are cooperating to aim for better education." }
+      ],
+      "vocab": [
+        { "word": "授業", "reading": "じゅぎょう", "meaning": "class, lesson" },
+        { "word": "苦手", "reading": "にがて", "meaning": "weak at, not good at" },
+        { "word": "成績", "reading": "せいせき", "meaning": "grades, results" },
+        { "word": "役割", "reading": "やくわり", "meaning": "role" },
+        { "word": "技術", "reading": "ぎじゅつ", "meaning": "technology, skill" }
+      ],
+      "questions": [
+        { "q": "AIは何ができますか。", "options": ["一人一人に合った問題を出す", "料理を作る", "掃除をする", "運転する"], "answer": 0, "explanation": "「生徒一人一人に合った問題を出すことができる」。" },
+        { "q": "何が上がる生徒もいますか。", "options": ["身長", "成績", "体重", "料金"], "answer": 1, "explanation": "「成績が上がる生徒もいる」。" },
+        { "q": "技術と人は何を目指していますか。", "options": ["よりよい教育", "お金", "速さ", "有名になること"], "answer": 0, "explanation": "「よりよい教育を目指している」。" }
+      ]
+    },
+    {
+      "id": "ja-news-watari", "type": "news", "level": "N4", "title": "湖に渡り鳥が来た", "titleEn": "Migratory birds arrive at the lake", "topic": "Nature", "summary": "Original news-style piece about migratory birds.", "minutes": 4,
+      "blocks": [
+        { "jp": "冬になると、北の国から鳥がやって来ます。", "reading": "ふゆになると、きたのくにからとりがやってきます。", "en": "When winter comes, birds arrive from the northern countries." },
+        { "jp": "この鳥は「渡り鳥」と呼ばれています。", "reading": "このとりは「わたりどり」とよばれています。", "en": "These birds are called 'migratory birds'." },
+        { "jp": "町の近くの湖には、毎年たくさんの鳥が集まります。", "reading": "まちのちかくのみずうみには、まいとしたくさんのとりがあつまります。", "en": "Every year, many birds gather at the lake near the town." },
+        { "jp": "写真をとりに来る人も多いです。", "reading": "しゃしんをとりにくるひともおおいです。", "en": "Many people come to take photos too." },
+        { "jp": "春になると、鳥はまた北へ帰っていきます。", "reading": "はるになると、とりはまたきたへかえっていきます。", "en": "When spring comes, the birds fly back north again." }
+      ],
+      "vocab": [
+        { "word": "渡り鳥", "reading": "わたりどり", "meaning": "migratory bird" },
+        { "word": "呼ぶ", "reading": "よぶ", "meaning": "to call" },
+        { "word": "湖", "reading": "みずうみ", "meaning": "lake" },
+        { "word": "集まる", "reading": "あつまる", "meaning": "to gather" },
+        { "word": "帰る", "reading": "かえる", "meaning": "to return" }
+      ],
+      "questions": [
+        { "q": "鳥はいつやって来ますか。", "options": ["春", "夏", "秋", "冬"], "answer": 3, "explanation": "「冬になると…鳥がやって来ます」。" },
+        { "q": "鳥はどこに集まりますか。", "options": ["山", "湖", "駅", "公園"], "answer": 1, "explanation": "「町の近くの湖に…集まります」。" },
+        { "q": "春になると鳥はどうしますか。", "options": ["南へ行く", "北へ帰る", "町に住む", "いなくならない"], "answer": 1, "explanation": "「春になると、鳥はまた北へ帰っていきます」。" }
+      ]
     }
   ]
 }
