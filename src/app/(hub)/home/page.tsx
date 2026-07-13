@@ -197,6 +197,29 @@ export default async function HomePage() {
           })}
         </div>
       </section>
+
+      {/* a closing word — a proverb about the journey, in the flagship language */}
+      <section
+        className="relative overflow-hidden rounded-3xl border hairline bg-paper-2/40 px-6 py-8 text-center"
+      >
+        <span
+          aria-hidden
+          lang="ja"
+          className="pointer-events-none absolute -right-4 -top-8 select-none font-display font-black leading-none text-gold"
+          style={{ fontSize: "10rem", opacity: 0.06 }}
+        >
+          道
+        </span>
+        <div className="relative">
+          <p className="font-display text-xl font-bold text-ink sm:text-2xl" lang="ja">
+            千里の道も一歩から
+          </p>
+          <p className="mt-1 text-xs text-ink-faint">せんりのみちもいっぽから</p>
+          <p className="mentor-voice mt-3 text-[1.05rem] italic leading-snug text-ink-soft">
+            Perjalanan seribu li pun dimulai dari satu langkah.
+          </p>
+        </div>
+      </section>
     </div>
   );
 }
