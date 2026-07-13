@@ -194,7 +194,7 @@ export function LessonRunner({
         <button
           onClick={() => router.push(`/learn/${lang}/journey`)}
           className="grid h-8 w-8 place-items-center rounded-lg text-ink-soft hover:bg-paper-2"
-          aria-label="Exit lesson"
+          aria-label="Keluar pelajaran"
         >
           <X className="h-5 w-5" />
         </button>
@@ -247,7 +247,7 @@ export function LessonRunner({
               onChange={(e) => setWriting(e.target.value)}
               disabled={revealed}
               rows={4}
-              placeholder="Write your answer…"
+              placeholder="Tulis jawabanmu…"
               className="w-full rounded-2xl border border-edge bg-paper p-4 text-sm text-ink outline-none focus:border-[color:var(--accent)]"
               lang="ja"
             />
@@ -255,7 +255,7 @@ export function LessonRunner({
               <div className="mt-3 rounded-2xl border hairline bg-paper p-4">
                 <div className="flex items-center justify-between">
                   <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-gold-deep">
-                    <Sparkles className="h-4 w-4 text-gold" /> AI Feedback
+                    <Sparkles className="h-4 w-4 text-gold" /> Umpan Balik AI
                   </p>
                   <span className="rounded-full bg-ivory px-2.5 py-1 font-display text-sm font-bold text-ink ring-1 ring-edge">
                     {feedback.score}/10
@@ -292,7 +292,7 @@ export function LessonRunner({
 
                 {!feedback.aiPowered && (
                   <p className="mt-3 text-[0.65rem] text-ink-faint">
-                    Detailed AI grading activates once ANTHROPIC_API_KEY is set.
+                    Penilaian AI rinci aktif setelah ANTHROPIC_API_KEY diatur.
                   </p>
                 )}
               </div>
@@ -324,7 +324,7 @@ export function LessonRunner({
             className="w-full rounded-xl px-5 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
             style={{ backgroundColor: "var(--accent)" }}
           >
-            {pending ? "Grading…" : "Check"}
+            {pending ? "Menilai…" : "Periksa"}
           </button>
         ) : (
           <button
@@ -333,7 +333,7 @@ export function LessonRunner({
             className="inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
             style={{ backgroundColor: "var(--accent)" }}
           >
-            {pending ? "Saving…" : index < total - 1 ? "Continue" : "Finish"}
+            {pending ? "Menyimpan…" : index < total - 1 ? "Lanjut" : "Selesai"}
             {!pending && index < total - 1 && <ArrowRight className="h-4 w-4" />}
           </button>
         )}

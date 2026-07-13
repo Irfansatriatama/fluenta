@@ -23,13 +23,13 @@ export type CelebrationStat = {
 // The app's one deliberately big moment, shared by every runner and module.
 // Pass `score` (0–100) to show a 3-star rating, or omit it for a trophy.
 export function Celebration({
-  title = "Lesson complete!",
+  title = "Pelajaran selesai!",
   voice,
   subtitle,
   score = null,
   stats,
   onContinue,
-  continueLabel = "Continue",
+  continueLabel = "Lanjut",
   secondaryLabel,
   onSecondary,
 }: {
