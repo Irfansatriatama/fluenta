@@ -14,11 +14,11 @@ type Exam = { id: string; name: string; fullName: string; note: string; levels: 
 
 // How each JLPT/JFT test section maps to Fluenta practice.
 const PRACTICE_MAP: { icon: typeof BookOpen; section: string; features: string }[] = [
-  { icon: Languages, section: "Script & Vocabulary", features: "Flashcards + SRS · Characters · Stroke Order" },
-  { icon: PenLine, section: "Grammar & Expression", features: "Grammar patterns · Particle Cloze · Conjugation Drill" },
-  { icon: BookOpen, section: "Reading", features: "Graded Reading passages (news · conversation · story)" },
-  { icon: Headphones, section: "Listening", features: "Listening lessons · Reading audio · Dialogs" },
-  { icon: MessagesSquare, section: "Conversation", features: "Dialogs · Speaking · AI Tutor" },
+  { icon: Languages, section: "Aksara & Kosakata", features: "Flashcard + SRS · Aksara · Urutan Goresan" },
+  { icon: PenLine, section: "Tata Bahasa & Ungkapan", features: "Pola tata bahasa · Cloze Partikel · Drill Konjugasi" },
+  { icon: BookOpen, section: "Membaca", features: "Teks bacaan berjenjang (berita · percakapan · cerita)" },
+  { icon: Headphones, section: "Menyimak", features: "Pelajaran menyimak · Audio bacaan · Dialog" },
+  { icon: MessagesSquare, section: "Percakapan", features: "Dialog · Berbicara · Tutor AI" },
 ];
 
 // Count kanji the app teaches per JLPT level from the Characters content.
@@ -48,9 +48,9 @@ export default async function ExamPrepPage({
   if (lang !== "ja") {
     return (
       <div className="mx-auto max-w-3xl">
-        <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">{meta.name} Exam Prep</h1>
+        <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Persiapan Ujian</h1>
         <p className="mt-8 rounded-2xl border hairline bg-paper p-6 text-sm text-ink-soft">
-          Exam roadmaps are coming soon for this language.
+          Peta ujian segera hadir untuk bahasa ini.
         </p>
       </div>
     );
@@ -79,8 +79,8 @@ export default async function ExamPrepPage({
           <GraduationCap className="h-5 w-5" />
         </span>
         <div>
-          <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Exam Prep</h1>
-          <p className="text-sm text-ink-soft">Your roadmap to the JLPT and JFT-Basic — and how Fluenta covers each part.</p>
+          <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Persiapan Ujian</h1>
+          <p className="text-sm text-ink-soft">Peta jalanmu menuju JLPT dan JFT-Basic — dan bagaimana Fluenta menutupi tiap bagiannya.</p>
         </div>
       </div>
 
@@ -111,7 +111,7 @@ export default async function ExamPrepPage({
                   <div className="mt-4 flex flex-col gap-3">
                     {[
                       { name: "Kanji", d: kanji },
-                      { name: "Grammar points", d: grammar },
+                      { name: "Poin tata bahasa", d: grammar },
                     ].map(({ name, d }) => (
                       <div key={name}>
                         <div className="flex items-center justify-between text-xs">
@@ -124,16 +124,16 @@ export default async function ExamPrepPage({
                       </div>
                     ))}
                     <p className="text-xs text-ink-faint">
-                      Target vocab ≈ {lv.targets.vocab.toLocaleString()}{lv.hours !== "—" ? ` · ~${lv.hours} study hours` : ""}
+                      Target kosakata ≈ {lv.targets.vocab.toLocaleString()}{lv.hours !== "—" ? ` · ~${lv.hours} jam belajar` : ""}
                     </p>
                   </div>
 
                   <div className="mt-4 rounded-xl bg-paper-2 px-3 py-2 text-xs text-ink-soft">
-                    <span className="font-semibold text-ink">Pass:</span> {lv.pass}
+                    <span className="font-semibold text-ink">Lulus:</span> {lv.pass}
                   </div>
 
                   <div className="mt-3">
-                    <p className="text-[0.7rem] font-bold uppercase tracking-wide text-ink-faint">Sections</p>
+                    <p className="text-[0.7rem] font-bold uppercase tracking-wide text-ink-faint">Bagian</p>
                     <ul className="mt-1 flex flex-wrap gap-1.5">
                       {lv.sections.map((s) => (
                         <li key={s} className="rounded-lg border hairline px-2 py-1 text-[0.7rem] text-ink-soft">{s}</li>
@@ -142,7 +142,7 @@ export default async function ExamPrepPage({
                   </div>
 
                   <div className="mt-3">
-                    <p className="text-[0.7rem] font-bold uppercase tracking-wide text-ink-faint">Can-do</p>
+                    <p className="text-[0.7rem] font-bold uppercase tracking-wide text-ink-faint">Bisa melakukan</p>
                     <ul className="mt-1 list-disc pl-4 text-xs text-ink-soft">
                       {lv.canDo.map((c) => <li key={c}>{c}</li>)}
                     </ul>
@@ -156,7 +156,7 @@ export default async function ExamPrepPage({
 
       {/* practice mapping */}
       <section className="mt-10">
-        <h2 className="font-display text-lg font-bold text-ink">How your practice maps to the test</h2>
+        <h2 className="font-display text-lg font-bold text-ink">Bagaimana latihanmu memetakan ke ujian</h2>
         <div className="mt-3 flex flex-col gap-2">
           {PRACTICE_MAP.map(({ icon: Icon, section, features }) => (
             <div key={section} className="flex items-center gap-3 rounded-2xl border hairline bg-paper p-4 shadow-soft">

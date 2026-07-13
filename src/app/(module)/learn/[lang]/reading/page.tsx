@@ -27,15 +27,15 @@ export default async function ReadingPage({
   return (
     <div className="fl-enter mx-auto max-w-3xl">
       <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
-        {meta.name} Reading
+        Bacaan
       </h1>
       <p className="mt-1 text-sm text-ink-soft">
-        Graded passages — news, conversations, and short stories with furigana, audio, and comprehension checks.
+        Teks berjenjang — berita, percakapan, dan cerita pendek dengan furigana, audio, dan uji pemahaman.
       </p>
 
       {passages.length === 0 ? (
         <p className="mt-8 rounded-2xl border hairline bg-paper p-6 text-sm text-ink-soft">
-          Reading passages are coming soon for this language.
+          Teks bacaan segera hadir untuk bahasa ini.
         </p>
       ) : (
         <div className="mt-6 flex flex-col gap-8">

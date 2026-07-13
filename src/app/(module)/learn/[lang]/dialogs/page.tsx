@@ -18,12 +18,12 @@ export default async function DialogsPage({
   return (
     <div className="fl-enter mx-auto max-w-3xl">
       <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
-        {meta.name} Dialogs
+        Dialog
       </h1>
-      <p className="mt-1 text-sm text-ink-soft">Real situational conversations with translations.</p>
+      <p className="mt-1 text-sm text-ink-soft">Percakapan situasional nyata dengan terjemahan.</p>
 
       {dialogs.length === 0 ? (
-        <p className="mt-8 rounded-2xl border hairline bg-paper p-6 text-sm text-ink-soft">Dialogs are coming soon.</p>
+        <p className="mt-8 rounded-2xl border hairline bg-paper p-6 text-sm text-ink-soft">Dialog segera hadir.</p>
       ) : (
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {dialogs.map((d) => (
@@ -37,7 +37,7 @@ export default async function DialogsPage({
               </span>
               <div className="min-w-0">
                 <p className="truncate font-display text-base font-bold text-ink">{d.title}</p>
-                <p className="truncate text-xs text-ink-soft">{d.description || `${d.lines.length} lines`}</p>
+                <p className="truncate text-xs text-ink-soft">{d.description || `${d.lines.length} baris`}</p>
               </div>
             </Link>
           ))}

@@ -71,7 +71,7 @@ export default async function GrammarPage({
   return (
     <div className="fl-enter mx-auto max-w-3xl">
       <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
-        Tata Bahasa {meta.name}
+        Tata Bahasa
       </h1>
       <p className="mt-1 text-sm text-ink-soft">
         {patterns.length} pola{levels.length > 0 ? " dari JLPT N5–N1" : ""}, tiap pola dengan contoh.

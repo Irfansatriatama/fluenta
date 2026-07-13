@@ -7,7 +7,7 @@ import { getLanguage } from "@/lib/theme";
 export const revalidate = 3600;
 
 const CAT_LABEL: Record<string, string> = {
-  社会: "Society", 政治: "Politics", 国際: "World", 経済: "Economy", スポーツ: "Sports", 文化: "Culture",
+  社会: "Masyarakat", 政治: "Politik", 国際: "Dunia", 経済: "Ekonomi", スポーツ: "Olahraga", 文化: "Budaya",
 };
 
 export default async function NewsPage({
@@ -22,9 +22,9 @@ export default async function NewsPage({
   if (lang !== "ja") {
     return (
       <div className="mx-auto max-w-3xl">
-        <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">{meta.name} News</h1>
+        <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Berita</h1>
         <p className="mt-8 rounded-2xl border hairline bg-paper p-6 text-sm text-ink-soft">
-          Authentic news reading is coming soon for this language.
+          Bacaan berita otentik segera hadir untuk bahasa ini.
         </p>
       </div>
     );
@@ -39,14 +39,14 @@ export default async function NewsPage({
           <Newspaper className="h-5 w-5" />
         </span>
         <div>
-          <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Japanese News</h1>
-          <p className="text-sm text-ink-soft">Read real news articles with audio — authentic, native-level practice.</p>
+          <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Berita</h1>
+          <p className="text-sm text-ink-soft">Baca artikel berita asli dengan audio — latihan otentik setingkat penutur asli.</p>
         </div>
       </div>
 
       {items.length === 0 ? (
         <p className="mt-8 rounded-2xl border hairline bg-paper p-6 text-sm text-ink-soft">
-          News is temporarily unavailable. Please try again later.
+          Berita sedang tidak tersedia. Coba lagi nanti.
         </p>
       ) : (
         <div className="mt-6 grid grid-cols-1 gap-3">

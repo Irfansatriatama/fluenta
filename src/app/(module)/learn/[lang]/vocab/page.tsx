@@ -25,13 +25,13 @@ export default async function VocabPage({
   return (
     <div className="fl-enter mx-auto max-w-4xl">
       <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
-        {meta.name} Vocabulary
+        Kosakata
       </h1>
-      <p className="mt-1 text-sm text-ink-soft">Study word decks with spaced-repetition flashcards.</p>
+      <p className="mt-1 text-sm text-ink-soft">Pelajari dek kata dengan flashcard spaced-repetition.</p>
 
       {decks.length === 0 ? (
         <p className="mt-8 rounded-2xl border hairline bg-paper p-6 text-sm text-ink-soft">
-          Vocabulary decks are coming soon for this language.
+          Dek kosakata segera hadir untuk bahasa ini.
         </p>
       ) : (
         <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -46,7 +46,7 @@ export default async function VocabPage({
               </span>
               <div className="min-w-0">
                 <p className="truncate font-display text-base font-bold text-ink">{deck.title}</p>
-                <p className="text-xs text-ink-soft">{deck._count.cards} cards</p>
+                <p className="text-xs text-ink-soft">{deck._count.cards} kartu</p>
               </div>
             </Link>
           ))}
