@@ -1,14 +1,20 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Newspaper } from "lucide-react";
+import { NewsBrowser } from "@/components/lesson/NewsBrowser";
 import { getRecentNews } from "@/lib/news";
 import { getLanguage } from "@/lib/theme";
 
 export const revalidate = 3600;
 
-const CAT_LABEL: Record<string, string> = {
-  社会: "Masyarakat", 政治: "Politik", 国際: "Dunia", 経済: "Ekonomi", スポーツ: "Olahraga", 文化: "Budaya",
-};
+// Japanese Wikinews categories → Indonesian labels.
+const CATS = [
+  { key: "社会", label: "Masyarakat" },
+  { key: "政治", label: "Politik" },
+  { key: "国際", label: "Dunia" },
+  { key: "経済", label: "Ekonomi" },
+  { key: "スポーツ", label: "Olahraga" },
+  { key: "文化", label: "Budaya" },
+];
 
 export default async function NewsPage({
   params,
@@ -30,7 +36,7 @@ export default async function NewsPage({
     );
   }
 
-  const items = await getRecentNews(5);
+  const items = await getRecentNews(6);
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -49,27 +55,11 @@ export default async function NewsPage({
           Berita sedang tidak tersedia. Coba lagi nanti.
         </p>
       ) : (
-        <div className="mt-6 grid grid-cols-1 gap-3">
-          {items.map((it) => (
-            <Link
-              key={it.pageid}
-              href={`/learn/${lang}/news/${it.pageid}`}
-              className="rounded-2xl border hairline bg-paper p-5 shadow-soft transition-colors hover:border-[color:var(--accent)]"
-            >
-              {it.category && (
-                <span className="text-[0.65rem] font-bold uppercase tracking-wide text-ink-faint">
-                  {CAT_LABEL[it.category] ?? it.category}
-                </span>
-              )}
-              <p className="mt-0.5 font-display text-lg font-bold leading-snug text-ink" lang={lang}>{it.title}</p>
-              <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-ink-soft" lang={lang}>{it.extract}</p>
-            </Link>
-          ))}
-        </div>
+        <NewsBrowser lang={lang} items={items} cats={CATS} />
       )}
 
       <p className="mt-8 border-t hairline pt-4 text-[0.7rem] leading-relaxed text-ink-faint">
-        Articles from ウィキニュース (Japanese Wikinews), CC BY 2.5.
+        Artikel dari ウィキニュース (Japanese Wikinews), CC BY 2.5.
       </p>
     </div>
   );
