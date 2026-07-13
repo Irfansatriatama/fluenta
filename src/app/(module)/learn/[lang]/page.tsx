@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowRight, BookOpen, BookText, Check, Gamepad2, GraduationCap, Languages, Layers, Lock, MessagesSquare, Newspaper, PenLine, Repeat2 } from "lucide-react";
 import { HeroScene } from "@/components/brand/HeroScene";
 import { PasporArrival } from "@/components/module/PasporArrival";
+import { getRank } from "@/lib/paspor";
 import { CountUp } from "@/components/motion/motion";
 import { ProgressRing } from "@/components/ui/ProgressRing";
 import { getModuleData } from "@/lib/content";
@@ -41,6 +42,7 @@ export default async function ModuleHomePage({
   const nextId = data?.nextLessonId ?? null;
   const flatLessons = data?.units.flatMap((u) => u.lessons) ?? [];
   const nextLesson = flatLessons.find((l) => l.id === nextId);
+  const rank = data ? getRank(lang, data.trackFramework, data.trackLevel) : null;
 
   const t = studyTools(lang);
   const toolCards = [
@@ -58,7 +60,7 @@ export default async function ModuleHomePage({
 
   return (
     <div className="mx-auto max-w-5xl">
-      <PasporArrival language={language} streak={streak?.current ?? 0} />
+      <PasporArrival language={language} streak={streak?.current ?? 0} rank={rank} />
 
       <div className="fl-enter mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3" style={{ animationDelay: "0.05s" }}>
         <div className={`${card} flex items-center gap-4`}>

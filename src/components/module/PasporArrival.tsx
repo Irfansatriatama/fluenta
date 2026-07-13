@@ -1,11 +1,20 @@
 import { Flame } from "lucide-react";
-import { getPaspor } from "@/lib/paspor";
+import { getPaspor, type RankInfo } from "@/lib/paspor";
 import type { Language } from "@/lib/languages";
 
 // The "you have arrived" moment — replaces the flat "Continue your Japanese"
 // header so each module feels like entering its own country, not an accent
-// swap. Textured by the language's OWN script (authentic per culture).
-export function PasporArrival({ language, streak }: { language: Language; streak: number }) {
+// swap. Textured by the language's OWN script (authentic per culture), and
+// marked with your cultural rank — a sense of standing in this world.
+export function PasporArrival({
+  language,
+  streak,
+  rank,
+}: {
+  language: Language;
+  streak: number;
+  rank?: RankInfo | null;
+}) {
   const p = getPaspor(language.code);
   const accent = language.accent;
 
@@ -45,6 +54,26 @@ export function PasporArrival({ language, streak }: { language: Language; streak
             Selamat datang di dunia {p.world}
           </h1>
           <p className="mt-2 max-w-md text-sm leading-relaxed text-ink-soft">{p.ethos}</p>
+
+          {rank && (
+            <div className="mt-4 flex items-center gap-3">
+              <span
+                className="grid shrink-0 place-items-center rounded-xl border px-3 py-1.5 font-display text-lg font-bold leading-none"
+                style={{ borderColor: `color-mix(in srgb, ${accent} 42%, transparent)`, color: accent }}
+                lang={language.code}
+              >
+                {rank.native}
+              </span>
+              <div>
+                <p className="text-sm font-bold text-ink">
+                  Peringkatmu: {rank.gloss}
+                </p>
+                <p className="text-xs text-ink-soft">
+                  Langkah {rank.step} dari {rank.total} di dunia ini
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="flex shrink-0 items-center gap-2 rounded-full border hairline bg-paper px-3.5 py-2 shadow-soft">
