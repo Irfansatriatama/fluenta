@@ -1,5 +1,7 @@
 import { Flame, GraduationCap, Star, Target } from "lucide-react";
 import { getModuleData } from "@/lib/content";
+import { levelProgress } from "@/lib/gamification";
+import { learnerRank, LEARNER_RANKS } from "@/lib/rank";
 import { PROGRESS_STATUS } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/session";
@@ -36,6 +38,8 @@ export default async function ReportsPage() {
 
   const totalXp = xpAgg._sum.amount ?? 0;
   const accuracy = Math.round(accuracyAgg._avg.score ?? 0);
+  const { level, percent: levelPct, toNext } = levelProgress(totalXp);
+  const rank = learnerRank(level);
 
   // weekly XP buckets
   const days = Array.from({ length: 7 }, (_, i) => {
@@ -72,6 +76,55 @@ export default async function ReportsPage() {
     <div className="mx-auto max-w-4xl">
       <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Progres</h1>
       <p className="mt-1 text-sm text-ink-soft">Perkembanganmu di setiap bahasa.</p>
+
+      {/* level & XP hero */}
+      <section
+        className="mt-6 overflow-hidden rounded-3xl border p-6 shadow-soft"
+        style={{
+          borderColor: "color-mix(in srgb, var(--color-gold) 32%, transparent)",
+          background: "linear-gradient(135deg, color-mix(in srgb, var(--color-gold) 11%, var(--color-paper)) 0%, var(--color-paper) 62%)",
+        }}
+      >
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <p className="text-[0.62rem] font-bold uppercase tracking-[0.18em] text-gold-deep">Peringkatmu</p>
+            <p className="mt-1 font-display text-2xl font-extrabold text-ink sm:text-3xl">{rank.name}</p>
+          </div>
+          <div className="text-right">
+            <p className="font-display text-3xl font-extrabold text-ink">Lv. {level}</p>
+            <p className="text-xs text-ink-soft">{totalXp.toLocaleString()} XP total</p>
+          </div>
+        </div>
+        <div className="mt-4 h-2.5 w-full overflow-hidden rounded-full" style={{ backgroundColor: "var(--color-paper-2)" }}>
+          <div className="h-full rounded-full bg-gold" style={{ width: `${levelPct}%` }} />
+        </div>
+        <p className="mt-1.5 text-xs text-ink-soft">{toNext} XP lagi menuju Lv. {level + 1}</p>
+      </section>
+
+      {/* rank ladder */}
+      <div className="mt-4 flex items-center gap-1.5 overflow-x-auto pb-1">
+        {LEARNER_RANKS.map((r, i) => {
+          const active = i === rank.index;
+          const passed = i < rank.index;
+          return (
+            <div key={r.name} className="flex items-center gap-1.5">
+              <span
+                className="whitespace-nowrap rounded-full border px-3 py-1 text-xs font-bold"
+                style={
+                  active
+                    ? { borderColor: "var(--color-gold)", backgroundColor: "rgba(193,145,46,0.14)", color: "var(--color-gold-deep)" }
+                    : passed
+                      ? { borderColor: "color-mix(in srgb, var(--color-gold) 30%, transparent)", color: "var(--color-gold-deep)" }
+                      : { borderColor: "var(--color-edge)", color: "var(--color-ink-faint)" }
+                }
+              >
+                {r.name}
+              </span>
+              {i < LEARNER_RANKS.length - 1 && <span className="h-px w-3 shrink-0" style={{ backgroundColor: "var(--color-edge)" }} />}
+            </div>
+          );
+        })}
+      </div>
 
       <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
         {tiles.map(({ icon: Icon, label, value }) => (
