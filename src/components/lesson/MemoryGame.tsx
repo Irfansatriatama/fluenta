@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Grid3x3, HelpCircle, Zap } from "lucide-react";
 import { Celebration } from "@/components/lesson/Celebration";
@@ -9,35 +9,45 @@ import { awardGameXp } from "@/lib/gameActions";
 export type MemoryPair = { cardId: string; front: string; back: string };
 type Tile = { key: string; cardId: string; text: string; face: "front" | "back" };
 
+// Two tiles per pair (front + back), shuffled. Module-level so the randomness
+// stays out of the component render body.
+function buildTiles(pairs: MemoryPair[]): Tile[] {
+  const t: Tile[] = pairs.flatMap((p, i) => [
+    { key: `f${i}`, cardId: p.cardId, text: p.front, face: "front" },
+    { key: `b${i}`, cardId: p.cardId, text: p.back, face: "back" },
+  ]);
+  for (let i = t.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [t[i], t[j]] = [t[j], t[i]];
+  }
+  return t;
+}
+
 export function MemoryGame({ lang, pairs }: { lang: string; pairs: MemoryPair[] }) {
   const router = useRouter();
-  const [tiles, setTiles] = useState<Tile[]>([]);
   const [flipped, setFlipped] = useState<number[]>([]);
   const [matched, setMatched] = useState<Set<string>>(new Set());
   const [moves, setMoves] = useState(0);
-  const [done, setDone] = useState(false);
   const [, startTransition] = useTransition();
+  const awarded = useRef(false);
 
-  useEffect(() => {
-    const t: Tile[] = pairs.flatMap((p, i) => [
-      { key: `f${i}`, cardId: p.cardId, text: p.front, face: "front" },
-      { key: `b${i}`, cardId: p.cardId, text: p.back, face: "back" },
-    ]);
-    for (let i = t.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [t[i], t[j]] = [t[j], t[i]];
-    }
-    setTiles(t);
-  }, [pairs]);
+  // Tiles are shuffled — build them CLIENT-ONLY (useSyncExternalStore) so the
+  // server HTML and first client render match (no Math.random hydration
+  // mismatch), with no setState-in-effect.
+  const isClient = useSyncExternalStore(() => () => {}, () => true, () => false);
+  const tiles = useMemo<Tile[]>(() => (isClient ? buildTiles(pairs) : []), [pairs, isClient]);
 
+  const done = tiles.length > 0 && matched.size === pairs.length;
+
+  // Award XP once when solved — a real side effect (no setState here).
   useEffect(() => {
-    if (tiles.length > 0 && matched.size === pairs.length && !done) {
-      setDone(true);
+    if (done && !awarded.current) {
+      awarded.current = true;
       startTransition(async () => {
         await awardGameXp(15);
       });
     }
-  }, [matched, tiles.length, pairs.length, done]);
+  }, [done]);
 
   function click(idx: number) {
     if (flipped.length === 2) return;
