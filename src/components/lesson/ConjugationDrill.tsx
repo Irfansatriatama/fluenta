@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useMemo, useState, useSyncExternalStore, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Check, Volume2, X, Zap } from "lucide-react";
 import { Celebration } from "@/components/lesson/Celebration";
@@ -53,7 +53,10 @@ function buildQuestions(words: ConjWord[], count: number): Question[] {
 
 export function ConjugationDrill({ words }: { words: ConjWord[] }) {
   const router = useRouter();
-  const questions = useMemo(() => buildQuestions(words, 10), [words]);
+  // Questions are randomized — build them CLIENT-ONLY so the server HTML and the
+  // first client render match (no hydration mismatch from Math.random).
+  const isClient = useSyncExternalStore(() => () => {}, () => true, () => false);
+  const questions = useMemo(() => (isClient ? buildQuestions(words, 10) : []), [words, isClient]);
   const [index, setIndex] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
   const [score, setScore] = useState(0);
@@ -80,8 +83,11 @@ export function ConjugationDrill({ words }: { words: ConjWord[] }) {
     }
   }
 
+  if (!isClient) {
+    return <p className="py-16 text-center text-sm text-ink-soft">Menyiapkan latihan…</p>;
+  }
   if (questions.length === 0) {
-    return <p className="py-16 text-center text-sm text-ink-soft">No conjugation words available.</p>;
+    return <p className="py-16 text-center text-sm text-ink-soft">Belum ada kata untuk konjugasi.</p>;
   }
 
   if (finished) {
@@ -113,7 +119,7 @@ export function ConjugationDrill({ words }: { words: ConjWord[] }) {
       </div>
 
       <div className="mt-8 text-center">
-        <p className="text-xs font-bold uppercase tracking-wide text-ink-soft">Conjugate to</p>
+        <p className="text-xs font-bold uppercase tracking-wide text-ink-soft">Ubah ke bentuk</p>
         <p className="mt-1 font-display text-lg font-bold" style={{ color: "var(--accent)" }}>{FORM_LABEL[q.form]}</p>
         <div className="mt-4 inline-flex items-center gap-2">
           <p className="font-display text-4xl font-bold text-ink" lang="ja">{q.word.dict}</p>
@@ -147,7 +153,7 @@ export function ConjugationDrill({ words }: { words: ConjWord[] }) {
 
       {picked && (
         <button onClick={next} className="mt-5 w-full rounded-xl px-5 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90" style={{ backgroundColor: "var(--accent)" }}>
-          {index + 1 >= questions.length ? "Finish" : "Next"}
+          {index + 1 >= questions.length ? "Selesai" : "Lanjut"}
         </button>
       )}
     </div>
