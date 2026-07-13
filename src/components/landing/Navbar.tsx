@@ -1,10 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ChevronDown, Globe, Menu, X } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
 
-const LINKS = ["Languages", "Features", "How it works", "Pricing", "For Schools"];
+// Real anchors into the page — no "Pricing"/"For Schools" on a free, one-home app.
+const LINKS = [
+  { label: "Bahasa", href: "#dunia" },
+  { label: "Sang Mentor", href: "#mentor" },
+  { label: "Kenapa gratis", href: "#kenapa" },
+];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -21,18 +27,15 @@ export function Navbar() {
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
 
-        <a href="#" className="md:mr-6">
+        <Link href="/" className="md:mr-6">
           <Logo />
-        </a>
+        </Link>
 
         <ul className="hidden items-center gap-7 text-sm font-medium text-ink-soft md:flex">
           {LINKS.map((link) => (
-            <li key={link}>
-              <a
-                href="#"
-                className="transition-colors hover:text-ink"
-              >
-                {link}
+            <li key={link.href}>
+              <a href={link.href} className="transition-colors hover:text-ink">
+                {link.label}
               </a>
             </li>
           ))}
@@ -48,7 +51,7 @@ export function Navbar() {
             href="/login"
             className="rounded-xl border border-edge bg-paper px-4 py-1.5 text-sm font-semibold text-ink shadow-soft transition-colors hover:border-gold/60"
           >
-            Log in
+            Masuk
           </a>
         </div>
       </nav>
@@ -56,13 +59,13 @@ export function Navbar() {
       {open && (
         <ul className="flex flex-col gap-1 border-t hairline bg-ivory px-5 py-3 text-sm font-medium text-ink-soft md:hidden">
           {LINKS.map((link) => (
-            <li key={link}>
+            <li key={link.href}>
               <a
-                href="#"
+                href={link.href}
                 className="block rounded-lg px-3 py-2 transition-colors hover:bg-paper-2 hover:text-ink"
                 onClick={() => setOpen(false)}
               >
-                {link}
+                {link.label}
               </a>
             </li>
           ))}
