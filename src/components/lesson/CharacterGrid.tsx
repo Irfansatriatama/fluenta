@@ -134,16 +134,18 @@ export function CharacterGrid({ groups, lang }: { groups: CharGroup[]; lang: str
                 {sub} <span className="text-ink-faint">({group.items.length})</span>
               </h2>
             )}
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+            {/* dense grid — a whole writing system fits in a screen or two,
+                not 25 rows of big cards. Tap a cell for readings & example. */}
+            <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-6 md:grid-cols-8">
               {group.items.map((c, i) => (
                 <button
                   key={i}
                   onClick={() => setSel(c)}
-                  className="fl-lift rounded-2xl border hairline bg-paper p-4 text-left shadow-soft hover:border-[color:var(--accent)] hover:shadow-lift"
+                  title={c.meaning || undefined}
+                  className="fl-lift flex flex-col items-center justify-center rounded-xl border hairline bg-paper px-1 py-2 text-center hover:border-[color:var(--accent)] hover:shadow-soft"
                 >
-                  <p className="font-display text-3xl font-bold text-ink" lang={lang}>{c.char}</p>
-                  {c.sub && <p className="mt-1 text-sm font-semibold" style={{ color: "var(--accent)" }}>{c.sub}</p>}
-                  {c.meaning && <p className="mt-0.5 truncate text-xs text-ink-soft">{c.meaning}</p>}
+                  <span className="font-display text-xl font-bold leading-none text-ink sm:text-2xl" lang={lang}>{c.char}</span>
+                  {c.sub && <span className="mt-1 block truncate text-[0.65rem] font-semibold leading-none" style={{ color: "var(--accent)" }}>{c.sub}</span>}
                 </button>
               ))}
             </div>

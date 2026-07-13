@@ -1,55 +1,77 @@
 "use client";
 
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import type { GrammarPattern } from "@/lib/staticContent";
 
 export type ParticleGroup = { particle: string; role?: string; desc?: string; examples: { native: string; en: string }[] };
 export type LevelGroup = { level: string; items: GrammarPattern[] };
 
-function GrammarCard({ p, lang }: { p: GrammarPattern; lang: string }) {
+// Each pattern is a collapsed row — you can scan a whole level at a glance and
+// open only the one you want, instead of scrolling past every pattern fully
+// expanded.
+function GrammarRow({ p, lang }: { p: GrammarPattern; lang: string }) {
   return (
-    <article className="rounded-2xl border hairline bg-paper p-5 shadow-soft transition-colors hover:border-[color:var(--accent)]">
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <h3 className="font-display text-xl font-bold text-ink" lang={lang}>{p.pattern}</h3>
-          {p.reading && <p className="text-xs text-ink-faint" lang={lang}>{p.reading}</p>}
+    <details className="group rounded-xl border hairline bg-paper shadow-soft [&[open]]:border-[color:var(--accent)]">
+      <summary className="flex cursor-pointer list-none items-center gap-3 px-4 py-3 [&::-webkit-details-marker]:hidden">
+        <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+          <span className="font-display text-lg font-bold text-ink" lang={lang}>{p.pattern}</span>
+          {p.reading && <span className="text-xs text-ink-faint" lang={lang}>{p.reading}</span>}
+          <span className="text-sm font-semibold" style={{ color: "var(--accent)" }}>{p.meaning}</span>
         </div>
-        {p.category && (
-          <span className="shrink-0 rounded-full bg-ivory px-2.5 py-1 text-[0.65rem] font-semibold text-ink-soft ring-1 ring-edge">
-            {p.category}
-          </span>
+        <ChevronDown className="h-4 w-4 shrink-0 text-ink-faint transition-transform group-open:rotate-180" />
+      </summary>
+
+      <div className="border-t hairline px-4 pb-4 pt-3">
+        {p.explanation && (
+          <p className="whitespace-pre-line text-sm leading-relaxed text-ink-soft">{p.explanation}</p>
+        )}
+        {p.examples.length > 0 && (
+          <div className="mt-3 flex flex-col gap-2.5">
+            {p.examples.map((e, i) => (
+              <div key={i} className="rounded-r-lg border-l-2 pl-3" style={{ borderColor: "color-mix(in srgb, var(--accent) 45%, transparent)" }}>
+                <p className="font-display text-[0.95rem] leading-relaxed text-ink" lang={lang}>{e.native}</p>
+                {e.roman && <p className="text-xs text-ink-faint">{e.roman}</p>}
+                {e.gloss && <p className="text-xs text-ink-soft">{e.gloss}</p>}
+              </div>
+            ))}
+          </div>
+        )}
+        {p.notes && (
+          <p className="mt-3 rounded-lg bg-paper-2/60 px-3 py-2 text-xs text-ink-soft">
+            <span className="font-semibold text-ink">Catatan:</span> {p.notes}
+          </p>
         )}
       </div>
-
-      <p className="mt-2 text-sm font-semibold" style={{ color: "var(--accent)" }}>{p.meaning}</p>
-      {p.explanation && (
-        <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-ink-soft">{p.explanation}</p>
-      )}
-
-      {p.examples.length > 0 && (
-        <div className="mt-3 flex flex-col gap-2.5">
-          {p.examples.map((e, i) => (
-            <div key={i} className="rounded-r-lg border-l-2 pl-3" style={{ borderColor: "color-mix(in srgb, var(--accent) 45%, transparent)" }}>
-              <p className="font-display text-[0.95rem] leading-relaxed text-ink" lang={lang}>{e.native}</p>
-              {e.roman && <p className="text-xs text-ink-faint">{e.roman}</p>}
-              {e.gloss && <p className="text-xs text-ink-soft">{e.gloss}</p>}
-            </div>
-          ))}
-        </div>
-      )}
-
-      {p.notes && (
-        <p className="mt-3 rounded-lg bg-paper-2/60 px-3 py-2 text-xs text-ink-soft">
-          <span className="font-semibold text-ink">Catatan:</span> {p.notes}
-        </p>
-      )}
-    </article>
+    </details>
   );
 }
 
-// Grammar is a lot of content. Rather than one endless scroll of every pattern
-// expanded, tabs show one level (or particles) at a time — the thing you came
-// for is one tap away, not a deep scroll.
+function ParticleRow({ pg }: { pg: ParticleGroup }) {
+  return (
+    <details className="group rounded-xl border hairline bg-paper shadow-soft [&[open]]:border-[color:var(--accent)]">
+      <summary className="flex cursor-pointer list-none items-center gap-3 px-4 py-3 [&::-webkit-details-marker]:hidden">
+        <span className="font-display text-2xl font-bold leading-none" style={{ color: "var(--accent)" }} lang="ja">{pg.particle}</span>
+        <div className="min-w-0 flex-1">
+          {pg.role && <span className="text-sm font-bold text-ink">{pg.role}</span>}
+          {pg.desc && <p className="truncate text-xs text-ink-soft">{pg.desc}</p>}
+        </div>
+        <ChevronDown className="h-4 w-4 shrink-0 text-ink-faint transition-transform group-open:rotate-180" />
+      </summary>
+      <div className="border-t hairline px-4 pb-4 pt-3">
+        <div className="flex flex-col gap-2">
+          {pg.examples.map((e, i) => (
+            <div key={i} className="rounded-r-lg border-l-2 pl-3" style={{ borderColor: "color-mix(in srgb, var(--accent) 45%, transparent)" }}>
+              <p className="font-display text-[0.95rem] leading-relaxed text-ink" lang="ja">{e.native}</p>
+              <p className="text-xs text-ink-soft">{e.en}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </details>
+  );
+}
+
 export function GrammarBrowser({
   lang,
   particles,
@@ -67,6 +89,7 @@ export function GrammarBrowser({
     ...(other.length > 0 ? [{ key: "other", label: "Lainnya" }] : []),
   ];
   const [active, setActive] = useState(tabs[0]?.key ?? "");
+  const activeLevel = levels.find((g) => g.level === active);
 
   return (
     <div className="mt-6">
@@ -90,50 +113,19 @@ export function GrammarBrowser({
         })}
       </div>
 
-      <div className="mt-6">
-        {active === "particles" && (
-          <div className="flex flex-col gap-3">
-            {particles.map((pg) => (
-              <article key={pg.particle} className="rounded-2xl border hairline bg-paper p-5 shadow-soft transition-colors hover:border-[color:var(--accent)]">
-                <div className="flex items-baseline gap-3">
-                  <span className="font-display text-3xl font-bold" style={{ color: "var(--accent)" }} lang="ja">{pg.particle}</span>
-                  {pg.role && <span className="rounded-full bg-ivory px-2.5 py-1 text-[0.65rem] font-semibold text-ink-soft ring-1 ring-edge">{pg.role}</span>}
-                </div>
-                {pg.desc && <p className="mt-2 text-sm text-ink-soft">{pg.desc}</p>}
-                <div className="mt-3 flex flex-col gap-2">
-                  {pg.examples.map((e, i) => (
-                    <div key={i} className="rounded-r-lg border-l-2 pl-3" style={{ borderColor: "color-mix(in srgb, var(--accent) 45%, transparent)" }}>
-                      <p className="font-display text-[0.95rem] leading-relaxed text-ink" lang="ja">{e.native}</p>
-                      <p className="text-xs text-ink-soft">{e.en}</p>
-                    </div>
-                  ))}
-                </div>
-              </article>
-            ))}
-          </div>
-        )}
+      <p className="mt-4 text-xs text-ink-faint">
+        {active === "particles"
+          ? `${particles.length} partikel`
+          : activeLevel
+            ? `${activeLevel.items.length} pola · JLPT ${activeLevel.level}`
+            : `${other.length} pola`}{" "}
+        — ketuk untuk membuka.
+      </p>
 
-        {levels.map(
-          (g) =>
-            active === g.level && (
-              <div key={g.level} className="flex flex-col gap-3">
-                <p className="mb-1 text-sm text-ink-soft">
-                  <span className="font-semibold text-ink">{g.items.length} pola</span> di JLPT {g.level}
-                </p>
-                {g.items.map((p) => (
-                  <GrammarCard key={p.id} p={p} lang={lang} />
-                ))}
-              </div>
-            ),
-        )}
-
-        {active === "other" && (
-          <div className="flex flex-col gap-3">
-            {other.map((p) => (
-              <GrammarCard key={p.id} p={p} lang={lang} />
-            ))}
-          </div>
-        )}
+      <div className="mt-3 flex flex-col gap-2">
+        {active === "particles" && particles.map((pg) => <ParticleRow key={pg.particle} pg={pg} />)}
+        {activeLevel && activeLevel.items.map((p) => <GrammarRow key={p.id} p={p} lang={lang} />)}
+        {active === "other" && other.map((p) => <GrammarRow key={p.id} p={p} lang={lang} />)}
       </div>
     </div>
   );
