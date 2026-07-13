@@ -94,7 +94,7 @@ export default async function ModuleHomePage({
           className="relative flex min-h-[15rem] flex-col justify-end overflow-hidden rounded-3xl border shadow-lift"
           style={{ borderColor: "color-mix(in srgb, var(--accent) 28%, transparent)" }}
         >
-          <HeroScene className="pointer-events-none absolute inset-0 h-full w-full" />
+          <HeroScene lang={lang} className="pointer-events-none absolute inset-0 h-full w-full" />
           <span
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3"
