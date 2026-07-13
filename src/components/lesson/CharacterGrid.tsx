@@ -4,18 +4,9 @@ import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ExternalLink, Volume2, X } from "lucide-react";
+import { CharFlashcard, CharQuiz } from "@/components/lesson/CharModes";
+import { speak } from "@/lib/tts";
 import type { CharGroup, CharItem } from "@/lib/staticContent";
-
-const TTS_LANG: Record<string, string> = { ja: "ja-JP", ko: "ko-KR", zh: "zh-CN", en: "en-US" };
-
-function speak(text: string, lang: string) {
-  if (typeof window === "undefined" || !window.speechSynthesis || !text) return;
-  window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = TTS_LANG[lang] ?? "ja-JP";
-  u.rate = 0.85;
-  window.speechSynthesis.speak(u);
-}
 
 // Jisho for JP, else Wiktionary — a real reference for deeper detail.
 function referenceUrl(char: string, lang: string) {
@@ -52,6 +43,7 @@ export function CharacterGrid({ groups, lang }: { groups: CharGroup[]; lang: str
   const cats = useMemo(() => categorize(groups), [groups]);
   const [catIdx, setCatIdx] = useState(0);
   const [subIdx, setSubIdx] = useState(0);
+  const [mode, setMode] = useState<"table" | "flashcard" | "quiz">("table");
   const [sel, setSel] = useState<CharItem | null>(null);
   const reduce = useReducedMotion();
   // true only on the client — so the body portal is never attempted during SSR
@@ -69,16 +61,43 @@ export function CharacterGrid({ groups, lang }: { groups: CharGroup[]; lang: str
   const hasSub = cat.groups.length > 1;
   const activeSub = Math.min(subIdx, cat.groups.length - 1);
   const shown = hasSub ? [cat.groups[activeSub]] : cat.groups;
+  const activeItems = shown.flatMap((s) => s.group.items);
   const ref = sel ? referenceUrl(sel.char, lang) : null;
 
   const tabBase =
     "whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm font-semibold transition-colors";
+  const MODES = [
+    { key: "table", label: "Tabel" },
+    { key: "flashcard", label: "Flashcard" },
+    { key: "quiz", label: "Kuis" },
+  ] as const;
 
   return (
     <>
+      {/* study-mode tabs — one set of characters, several ways to learn it */}
+      <div className="mt-6 flex gap-2">
+        {MODES.map((m) => {
+          const on = m.key === mode;
+          return (
+            <button
+              key={m.key}
+              onClick={() => setMode(m.key)}
+              className="rounded-full px-4 py-1.5 text-sm font-bold transition-colors"
+              style={
+                on
+                  ? { backgroundColor: "color-mix(in srgb, var(--accent) 14%, transparent)", color: "var(--accent)" }
+                  : { color: "var(--color-ink-faint)" }
+              }
+            >
+              {m.label}
+            </button>
+          );
+        })}
+      </div>
+
       {/* category tabs — one writing system at a time, no endless scroll */}
       {cats.length > 1 && (
-        <div className="mt-6 flex flex-wrap gap-2">
+        <div className="mt-3 flex flex-wrap gap-2">
           {cats.map((c, i) => {
             const active = i === catIdx;
             return (
@@ -126,6 +145,7 @@ export function CharacterGrid({ groups, lang }: { groups: CharGroup[]; lang: str
         </div>
       )}
 
+      {mode === "table" && (
       <div className="mt-5 flex flex-col gap-8">
         {shown.map(({ sub, group }) => (
           <section key={group.title}>
@@ -176,6 +196,10 @@ export function CharacterGrid({ groups, lang }: { groups: CharGroup[]; lang: str
           </section>
         ))}
       </div>
+      )}
+
+      {mode === "flashcard" && <CharFlashcard key={`fc-${catIdx}-${activeSub}`} items={activeItems} lang={lang} />}
+      {mode === "quiz" && <CharQuiz key={`qz-${catIdx}-${activeSub}`} items={activeItems} lang={lang} />}
 
       {isClient &&
         createPortal(
