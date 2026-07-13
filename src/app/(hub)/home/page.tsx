@@ -1,16 +1,26 @@
 import Link from "next/link";
-import { Flame, Plus } from "lucide-react";
+import { Flame, LineChart, Plus, Stamp, Trophy } from "lucide-react";
 import {
   LanguageModuleCard,
   type ModuleSummary,
 } from "@/components/hub/LanguageModuleCard";
+import { ContinueCard } from "@/components/hub/ContinueCard";
 import { ProgressRing } from "@/components/ui/ProgressRing";
 import { MentorGreeting } from "@/components/mentor/Mentor";
 import { daysSince, keiGreeting } from "@/lib/mentor";
+import { getModuleData } from "@/lib/content";
 import { levelProgress } from "@/lib/gamification";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/session";
 import { getLanguage } from "@/lib/theme";
+
+// The rooms of the home — doorways that are meaningful even at zero progress,
+// so a brand-new hub still feels lived-in rather than empty.
+const ROOMS = [
+  { href: "/home/achievements", icon: Stamp, title: "Paspor", desc: "Cap & lencana perjalananmu" },
+  { href: "/home/reports", icon: LineChart, title: "Progres", desc: "Sejauh mana kamu melangkah" },
+  { href: "/home/leaderboard", icon: Trophy, title: "Papan", desc: "Di antara pembelajar lain" },
+];
 
 export default async function HomePage() {
   const session = await getSession();
@@ -39,26 +49,71 @@ export default async function HomePage() {
     streak: globalStreak,
   });
 
-  const modules: ModuleSummary[] = enrollments.flatMap((e) => {
-    const language = getLanguage(e.language.code);
-    if (!language) return [];
-    return [{ language, level: e.track?.title ?? e.currentLevel ?? "", percent: 0, streak: 0 }];
-  });
+  // Real progress per enrolled language — one source (getModuleData) feeds both
+  // the "continue" invitation and the module cards. No placeholder zeros.
+  const summaries = (
+    await Promise.all(
+      enrollments.map(async (e) => {
+        const language = getLanguage(e.language.code);
+        if (!language) return null;
+        const data = await getModuleData(e.language.code, userId);
+        if (!data) return null;
+        let nextTitle: string | null = null;
+        let nextKind: string | null = null;
+        for (const u of data.units) {
+          const cur = u.lessons.find((l) => l.state === "current");
+          if (cur) {
+            nextTitle = cur.title;
+            nextKind = cur.kind;
+            break;
+          }
+        }
+        return {
+          language,
+          level: e.track?.title ?? e.currentLevel ?? language.name,
+          trackTitle: data.trackTitle,
+          percent: data.total > 0 ? Math.round((data.completed / data.total) * 100) : 0,
+          completed: data.completed,
+          total: data.total,
+          nextLessonId: data.nextLessonId,
+          nextTitle,
+          nextKind,
+        };
+      }),
+    )
+  ).filter((s): s is NonNullable<typeof s> => s !== null);
+
+  // The one thing to continue: the furthest-along unfinished language, else any
+  // startable one, else the first — so there is always a single clear next step.
+  const primary =
+    [...summaries]
+      .filter((s) => s.nextLessonId && s.completed > 0)
+      .sort((a, b) => b.completed - a.completed)[0] ??
+    summaries.find((s) => s.nextLessonId) ??
+    summaries[0];
+
+  const modules: ModuleSummary[] = summaries.map((s) => ({
+    language: s.language,
+    level: s.level,
+    percent: s.percent,
+    completed: s.completed,
+    total: s.total,
+  }));
 
   return (
-    <div className="mx-auto max-w-6xl">
-      {/* header */}
-      <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+    <div className="mx-auto flex max-w-6xl flex-col gap-7">
+      {/* header — Kei welcomes you home, your standing at a glance */}
+      <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
         <MentorGreeting line={greeting.line} sub={greeting.sub} />
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
             <Flame className="h-6 w-6 text-flame" />
             <div>
               <p className="text-[0.6rem] font-bold uppercase tracking-wide text-ink-soft">
-                Global streak
+                Runtun
               </p>
               <p className="font-display text-lg font-bold text-ink">
-                {globalStreak} <span className="text-xs font-medium text-ink-soft">days</span>
+                {globalStreak} <span className="text-xs font-medium text-ink-soft">hari</span>
               </p>
             </div>
           </div>
@@ -75,13 +130,30 @@ export default async function HomePage() {
         </div>
       </div>
 
-      {/* access modules */}
-      <section className="mt-6 rounded-3xl border hairline bg-paper/50 p-5 sm:p-6">
-        <h2 className="font-display text-lg font-bold text-ink">Access Modules / My Languages</h2>
-        <p className="mt-1 text-sm text-ink-soft">
-          Continue learning in your activated languages or add a new one.
-        </p>
-        <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {/* primary: the one invitation to keep going */}
+      {primary && (
+        <ContinueCard
+          language={primary.language}
+          trackTitle={primary.trackTitle}
+          nextLessonId={primary.nextLessonId}
+          nextTitle={primary.nextTitle}
+          nextKind={primary.nextKind}
+          completed={primary.completed}
+          total={primary.total}
+        />
+      )}
+
+      {/* your languages */}
+      <section>
+        <div className="flex items-end justify-between">
+          <div>
+            <h2 className="fl-heading font-display text-lg font-bold text-ink">Bahasamu</h2>
+            <p className="mt-0.5 text-sm text-ink-soft">
+              Satu paspor, tiap bahasa dunianya sendiri.
+            </p>
+          </div>
+        </div>
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {modules.map((m) => (
             <LanguageModuleCard key={m.language.code} summary={m} />
           ))}
@@ -95,9 +167,34 @@ export default async function HomePage() {
             >
               <Plus className="h-6 w-6" />
             </span>
-            <p className="font-display text-sm font-bold text-ink">Add a language</p>
-            <p className="text-xs text-ink-soft">Take a placement test to get started.</p>
+            <p className="font-display text-sm font-bold text-ink">Tambah bahasa</p>
+            <p className="text-xs text-ink-soft">Ikuti tes penempatan untuk mulai.</p>
           </Link>
+        </div>
+      </section>
+
+      {/* rooms of the home — doorways that mean something even at zero */}
+      <section>
+        <h2 className="fl-heading font-display text-lg font-bold text-ink">Ruang lain</h2>
+        <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          {ROOMS.map((r) => {
+            const Icon = r.icon;
+            return (
+              <Link
+                key={r.href}
+                href={r.href}
+                className="fl-lift flex items-center gap-4 rounded-2xl border hairline bg-paper p-4 shadow-soft"
+              >
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-paper-2 text-gold-deep">
+                  <Icon className="h-5 w-5" strokeWidth={1.9} />
+                </span>
+                <div>
+                  <p className="font-display text-sm font-bold text-ink">{r.title}</p>
+                  <p className="text-xs text-ink-soft">{r.desc}</p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
     </div>

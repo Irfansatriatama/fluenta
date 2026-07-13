@@ -7,13 +7,15 @@ export type ModuleSummary = {
   language: Language;
   level: string; // "JLPT N5"
   percent: number;
-  streak: number;
+  completed: number;
+  total: number;
 };
 
-// A card in the hub's "Access Modules" grid. Themed in its language accent;
-// clicking Continue enters the themed module space.
+// A card in the hub's "Bahasamu" grid. Themed in its language accent;
+// clicking enters the themed module space. Numbers are real progress, not
+// placeholder zeros — an empty-looking card reads as a dead one.
 export function LanguageModuleCard({ summary }: { summary: ModuleSummary }) {
-  const { language, level, percent, streak } = summary;
+  const { language, level, percent, completed, total } = summary;
   const accent = language.accent;
 
   return (
@@ -30,9 +32,9 @@ export function LanguageModuleCard({ summary }: { summary: ModuleSummary }) {
           <span className="text-xs font-bold text-ink">{percent}%</span>
         </ProgressRing>
         <div className="text-left">
-          <p className="text-xs text-ink-soft">Streak</p>
+          <p className="text-xs text-ink-soft">Pelajaran</p>
           <p className="font-display text-sm font-bold" style={{ color: accent }}>
-            {streak} days
+            {completed}/{total}
           </p>
         </div>
       </div>
@@ -42,7 +44,7 @@ export function LanguageModuleCard({ summary }: { summary: ModuleSummary }) {
         className="mt-5 w-full rounded-xl px-4 py-2.5 text-sm font-bold text-white transition-opacity hover:opacity-90"
         style={{ backgroundColor: accent }}
       >
-        Continue
+        {completed === 0 ? "Masuk" : "Lanjut"}
       </Link>
     </div>
   );
