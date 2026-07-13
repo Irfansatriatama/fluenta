@@ -1,7 +1,10 @@
-import { Flame, Languages, Star } from "lucide-react";
+import { Flame, GraduationCap, Star, Target } from "lucide-react";
 import { LanguageSeal } from "@/components/brand/LanguageSeal";
 import { LogoutButton } from "@/components/auth/LogoutButton";
+import { KeiSigil } from "@/components/mentor/Mentor";
 import { levelProgress } from "@/lib/gamification";
+import { learnerRank } from "@/lib/rank";
+import { PROGRESS_STATUS } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/session";
 import { getLanguage } from "@/lib/theme";
@@ -12,52 +15,72 @@ export default async function ProfilePage() {
   const session = await getSession();
   const user = session!.user;
 
-  const [profile, enrollments, xpAgg, streak] = await Promise.all([
-    prisma.profile.findUnique({ where: { userId: user.id } }),
-    prisma.enrollment.findMany({ where: { userId: user.id }, include: { language: true, track: true } }),
-    prisma.xpEvent.aggregate({ where: { userId: user.id }, _sum: { amount: true } }),
-    prisma.streak.findUnique({ where: { userId: user.id } }),
-  ]);
+  const [profile, enrollments, xpAgg, streak, lessonsCompleted, accuracyAgg, dbUser] =
+    await Promise.all([
+      prisma.profile.findUnique({ where: { userId: user.id } }),
+      prisma.enrollment.findMany({ where: { userId: user.id }, include: { language: true, track: true } }),
+      prisma.xpEvent.aggregate({ where: { userId: user.id }, _sum: { amount: true } }),
+      prisma.streak.findUnique({ where: { userId: user.id } }),
+      prisma.lessonProgress.count({ where: { userId: user.id, status: PROGRESS_STATUS.COMPLETED } }),
+      prisma.lessonProgress.aggregate({
+        where: { userId: user.id, status: PROGRESS_STATUS.COMPLETED, score: { not: null } },
+        _avg: { score: true },
+      }),
+      prisma.user.findUnique({ where: { id: user.id }, select: { createdAt: true } }),
+    ]);
 
   const totalXp = xpAgg._sum.amount ?? 0;
   const { level } = levelProgress(totalXp);
+  const rank = learnerRank(level);
+  const accuracy = Math.round(accuracyAgg._avg.score ?? 0);
   const initial = user.name?.trim().charAt(0).toUpperCase() || "?";
+  const joined = dbUser?.createdAt
+    ? new Date(dbUser.createdAt).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })
+    : null;
+
+  const tiles = [
+    { icon: Star, label: "Total XP", value: totalXp.toLocaleString() },
+    { icon: Flame, label: "Runtun", value: `${streak?.current ?? 0} hari` },
+    { icon: GraduationCap, label: "Pelajaran", value: `${lessonsCompleted}` },
+    { icon: Target, label: "Akurasi", value: `${accuracy}%` },
+  ];
 
   return (
     <div className="mx-auto max-w-3xl">
-      <div className="flex items-center gap-4">
-        <span className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-ink font-display text-2xl font-bold text-ivory">
-          {initial}
-        </span>
-        <div className="min-w-0">
-          <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink">{user.name}</h1>
-          <p className="truncate text-sm text-ink-soft">{user.email}</p>
-          <p className="mt-0.5 text-xs font-semibold text-gold-deep">Paket Gratis · Level {level}</p>
+      {/* gradient hero */}
+      <section
+        className="relative overflow-hidden rounded-3xl border p-6 shadow-lift sm:p-7"
+        style={{
+          borderColor: "color-mix(in srgb, var(--color-gold) 32%, transparent)",
+          background: "linear-gradient(135deg, color-mix(in srgb, var(--color-gold) 16%, var(--color-paper)) 0%, var(--color-paper) 65%)",
+        }}
+      >
+        <div className="flex items-center gap-4">
+          <span className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-ink font-display text-2xl font-bold text-ivory shadow-soft">
+            {initial}
+          </span>
+          <div className="min-w-0">
+            <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink">{user.name}</h1>
+            <p className="truncate text-sm text-ink-soft">{user.email}</p>
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              <span className="rounded-full border px-2.5 py-1 text-[0.7rem] font-bold text-gold-deep" style={{ borderColor: "color-mix(in srgb, var(--color-gold) 45%, transparent)" }}>
+                {rank.name} · Lv. {level}
+              </span>
+              {joined && <span className="text-xs text-ink-soft">Bergabung {joined}</span>}
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className={`${card} flex items-center gap-3`}>
-          <Star className="h-6 w-6 text-gold" />
-          <div>
-            <p className="font-display text-xl font-extrabold text-ink">{totalXp.toLocaleString()}</p>
-            <p className="text-xs text-ink-soft">Total XP</p>
+      {/* stat tiles */}
+      <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        {tiles.map(({ icon: Icon, label, value }) => (
+          <div key={label} className={card}>
+            <Icon className="h-5 w-5 text-gold" />
+            <p className="mt-2 font-display text-xl font-extrabold text-ink">{value}</p>
+            <p className="text-xs text-ink-soft">{label}</p>
           </div>
-        </div>
-        <div className={`${card} flex items-center gap-3`}>
-          <Flame className="h-6 w-6 text-flame" />
-          <div>
-            <p className="font-display text-xl font-extrabold text-ink">{streak?.current ?? 0}</p>
-            <p className="text-xs text-ink-soft">Hari runtun</p>
-          </div>
-        </div>
-        <div className={`${card} flex items-center gap-3`}>
-          <Languages className="h-6 w-6 text-ink-soft" />
-          <div>
-            <p className="font-display text-xl font-extrabold text-ink">{enrollments.length}</p>
-            <p className="text-xs text-ink-soft">Bahasa</p>
-          </div>
-        </div>
+        ))}
       </div>
 
       <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -99,6 +122,18 @@ export default async function ProfilePage() {
               <dd className="font-semibold text-ink">{profile?.timezone ?? "—"}</dd>
             </div>
           </dl>
+        </div>
+      </div>
+
+      {/* Kei tip — a warm word instead of a generic banner */}
+      <div className="mt-4 flex items-start gap-3.5 rounded-2xl border hairline bg-paper-2/50 p-5">
+        <KeiSigil size={34} />
+        <div>
+          <p className="mentor-voice text-[1.05rem] italic leading-snug text-ink">
+            Konsistensi mengalahkan intensitas. Sepuluh menit tiap hari membawamu lebih jauh
+            daripada sejam sekali seminggu.
+          </p>
+          <p className="mt-1.5 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-ink-faint">Kei</p>
         </div>
       </div>
 
