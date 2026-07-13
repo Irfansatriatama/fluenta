@@ -24,18 +24,18 @@ export default async function LeaderboardPage() {
   const rows = grouped.map((g, i) => ({
     rank: i + 1,
     userId: g.userId,
-    name: nameOf.get(g.userId) ?? "Learner",
+    name: nameOf.get(g.userId) ?? "Pembelajar",
     xp: g._sum.amount ?? 0,
   }));
 
   return (
     <div className="mx-auto max-w-2xl">
-      <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Leaderboard</h1>
-      <p className="mt-1 text-sm text-ink-soft">Top learners by total XP.</p>
+      <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Papan Peringkat</h1>
+      <p className="mt-1 text-sm text-ink-soft">Pembelajar teratas berdasarkan total XP.</p>
 
       {rows.length === 0 ? (
         <p className="mt-8 rounded-2xl border hairline bg-paper p-6 text-sm text-ink-soft">
-          No XP earned yet. Complete a lesson to get on the board.
+          Belum ada XP. Selesaikan satu pelajaran untuk masuk papan.
         </p>
       ) : (
         <ul className="mt-6 flex flex-col gap-2">
@@ -63,7 +63,7 @@ export default async function LeaderboardPage() {
                 </span>
                 <span className="min-w-0 flex-1 truncate text-sm font-semibold text-ink">
                   {r.name}
-                  {isMe && <span className="ml-2 text-xs font-medium text-gold-deep">You</span>}
+                  {isMe && <span className="ml-2 text-xs font-medium text-gold-deep">Kamu</span>}
                 </span>
                 <span className="font-display text-sm font-bold text-ink">{r.xp.toLocaleString()} XP</span>
               </li>

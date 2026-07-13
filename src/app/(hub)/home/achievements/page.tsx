@@ -35,16 +35,16 @@ export default async function AchievementsPage() {
   return (
     <div className="mx-auto max-w-4xl">
       <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
-        Achievements
+        Paspor
       </h1>
       <p className="mt-1 text-sm text-ink-soft">
-        Your passport of stamps and milestones.
+        Kumpulan cap dan pencapaian perjalananmu.
       </p>
 
       {/* passport of language seals */}
       <section className="mt-6 rounded-3xl border hairline bg-paper/50 p-6">
-        <h2 className="font-display text-base font-bold text-ink">Language Passport</h2>
-        <p className="mt-1 text-sm text-ink-soft">Stamps you collect by starting each language.</p>
+        <h2 className="font-display text-base font-bold text-ink">Paspor Bahasa</h2>
+        <p className="mt-1 text-sm text-ink-soft">Cap yang kamu kumpulkan dengan memulai tiap bahasa.</p>
         <div className="mt-5 flex flex-wrap justify-center gap-8 sm:justify-start">
           {LANGUAGES.map((language) => {
             const stamped = enrolledCodes.has(language.code);
@@ -60,7 +60,7 @@ export default async function AchievementsPage() {
       {/* achievement badges */}
       <section className="mt-6">
         <h2 className="font-display text-base font-bold text-ink">
-          Badges <span className="text-sm font-medium text-ink-soft">({earnedCount + (earnedCount >= 6 ? 1 : 0)}/{withCollector.length})</span>
+          Lencana <span className="text-sm font-medium text-ink-soft">({earnedCount + (earnedCount >= 6 ? 1 : 0)}/{withCollector.length})</span>
         </h2>
         <ul className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {withCollector.map(({ code, title, description, icon: Icon, color, earned }) => (
@@ -80,7 +80,7 @@ export default async function AchievementsPage() {
               </span>
               <p className="mt-3 font-display text-sm font-bold text-ink">{title}</p>
               <p className="mt-0.5 text-xs text-ink-soft">{description}</p>
-              {!earned && <p className="mt-1 text-[0.6rem] font-semibold uppercase tracking-wide text-ink-faint">Locked</p>}
+              {!earned && <p className="mt-1 text-[0.6rem] font-semibold uppercase tracking-wide text-ink-faint">Terkunci</p>}
             </li>
           ))}
         </ul>

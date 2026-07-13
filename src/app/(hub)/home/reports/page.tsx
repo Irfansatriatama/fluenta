@@ -6,7 +6,7 @@ import { getSession } from "@/lib/session";
 import { getLanguage } from "@/lib/theme";
 
 const card = "rounded-2xl border hairline bg-paper p-5 shadow-soft";
-const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const WEEKDAYS = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
 
 function startOfDay(d: Date) {
   return new Date(d.getFullYear(), d.getMonth(), d.getDate());
@@ -63,15 +63,15 @@ export default async function ReportsPage() {
 
   const tiles = [
     { icon: Star, label: "Total XP", value: totalXp.toLocaleString() },
-    { icon: Flame, label: "Current streak", value: `${streak?.current ?? 0} d` },
-    { icon: GraduationCap, label: "Lessons done", value: `${lessonsCompleted}` },
-    { icon: Target, label: "Avg accuracy", value: `${accuracy}%` },
+    { icon: Flame, label: "Runtun saat ini", value: `${streak?.current ?? 0} hari` },
+    { icon: GraduationCap, label: "Pelajaran selesai", value: `${lessonsCompleted}` },
+    { icon: Target, label: "Rata-rata akurasi", value: `${accuracy}%` },
   ];
 
   return (
     <div className="mx-auto max-w-4xl">
-      <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Reports</h1>
-      <p className="mt-1 text-sm text-ink-soft">Your progress across every language.</p>
+      <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Progres</h1>
+      <p className="mt-1 text-sm text-ink-soft">Perkembanganmu di setiap bahasa.</p>
 
       <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
         {tiles.map(({ icon: Icon, label, value }) => (
@@ -85,8 +85,8 @@ export default async function ReportsPage() {
 
       <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
         <div className={card}>
-          <p className="text-sm font-semibold text-ink">This week</p>
-          <p className="text-xs text-ink-soft">XP earned per day</p>
+          <p className="text-sm font-semibold text-ink">Minggu ini</p>
+          <p className="text-xs text-ink-soft">XP per hari</p>
           <div className="mt-4 flex h-32 items-end gap-2">
             {days.map((d, i) => (
               <div key={i} className="flex flex-1 flex-col items-center gap-1">
@@ -103,9 +103,9 @@ export default async function ReportsPage() {
         </div>
 
         <div className={card}>
-          <p className="text-sm font-semibold text-ink">By language</p>
+          <p className="text-sm font-semibold text-ink">Per bahasa</p>
           {perLanguage.length === 0 ? (
-            <p className="mt-3 text-sm text-ink-soft">No languages yet.</p>
+            <p className="mt-3 text-sm text-ink-soft">Belum ada bahasa.</p>
           ) : (
             <ul className="mt-4 flex flex-col gap-4">
               {perLanguage.map(({ meta, completed, total, percent }) => (

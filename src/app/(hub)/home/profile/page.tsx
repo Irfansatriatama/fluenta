@@ -32,7 +32,7 @@ export default async function ProfilePage() {
         <div className="min-w-0">
           <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink">{user.name}</h1>
           <p className="truncate text-sm text-ink-soft">{user.email}</p>
-          <p className="mt-0.5 text-xs font-semibold text-gold-deep">Free Plan · Level {level}</p>
+          <p className="mt-0.5 text-xs font-semibold text-gold-deep">Paket Gratis · Level {level}</p>
         </div>
       </div>
 
@@ -48,23 +48,23 @@ export default async function ProfilePage() {
           <Flame className="h-6 w-6 text-flame" />
           <div>
             <p className="font-display text-xl font-extrabold text-ink">{streak?.current ?? 0}</p>
-            <p className="text-xs text-ink-soft">Day streak</p>
+            <p className="text-xs text-ink-soft">Hari runtun</p>
           </div>
         </div>
         <div className={`${card} flex items-center gap-3`}>
           <Languages className="h-6 w-6 text-ink-soft" />
           <div>
             <p className="font-display text-xl font-extrabold text-ink">{enrollments.length}</p>
-            <p className="text-xs text-ink-soft">Languages</p>
+            <p className="text-xs text-ink-soft">Bahasa</p>
           </div>
         </div>
       </div>
 
       <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
         <div className={card}>
-          <h2 className="font-display text-base font-bold text-ink">My languages</h2>
+          <h2 className="font-display text-base font-bold text-ink">Bahasaku</h2>
           {enrollments.length === 0 ? (
-            <p className="mt-3 text-sm text-ink-soft">No languages yet.</p>
+            <p className="mt-3 text-sm text-ink-soft">Belum ada bahasa.</p>
           ) : (
             <ul className="mt-3 flex flex-col gap-3">
               {enrollments.map((e) => {
@@ -84,18 +84,18 @@ export default async function ProfilePage() {
         </div>
 
         <div className={card}>
-          <h2 className="font-display text-base font-bold text-ink">Preferences</h2>
+          <h2 className="font-display text-base font-bold text-ink">Preferensi</h2>
           <dl className="mt-3 flex flex-col gap-3 text-sm">
             <div className="flex items-center justify-between">
-              <dt className="text-ink-soft">Daily goal</dt>
-              <dd className="font-semibold text-ink">{profile?.dailyGoalMinutes ?? 15} min</dd>
+              <dt className="text-ink-soft">Target harian</dt>
+              <dd className="font-semibold text-ink">{profile?.dailyGoalMinutes ?? 15} mnt</dd>
             </div>
             <div className="flex items-center justify-between">
-              <dt className="text-ink-soft">Learning for</dt>
+              <dt className="text-ink-soft">Alasan belajar</dt>
               <dd className="font-semibold text-ink">{profile?.learningReason ?? "—"}</dd>
             </div>
             <div className="flex items-center justify-between">
-              <dt className="text-ink-soft">Timezone</dt>
+              <dt className="text-ink-soft">Zona waktu</dt>
               <dd className="font-semibold text-ink">{profile?.timezone ?? "—"}</dd>
             </div>
           </dl>
