@@ -91,12 +91,17 @@ body {
 }
 .fl-bob { animation: fl-bob 2s ease-in-out infinite; }
 
-/* Gentle page/section entrance — uniform across list pages. */
+/* Gentle page/section entrance — uniform across list pages.
+   NOTE: fill-mode is `backwards`, not `both`. With `both`, the final
+   `transform: none` computes to an identity matrix that PERSISTS, turning
+   every .fl-enter page into a containing block for position:fixed — which
+   made fixed modals inside them render thousands of px down. `backwards`
+   keeps the pre-start hidden state but leaves no lingering transform. */
 @keyframes fl-enter {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: none; }
 }
-.fl-enter { animation: fl-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.fl-enter { animation: fl-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
 
 /* Section heading with an accent bar — a small designed touch across pages. */
 .fl-heading {
