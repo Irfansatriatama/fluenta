@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, BookOpen, BookText, Check, Flame, Gamepad2, GraduationCap, Languages, Layers, Lock, MessagesSquare, Newspaper, PenLine, Repeat2 } from "lucide-react";
+import { ArrowRight, BookOpen, BookText, Check, Gamepad2, GraduationCap, Languages, Layers, Lock, MessagesSquare, Newspaper, PenLine, Repeat2 } from "lucide-react";
 import { HeroScene } from "@/components/brand/HeroScene";
+import { PasporArrival } from "@/components/module/PasporArrival";
 import { CountUp } from "@/components/motion/motion";
 import { ProgressRing } from "@/components/ui/ProgressRing";
 import { getModuleData } from "@/lib/content";
@@ -43,37 +44,21 @@ export default async function ModuleHomePage({
 
   const t = studyTools(lang);
   const toolCards = [
-    { href: `/learn/${lang}/vocab`, icon: Layers, title: "Vocabulary", sub: "Flashcards + SRS", show: true },
-    { href: `/learn/${lang}/review`, icon: Repeat2, title: "Review", sub: "Due cards", show: true },
-    { href: `/learn/${lang}/exam`, icon: GraduationCap, title: "Exam Prep", sub: "JLPT · JFT-Basic", show: lang === "ja" },
-    { href: `/learn/${lang}/reading`, icon: BookOpen, title: "Reading", sub: `${t.reading} passages`, show: t.reading > 0 },
-    { href: `/learn/${lang}/news`, icon: Newspaper, title: "News", sub: "Real articles + audio", show: lang === "ja" },
-    { href: `/learn/${lang}/grammar`, icon: BookText, title: "Grammar", sub: `${t.grammar} patterns`, show: t.grammar > 0 },
-    { href: `/learn/${lang}/characters`, icon: Languages, title: "Characters", sub: `${t.characters} characters`, show: t.characters > 0 },
-    { href: `/learn/${lang}/strokes`, icon: PenLine, title: "Stroke Order", sub: "Trace kana & kanji", show: lang === "ja" },
-    { href: `/learn/${lang}/dialogs`, icon: MessagesSquare, title: "Dialogs", sub: `${t.dialogs} conversations`, show: t.dialogs > 0 },
-    { href: `/learn/${lang}/games`, icon: Gamepad2, title: "Games", sub: "Play & practice", show: true },
+    { href: `/learn/${lang}/vocab`, icon: Layers, title: "Kosakata", sub: "Flashcard + SRS", show: true },
+    { href: `/learn/${lang}/review`, icon: Repeat2, title: "Ulasan", sub: "Kartu jatuh tempo", show: true },
+    { href: `/learn/${lang}/exam`, icon: GraduationCap, title: "Persiapan Ujian", sub: "JLPT · JFT-Basic", show: lang === "ja" },
+    { href: `/learn/${lang}/reading`, icon: BookOpen, title: "Bacaan", sub: `${t.reading} teks`, show: t.reading > 0 },
+    { href: `/learn/${lang}/news`, icon: Newspaper, title: "Berita", sub: "Artikel asli + audio", show: lang === "ja" },
+    { href: `/learn/${lang}/grammar`, icon: BookText, title: "Tata Bahasa", sub: `${t.grammar} pola`, show: t.grammar > 0 },
+    { href: `/learn/${lang}/characters`, icon: Languages, title: "Aksara", sub: `${t.characters} karakter`, show: t.characters > 0 },
+    { href: `/learn/${lang}/strokes`, icon: PenLine, title: "Urutan Goresan", sub: "Telusuri kana & kanji", show: lang === "ja" },
+    { href: `/learn/${lang}/dialogs`, icon: MessagesSquare, title: "Dialog", sub: `${t.dialogs} percakapan`, show: t.dialogs > 0 },
+    { href: `/learn/${lang}/games`, icon: Gamepad2, title: "Permainan", sub: "Main & berlatih", show: true },
   ].filter((c) => c.show);
 
   return (
     <div className="mx-auto max-w-5xl">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
-            Continue your {language.name}
-          </h1>
-          <p className="mt-1 text-sm text-ink-soft">One lesson at a time — keep the momentum going.</p>
-        </div>
-        <div className="flex shrink-0 items-center gap-2 rounded-full border hairline bg-paper px-3.5 py-2 shadow-soft">
-          <Flame className="h-5 w-5 text-flame" />
-          <span className="font-display text-lg font-bold text-ink">{streak?.current ?? 0}</span>
-          <span className="text-xs leading-tight text-ink-soft">
-            day
-            <br />
-            streak
-          </span>
-        </div>
-      </div>
+      <PasporArrival language={language} streak={streak?.current ?? 0} />
 
       <div className="fl-enter mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3" style={{ animationDelay: "0.05s" }}>
         <div className={`${card} flex items-center gap-4`}>
@@ -81,11 +66,11 @@ export default async function ModuleHomePage({
             <span className="text-xs font-bold text-ink">{percent}%</span>
           </ProgressRing>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">Progress</p>
+            <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">Progres</p>
             <p className="mt-1 font-display text-xl font-extrabold text-ink">
               {completed}/{total}
             </p>
-            <p className="text-xs text-ink-soft">lessons</p>
+            <p className="text-xs text-ink-soft">pelajaran</p>
           </div>
         </div>
         <div className={`${card} relative overflow-hidden`}>
@@ -96,11 +81,11 @@ export default async function ModuleHomePage({
         </div>
         <div className={`${card} relative overflow-hidden`}>
           <span aria-hidden className="pointer-events-none absolute -right-8 -top-8 h-20 w-20 rounded-full" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-gold) 18%, transparent), transparent 70%)" }} />
-          <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">Daily Goal</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-ink-soft">Target harian</p>
           <p className="mt-2 font-display text-2xl font-extrabold text-ink">
-            {goal} <span className="text-base font-semibold text-ink-soft">min</span>
+            {goal} <span className="text-base font-semibold text-ink-soft">mnt</span>
           </p>
-          <p className="mt-1 text-xs text-ink-soft">Keep your streak alive.</p>
+          <p className="mt-1 text-xs text-ink-soft">Jaga runtunmu tetap menyala.</p>
         </div>
       </div>
 
@@ -120,10 +105,10 @@ export default async function ModuleHomePage({
             {nextLesson ? kindMeta(nextLesson.kind).label : language.name}
           </p>
           <h2 className="relative mt-2 font-display text-2xl font-extrabold text-ink">
-            {nextLesson ? nextLesson.title : "All caught up!"}
+            {nextLesson ? nextLesson.title : "Semua tuntas!"}
           </h2>
           <p className="relative mt-1 text-sm text-ink-soft">
-            {nextLesson ? `+${nextLesson.xpReward} XP` : "You've completed every lesson here."}
+            {nextLesson ? `+${nextLesson.xpReward} XP` : "Kamu sudah menyelesaikan semua di sini."}
           </p>
           {nextLesson ? (
             <Link
@@ -131,7 +116,7 @@ export default async function ModuleHomePage({
               className="relative mt-5 inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-opacity hover:opacity-90"
               style={{ backgroundColor: "var(--accent)" }}
             >
-              Continue
+              Lanjut
               <ArrowRight className="h-4 w-4" />
             </Link>
           ) : (
@@ -139,7 +124,7 @@ export default async function ModuleHomePage({
               href={`/learn/${lang}/journey`}
               className="relative mt-5 inline-flex items-center gap-2 rounded-xl border border-edge px-5 py-2.5 text-sm font-bold text-ink transition-colors hover:border-gold/60"
             >
-              View journey
+              Lihat peta
             </Link>
           )}
           </div>
@@ -147,9 +132,9 @@ export default async function ModuleHomePage({
 
         <div className={card}>
           <div className="flex items-center justify-between">
-            <h3 className="font-display text-base font-bold text-ink">Today&apos;s Plan</h3>
+            <h3 className="font-display text-base font-bold text-ink">Rencana hari ini</h3>
             <Link href={`/learn/${lang}/journey`} className="text-xs font-semibold text-ink-soft hover:text-ink">
-              View all
+              Lihat semua
             </Link>
           </div>
           <ul className="mt-3 flex flex-col gap-1">
@@ -195,7 +180,7 @@ export default async function ModuleHomePage({
       <section className="fl-enter mt-6" style={{ animationDelay: "0.19s" }}>
         <h2 className="flex items-center gap-2 font-display text-base font-bold text-ink">
           <span className="inline-block h-4 w-1 rounded-full" style={{ backgroundColor: "var(--accent)" }} />
-          Study tools
+          Alat belajar
         </h2>
         <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {toolCards.map(({ href, icon: Icon, title, sub }) => (
