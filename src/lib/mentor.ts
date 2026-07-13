@@ -83,6 +83,26 @@ export function keiGreeting(input: {
   );
 }
 
+// -- Makna penyelesaian lesson. Bukan "Selamat, kamu hebat!" — dua ketukan:
+//    APA yang baru kamu lakukan (nyata, per jenis lesson) → ARTINYA (jujur,
+//    dibanding skor). Skor rendah ditangani paling hati-hati, tanpa menghakimi. --
+export function keiCompletion(score: number, kind?: string): string {
+  const did: Record<string, string> = {
+    reading: "Kamu baru saja membaca ini tanpa terjemahan.",
+    listening: "Kamu menangkap ini lewat telinga, bukan mata.",
+    writing: "Kamu menyusun kalimatmu sendiri, dari nol.",
+    quiz: "Kamu memilih dengan yakin, bukan menebak.",
+  };
+  const opener = (kind && did[kind]) || "Satu langkah lagi kamu tempuh.";
+  const meaning =
+    score >= 90
+      ? "Ini bukan hafalan lagi — sudah jadi milikmu."
+      : score >= 70
+        ? "Yang tadi asing, pelan-pelan jadi akrab."
+        : "Belum mulus, tapi kamu tetap sampai. Itu yang dihitung.";
+  return `${opener} ${meaning}`;
+}
+
 // -- Empty-state generik untuk permukaan lain (deck kosong, dsb). ---
 export function keiEmpty(context: "deck" | "journey" | "generic" = "generic"): string {
   switch (context) {

@@ -24,6 +24,7 @@ export type CelebrationStat = {
 // Pass `score` (0–100) to show a 3-star rating, or omit it for a trophy.
 export function Celebration({
   title = "Lesson complete!",
+  voice,
   subtitle,
   score = null,
   stats,
@@ -33,6 +34,9 @@ export function Celebration({
   onSecondary,
 }: {
   title?: string;
+  // Kei's meaning-of-completion line — when set, it becomes the serif headline
+  // and `title` demotes to a small eyebrow. Ties celebration to meaning, not +XP.
+  voice?: string;
   subtitle?: string;
   score?: number | null;
   stats: CelebrationStat[];
@@ -91,14 +95,26 @@ export function Celebration({
         )}
       </div>
 
+      {voice && (
+        <motion.p
+          className="mt-4 text-[0.62rem] font-bold uppercase tracking-[0.2em] text-ink-faint"
+          initial={reduce ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.45 }}
+        >
+          {title}
+        </motion.p>
+      )}
       <motion.h1
-        className="mentor-voice mt-4 text-[2.15rem] font-semibold leading-tight"
+        className={`mentor-voice font-semibold leading-tight ${
+          voice ? "mt-1.5 text-[1.9rem]" : "mt-4 text-[2.15rem]"
+        }`}
         style={{ color: "var(--accent)" }}
         initial={reduce ? false : { opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
-        {title}
+        {voice ?? title}
       </motion.h1>
       {subtitle && (
         <motion.p

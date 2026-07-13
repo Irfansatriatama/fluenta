@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { ArrowRight, Flame, Play, RotateCcw, Sparkles, Target, X, Zap } from "lucide-react";
 import { Celebration } from "@/components/lesson/Celebration";
 import { MentorNote } from "@/components/mentor/Mentor";
-import { keiCorrection } from "@/lib/mentor";
+import { keiCompletion, keiCorrection } from "@/lib/mentor";
 import { completeLesson } from "@/lib/lessonActions";
 import { gradeWriting, type WritingFeedback } from "@/lib/aiActions";
 
@@ -166,6 +166,7 @@ export function LessonRunner({
     return (
       <Celebration
         score={result.score}
+        voice={keiCompletion(result.score, lesson.kind)}
         subtitle="よくがんばりました！"
         stats={[
           { icon: <Zap className="h-5 w-5" />, value: result.xp, label: "XP", prefix: "+", countUp: true },
