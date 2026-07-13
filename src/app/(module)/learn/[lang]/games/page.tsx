@@ -4,11 +4,11 @@ import { Grid3x3, Repeat, Shuffle, Sparkles, SquareStack } from "lucide-react";
 import { getLanguage } from "@/lib/theme";
 
 const GAMES = [
-  { href: "games/quiz", icon: Sparkles, title: "Practice Quiz", sub: "Endless questions, always accurate", langs: ["ja"] },
-  { href: "games/memory", icon: Grid3x3, title: "Memory Match", sub: "Match words with meanings" },
-  { href: "games/scramble", icon: Shuffle, title: "Word Scramble", sub: "Unscramble the letters" },
-  { href: "games/particles", icon: SquareStack, title: "Particle Cloze", sub: "Fill in は・が・を・に…", langs: ["ja"] },
-  { href: "games/conjugation", icon: Repeat, title: "Conjugation Drill", sub: "ます・て・ない・た forms", langs: ["ja"] },
+  { href: "games/quiz", icon: Sparkles, title: "Kuis Latihan", sub: "Soal tanpa henti, selalu akurat", langs: ["ja"] },
+  { href: "games/memory", icon: Grid3x3, title: "Cocok Ingatan", sub: "Cocokkan kata dengan artinya" },
+  { href: "games/scramble", icon: Shuffle, title: "Susun Kata", sub: "Susun ulang hurufnya" },
+  { href: "games/particles", icon: SquareStack, title: "Cloze Partikel", sub: "Isi は・が・を・に…", langs: ["ja"] },
+  { href: "games/conjugation", icon: Repeat, title: "Drill Konjugasi", sub: "bentuk ます・て・ない・た", langs: ["ja"] },
 ];
 
 export default async function GamesPage({
@@ -24,8 +24,8 @@ export default async function GamesPage({
 
   return (
     <div className="fl-enter mx-auto max-w-3xl">
-      <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">{meta.name} Games</h1>
-      <p className="mt-1 text-sm text-ink-soft">Quick games and drills to sharpen your skills.</p>
+      <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Permainan</h1>
+      <p className="mt-1 text-sm text-ink-soft">Permainan & latihan singkat untuk mengasah kemampuanmu.</p>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
         {games.map((g) => (

@@ -3,10 +3,10 @@ import { TutorChat } from "@/components/lesson/TutorChat";
 import { getLanguage } from "@/lib/theme";
 
 const GREETINGS: Record<string, string> = {
-  ja: "こんにちは！日本語について何でも聞いてください。\nHello! Ask me anything about Japanese.",
-  ko: "안녕하세요! 한국어에 대해 무엇이든 물어보세요.\nHello! Ask me anything about Korean.",
-  zh: "你好！关于中文，随便问我。\nHi! Ask me anything about Chinese.",
-  en: "Hi! I'm your English tutor — ask me anything about grammar, words, or practice.",
+  ja: "こんにちは！日本語について何でも聞いてください。\nHalo, aku Kei. Tanya apa saja soal bahasa Jepang — grammar, kata, atau latihan.",
+  ko: "안녕하세요! 한국어에 대해 무엇이든 물어보세요.\nHalo, aku Kei. Tanya apa saja soal bahasa Korea.",
+  zh: "你好！关于中文，随便问我。\nHalo, aku Kei. Tanya apa saja soal bahasa Mandarin.",
+  en: "Halo, aku Kei — pemandu bahasa Inggrismu. Tanya apa saja soal grammar, kata, atau latihan.",
 };
 
 export default async function TutorPage({
@@ -22,7 +22,7 @@ export default async function TutorPage({
     <TutorChat
       lang={lang}
       languageName={language.name}
-      greeting={GREETINGS[lang] ?? `Hi! Ask me anything about ${language.name}.`}
+      greeting={GREETINGS[lang] ?? `Halo, aku Kei. Tanya apa saja soal ${language.name}.`}
     />
   );
 }

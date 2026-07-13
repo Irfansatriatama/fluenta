@@ -88,15 +88,15 @@ export function ConjugationDrill({ words }: { words: ConjWord[] }) {
     const pct = questions.length > 0 ? Math.round((score / questions.length) * 100) : 0;
     return (
       <Celebration
-        title="Drill complete!"
+        title="Drill selesai!"
         score={pct}
         stats={[
-          { icon: <Check className="h-5 w-5" />, value: `${score}/${questions.length}`, label: "correct" },
+          { icon: <Check className="h-5 w-5" />, value: `${score}/${questions.length}`, label: "benar" },
           { icon: <Zap className="h-5 w-5" />, value: questions.length * 2, label: "XP", prefix: "+", countUp: true },
         ]}
-        continueLabel="Play again"
+        continueLabel="Main lagi"
         onContinue={() => router.refresh()}
-        secondaryLabel="Back to games"
+        secondaryLabel="Kembali ke permainan"
         onSecondary={() => router.push("games")}
       />
     );

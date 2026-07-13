@@ -26,7 +26,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
       : await authClient.signIn.email({ email, password });
 
     if (result.error) {
-      setError(result.error.message ?? "Something went wrong. Try again.");
+      setError(result.error.message ?? "Ada yang salah. Coba lagi.");
       setLoading(false);
       return;
     }
@@ -41,14 +41,14 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
       {isRegister && (
         <label className="flex flex-col gap-1.5">
-          <span className="text-sm font-semibold text-ink">Name</span>
+          <span className="text-sm font-semibold text-ink">Nama</span>
           <input
             className={field}
             type="text"
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Your name"
+            placeholder="Namamu"
             autoComplete="name"
           />
         </label>
@@ -66,7 +66,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
         />
       </label>
       <label className="flex flex-col gap-1.5">
-        <span className="text-sm font-semibold text-ink">Password</span>
+        <span className="text-sm font-semibold text-ink">Kata sandi</span>
         <input
           className={field}
           type="password"
@@ -74,7 +74,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
           minLength={8}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="At least 8 characters"
+          placeholder="Minimal 8 karakter"
           autoComplete={isRegister ? "new-password" : "current-password"}
         />
       </label>
@@ -88,17 +88,17 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
         disabled={loading}
         className="mt-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gold px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-gold-deep disabled:opacity-60"
       >
-        {loading ? "Please wait…" : isRegister ? "Create account" : "Log in"}
+        {loading ? "Mohon tunggu…" : isRegister ? "Buat akun" : "Masuk"}
         {!loading && <ArrowRight className="h-4 w-4" />}
       </button>
 
       <p className="text-center text-sm text-ink-soft">
-        {isRegister ? "Already have an account? " : "New to Fluenta? "}
+        {isRegister ? "Sudah punya akun? " : "Baru di Fluenta? "}
         <Link
           href={isRegister ? "/login" : "/register"}
           className="font-semibold text-gold-deep hover:underline"
         >
-          {isRegister ? "Log in" : "Create one"}
+          {isRegister ? "Masuk" : "Buat akun"}
         </Link>
       </p>
     </form>

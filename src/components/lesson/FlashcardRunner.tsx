@@ -105,9 +105,9 @@ export function FlashcardRunner({
   if (finished) {
     return (
       <Celebration
-        title="Nice work!"
-        stats={[{ icon: <Layers className="h-5 w-5" />, value: done, label: done === 1 ? "card reviewed" : "cards reviewed" }]}
-        continueLabel="Done"
+        title="Kerja bagus!"
+        stats={[{ icon: <Layers className="h-5 w-5" />, value: done, label: "kartu ditinjau" }]}
+        continueLabel="Selesai"
         onContinue={() => {
           router.push(backHref);
           router.refresh();

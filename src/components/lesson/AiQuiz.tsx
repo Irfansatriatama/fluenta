@@ -120,13 +120,13 @@ export function AiQuiz({ lang, languageName }: { lang: string; languageName: str
     const pct = questions.length > 0 ? Math.round((score / questions.length) * 100) : 0;
     return (
       <Celebration
-        title="Quiz complete!"
+        title="Kuis selesai!"
         score={pct}
         stats={[
-          { icon: <Check className="h-5 w-5" />, value: `${score}/${questions.length}`, label: "correct" },
+          { icon: <Check className="h-5 w-5" />, value: `${score}/${questions.length}`, label: "benar" },
           { icon: <Zap className="h-5 w-5" />, value: xp ?? 0, label: "XP", prefix: "+", countUp: true },
         ]}
-        continueLabel="Play again"
+        continueLabel="Main lagi"
         onContinue={() => setPhase("setup")}
       />
     );

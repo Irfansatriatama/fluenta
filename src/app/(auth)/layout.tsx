@@ -10,7 +10,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <div className="w-full max-w-sm rounded-3xl border hairline bg-paper p-7 shadow-lift sm:p-8">
         {children}
       </div>
-      <p className="mt-6 text-xs text-ink-faint">Your journey, your story.</p>
+      <p className="mt-6 text-xs text-ink-faint">Perjalananmu, kisahmu.</p>
     </div>
   );
 }

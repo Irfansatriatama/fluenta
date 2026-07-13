@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState, useTransition } from "react";
 import { Send, Sparkles } from "lucide-react";
+import { KeiSigil } from "@/components/mentor/Mentor";
 import { tutorReply, type ChatTurn } from "@/lib/aiActions";
 
-const CHIPS = ["Explain a grammar point", "Give me an example", "Quiz me"];
+const CHIPS = ["Jelaskan satu pola grammar", "Beri aku contoh", "Kuis aku"];
 
 export function TutorChat({
   lang,
@@ -38,13 +39,11 @@ export function TutorChat({
 
   return (
     <div className="mx-auto flex h-[calc(100vh-9rem)] max-w-2xl flex-col md:h-[calc(100vh-7rem)]">
-      <div className="flex items-center gap-2 pb-3">
-        <span className="grid h-8 w-8 place-items-center rounded-full bg-ivory ring-1 ring-edge text-gold">
-          <Sparkles className="h-4 w-4" />
-        </span>
+      <div className="flex items-center gap-2.5 pb-3">
+        <KeiSigil size={34} />
         <div>
-          <p className="font-display text-sm font-bold text-ink">AI Tutor</p>
-          <p className="text-xs text-ink-soft">Your {languageName} learning partner</p>
+          <p className="font-display text-sm font-bold text-ink">Kei</p>
+          <p className="text-xs text-ink-soft">Pemandu paspormu — tanya apa saja</p>
         </div>
       </div>
 
@@ -78,7 +77,7 @@ export function TutorChat({
           );
         })}
         {pending && (
-          <p className="pl-9 text-xs text-ink-faint">Tutor is typing…</p>
+          <p className="pl-9 text-xs text-ink-faint">Kei sedang mengetik…</p>
         )}
         <div ref={endRef} />
       </div>
@@ -107,7 +106,7 @@ export function TutorChat({
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder={`Ask anything about ${languageName}…`}
+          placeholder="Tanya apa saja ke Kei…"
           className="flex-1 rounded-2xl border border-edge bg-paper px-4 py-3 text-sm text-ink outline-none focus:border-[color:var(--accent)]"
         />
         <button
@@ -115,7 +114,7 @@ export function TutorChat({
           disabled={pending || input.trim().length === 0}
           className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-white transition-opacity hover:opacity-90 disabled:opacity-50"
           style={{ backgroundColor: "var(--accent)" }}
-          aria-label="Send"
+          aria-label="Kirim"
         >
           <Send className="h-5 w-5" />
         </button>

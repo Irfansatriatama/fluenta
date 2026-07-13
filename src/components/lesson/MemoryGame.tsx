@@ -60,14 +60,14 @@ export function MemoryGame({ lang, pairs }: { lang: string; pairs: MemoryPair[] 
   if (done) {
     return (
       <Celebration
-        title="Matched!"
+        title="Cocok semua!"
         stats={[
-          { icon: <Grid3x3 className="h-5 w-5" />, value: moves, label: "moves" },
+          { icon: <Grid3x3 className="h-5 w-5" />, value: moves, label: "langkah" },
           { icon: <Zap className="h-5 w-5" />, value: 15, label: "XP", prefix: "+", countUp: true },
         ]}
-        continueLabel="Play again"
+        continueLabel="Main lagi"
         onContinue={() => router.refresh()}
-        secondaryLabel="Back to games"
+        secondaryLabel="Kembali ke permainan"
         onSecondary={() => router.push(`/learn/${lang}/games`)}
       />
     );

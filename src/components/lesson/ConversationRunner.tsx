@@ -50,7 +50,7 @@ export function ConversationRunner({
   if (done) {
     return (
       <Celebration
-        title="Conversation done!"
+        title="Percakapan selesai!"
         subtitle="よくできました！"
         score={100}
         stats={[{ icon: <Volume2 className="h-5 w-5" />, value: xp || dialog.lines.length, label: "XP", prefix: xp ? "+" : "", countUp: true }]}

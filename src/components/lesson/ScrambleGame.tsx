@@ -63,14 +63,14 @@ export function ScrambleGame({ lang, items }: { lang: string; items: ScrambleIte
   if (finished) {
     return (
       <Celebration
-        title="Well done!"
+        title="Kerja bagus!"
         stats={[
-          { icon: <Shuffle className="h-5 w-5" />, value: items.length, label: items.length === 1 ? "word solved" : "words solved" },
+          { icon: <Shuffle className="h-5 w-5" />, value: items.length, label: "kata terpecah" },
           { icon: <Zap className="h-5 w-5" />, value: items.length * 3, label: "XP", prefix: "+", countUp: true },
         ]}
-        continueLabel="Play again"
+        continueLabel="Main lagi"
         onContinue={() => router.refresh()}
-        secondaryLabel="Back to games"
+        secondaryLabel="Kembali ke permainan"
         onSecondary={() => router.push(`/learn/${lang}/games`)}
       />
     );

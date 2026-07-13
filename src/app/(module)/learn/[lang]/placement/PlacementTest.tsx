@@ -73,7 +73,7 @@ export function PlacementTest({ lang, languageName }: { lang: string; languageNa
     return (
       <div className="mx-auto flex min-h-[50vh] max-w-md flex-col items-center justify-center gap-3 text-center">
         <RefreshCw className="h-6 w-6 animate-spin" style={{ color: "var(--accent)" }} />
-        <p className="text-sm text-ink-soft">{phase === "loading" ? "Preparing your placement…" : "Reviewing your answers…"}</p>
+        <p className="text-sm text-ink-soft">{phase === "loading" ? "Menyiapkan penempatanmu…" : "Meninjau jawabanmu…"}</p>
       </div>
     );
   }
@@ -81,9 +81,9 @@ export function PlacementTest({ lang, languageName }: { lang: string; languageNa
   if (phase === "unavailable") {
     return (
       <div className="mx-auto max-w-md py-16 text-center">
-        <p className="text-sm text-ink-soft">The level test isn&apos;t available yet. Pick your level on the previous screen.</p>
+        <p className="text-sm text-ink-soft">Tes level belum tersedia. Pilih levelmu di layar sebelumnya.</p>
         <button onClick={() => router.push(`/learn/${lang}/placement`)} className="mt-4 rounded-xl px-5 py-2.5 text-sm font-bold text-white" style={{ backgroundColor: "var(--accent)" }}>
-          Back
+          Kembali
         </button>
       </div>
     );
@@ -92,7 +92,7 @@ export function PlacementTest({ lang, languageName }: { lang: string; languageNa
   if (phase === "done" && result) {
     return (
       <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center text-center">
-        <p className="text-xs font-bold uppercase tracking-wide text-ink-soft">Recommended start</p>
+        <p className="text-xs font-bold uppercase tracking-wide text-ink-soft">Rekomendasi mulai</p>
         <p className="mt-1 font-display text-4xl font-extrabold" style={{ color: "var(--accent)" }}>JLPT {result.startLevel}</p>
         <p className="mt-4 text-sm leading-relaxed text-ink-soft">{result.message}</p>
 
@@ -100,11 +100,11 @@ export function PlacementTest({ lang, languageName }: { lang: string; languageNa
           <input type="hidden" name="lang" value={lang} />
           <input type="hidden" name="level" value={ENUM[result.startLevel] ?? "Beginner"} />
           <button type="submit" className="w-full rounded-xl px-5 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90" style={{ backgroundColor: "var(--accent)" }}>
-            Start learning {languageName}
+            Mulai belajar
           </button>
         </form>
         <button onClick={() => router.push(`/learn/${lang}/placement`)} className="mt-3 text-sm font-semibold text-ink-soft hover:text-ink">
-          Choose manually instead
+          Pilih manual saja
         </button>
       </div>
     );
@@ -119,10 +119,10 @@ export function PlacementTest({ lang, languageName }: { lang: string; languageNa
           <div className="h-full rounded-full transition-all" style={{ width: `${progress}%`, backgroundColor: "var(--accent)" }} />
         </div>
         <span className="text-xs font-semibold text-ink-soft">{index + 1}/{questions.length}</span>
-        <button onClick={() => router.push(`/learn/${lang}/placement`)} className="grid h-8 w-8 place-items-center rounded-lg text-ink-soft hover:bg-paper-2" aria-label="Exit"><X className="h-5 w-5" /></button>
+        <button onClick={() => router.push(`/learn/${lang}/placement`)} className="grid h-8 w-8 place-items-center rounded-lg text-ink-soft hover:bg-paper-2" aria-label="Keluar"><X className="h-5 w-5" /></button>
       </div>
 
-      <p className="mt-8 text-center text-xs font-bold uppercase tracking-wide text-ink-faint">Level check</p>
+      <p className="mt-8 text-center text-xs font-bold uppercase tracking-wide text-ink-faint">Cek level</p>
       <p className="mt-2 text-center font-display text-xl font-bold text-ink" lang={lang}>{q.q}</p>
 
       <div className="mt-6 grid grid-cols-1 gap-2.5">
@@ -143,7 +143,7 @@ export function PlacementTest({ lang, languageName }: { lang: string; languageNa
 
       {picked !== null && (
         <button onClick={next} className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90" style={{ backgroundColor: "var(--accent)" }}>
-          {index + 1 >= questions.length ? <><Check className="h-4 w-4" /> See result</> : "Next"}
+          {index + 1 >= questions.length ? <><Check className="h-4 w-4" /> Lihat hasil</> : "Lanjut"}
         </button>
       )}
     </div>

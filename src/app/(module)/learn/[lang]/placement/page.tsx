@@ -2,13 +2,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Sparkles } from "lucide-react";
 import { LanguageSeal } from "@/components/brand/LanguageSeal";
+import { getPaspor } from "@/lib/paspor";
 import { getLanguage } from "@/lib/theme";
 import { activateLanguage } from "./actions";
 
 const LEVELS = [
-  { value: "Beginner", label: "Complete beginner", sub: "Starting from zero" },
-  { value: "Elementary", label: "I know a little", sub: "Some words & basics" },
-  { value: "Intermediate", label: "I can hold basics", sub: "Simple conversations" },
+  { value: "Beginner", label: "Pemula total", sub: "Mulai dari nol" },
+  { value: "Elementary", label: "Tahu sedikit", sub: "Beberapa kata & dasar" },
+  { value: "Intermediate", label: "Bisa dasar", sub: "Percakapan sederhana" },
 ];
 
 export default async function PlacementPage({
@@ -19,15 +20,16 @@ export default async function PlacementPage({
   const { lang } = await params;
   const language = getLanguage(lang);
   if (!language) notFound();
+  const world = getPaspor(lang).world || language.name;
 
   return (
     <div className="mx-auto flex max-w-lg flex-col items-center py-6 text-center">
       <LanguageSeal language={language} size={96} showLabel={false} />
       <h1 className="mt-4 font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
-        Start {language.name}
+        Mulai bahasa {world}
       </h1>
       <p className="mt-1 text-sm text-ink-soft">
-        Tell us where you are so we can place you at the right level.
+        Ceritakan levelmu supaya kami tempatkan di posisi yang pas.
       </p>
 
       <form action={activateLanguage} className="mt-8 flex w-full flex-col gap-3 text-left">
@@ -53,7 +55,7 @@ export default async function PlacementPage({
           className="mt-4 rounded-xl px-5 py-3 text-sm font-bold text-white transition-opacity hover:opacity-90"
           style={{ backgroundColor: "var(--accent)" }}
         >
-          Start learning {language.name}
+          Mulai belajar bahasa {world}
         </button>
       </form>
 
@@ -61,7 +63,7 @@ export default async function PlacementPage({
         <div className="mt-6 w-full">
           <div className="flex items-center gap-3">
             <span className="h-px flex-1" style={{ backgroundColor: "var(--color-edge)" }} />
-            <span className="text-xs text-ink-faint">or</span>
+            <span className="text-xs text-ink-faint">atau</span>
             <span className="h-px flex-1" style={{ backgroundColor: "var(--color-edge)" }} />
           </div>
           <Link
@@ -70,7 +72,7 @@ export default async function PlacementPage({
             style={{ borderColor: "var(--color-edge)" }}
           >
             <Sparkles className="h-4 w-4" style={{ color: "var(--accent)" }} />
-            Not sure? Take a 2-minute level test
+            Belum yakin? Ikuti tes level 2 menit
           </Link>
         </div>
       )}
