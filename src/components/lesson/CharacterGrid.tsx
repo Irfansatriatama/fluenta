@@ -136,7 +136,7 @@ export function CharacterGrid({ groups, lang }: { groups: CharGroup[]; lang: str
             )}
             {/* dense grid — a whole writing system fits in a screen or two,
                 not 25 rows of big cards. Tap a cell for readings & example. */}
-            <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-6 md:grid-cols-8">
+            <div className="grid gap-2.5" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(74px, 1fr))" }}>
               {group.items.map((c, i) => {
                 // Kana readings are short (romaji) → show them. Kanji "sub" is a
                 // long list of on/kun readings → show the meaning instead, and
@@ -144,19 +144,32 @@ export function CharacterGrid({ groups, lang }: { groups: CharGroup[]; lang: str
                 const shortSub = (c.sub?.length ?? 0) <= 6;
                 const hint = shortSub ? c.sub : c.meaning;
                 return (
-                  <button
+                  <div
                     key={i}
-                    onClick={() => setSel(c)}
-                    title={[c.sub, c.meaning].filter(Boolean).join(" · ") || undefined}
-                    className="fl-lift flex h-[4.75rem] w-full flex-col items-center justify-center gap-1 overflow-hidden rounded-xl border hairline bg-paper px-1 text-center hover:border-[color:var(--accent)] hover:shadow-soft"
+                    className="fl-lift relative flex h-[4.75rem] flex-col overflow-hidden rounded-xl border bg-paper text-center transition-colors hover:border-[color:var(--accent)] hover:shadow-soft"
+                    style={{ borderColor: "var(--color-edge)" }}
                   >
-                    <span className="font-display text-2xl font-bold leading-none text-ink" lang={lang}>{c.char}</span>
-                    {hint && (
-                      <span className="block w-full truncate text-[0.6rem] font-semibold leading-tight" style={{ color: "var(--accent)" }}>
-                        {hint}
-                      </span>
-                    )}
-                  </button>
+                    <button
+                      onClick={() => setSel(c)}
+                      title={[c.sub, c.meaning].filter(Boolean).join(" · ") || undefined}
+                      className="flex h-full w-full flex-col items-center justify-center gap-1 px-1"
+                    >
+                      <span className="font-display text-[1.7rem] font-bold leading-none text-ink" lang={lang}>{c.char}</span>
+                      {hint && (
+                        <span className="block w-full truncate px-0.5 text-[0.6rem] font-semibold leading-tight" style={{ color: "var(--accent)" }}>
+                          {hint}
+                        </span>
+                      )}
+                    </button>
+                    {/* per-cell voice — hear the character without opening the modal */}
+                    <button
+                      onClick={() => speak(c.char, lang)}
+                      aria-label={`Dengar ${c.char}`}
+                      className="absolute right-0.5 top-0.5 grid h-5 w-5 place-items-center rounded-full text-ink-faint transition-colors hover:bg-paper-2 hover:text-[color:var(--accent)]"
+                    >
+                      <Volume2 className="h-3 w-3" />
+                    </button>
+                  </div>
                 );
               })}
             </div>
