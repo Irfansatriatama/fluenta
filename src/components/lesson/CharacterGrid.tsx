@@ -3,8 +3,9 @@
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ExternalLink, Volume2, X } from "lucide-react";
+import { Check, ExternalLink, Star, Volume2, X } from "lucide-react";
 import { CharFlashcard, CharQuiz } from "@/components/lesson/CharModes";
+import { useCharSet } from "@/lib/charProgress";
 import { speak } from "@/lib/tts";
 import type { CharGroup, CharItem } from "@/lib/staticContent";
 
@@ -44,8 +45,11 @@ export function CharacterGrid({ groups, lang }: { groups: CharGroup[]; lang: str
   const [catIdx, setCatIdx] = useState(0);
   const [subIdx, setSubIdx] = useState(0);
   const [mode, setMode] = useState<"table" | "flashcard" | "quiz">("table");
+  const [filter, setFilter] = useState<"all" | "unlearned" | "fav">("all");
   const [sel, setSel] = useState<CharItem | null>(null);
   const reduce = useReducedMotion();
+  const { set: learned, toggle: toggleLearned } = useCharSet(lang, "learned");
+  const { set: favs, toggle: toggleFav } = useCharSet(lang, "fav");
   // true only on the client — so the body portal is never attempted during SSR
   const isClient = useSyncExternalStore(() => () => {}, () => true, () => false);
 
@@ -62,6 +66,9 @@ export function CharacterGrid({ groups, lang }: { groups: CharGroup[]; lang: str
   const activeSub = Math.min(subIdx, cat.groups.length - 1);
   const shown = hasSub ? [cat.groups[activeSub]] : cat.groups;
   const activeItems = shown.flatMap((s) => s.group.items);
+  const learnedInSet = activeItems.filter((c) => learned.has(c.char)).length;
+  const matchFilter = (c: CharItem) =>
+    filter === "all" ? true : filter === "fav" ? favs.has(c.char) : !learned.has(c.char);
   const ref = sel ? referenceUrl(sel.char, lang) : null;
 
   const tabBase =
@@ -146,7 +153,37 @@ export function CharacterGrid({ groups, lang }: { groups: CharGroup[]; lang: str
       )}
 
       {mode === "table" && (
-      <div className="mt-5 flex flex-col gap-8">
+      <>
+      {/* progress + filter — mark characters learned (stored in your browser) */}
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+        <p className="text-sm text-ink-soft">
+          <span className="font-bold text-ink">{learnedInSet}</span> / {activeItems.length} hafal
+        </p>
+        <div className="flex gap-1.5">
+          {([
+            { k: "all", label: "Semua" },
+            { k: "unlearned", label: "Belum hafal" },
+            { k: "fav", label: "★ Favorit" },
+          ] as const).map((f) => {
+            const on = filter === f.k;
+            return (
+              <button
+                key={f.k}
+                onClick={() => setFilter(f.k)}
+                className="rounded-full border px-3 py-1 text-xs font-semibold transition-colors"
+                style={
+                  on
+                    ? { borderColor: "var(--accent)", backgroundColor: "color-mix(in srgb, var(--accent) 12%, transparent)", color: "var(--accent)" }
+                    : { borderColor: "var(--color-edge)", color: "var(--color-ink-soft)" }
+                }
+              >
+                {f.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div className="mt-4 flex flex-col gap-8">
         {shown.map(({ sub, group }) => (
           <section key={group.title}>
             {!hasSub && cats.length <= 1 && (
@@ -157,18 +194,28 @@ export function CharacterGrid({ groups, lang }: { groups: CharGroup[]; lang: str
             {/* dense grid — a whole writing system fits in a screen or two,
                 not 25 rows of big cards. Tap a cell for readings & example. */}
             <div className="grid gap-2.5" style={{ gridTemplateColumns: "repeat(auto-fill, minmax(74px, 1fr))" }}>
-              {group.items.map((c, i) => {
+              {group.items.filter(matchFilter).map((c, i) => {
                 // Kana readings are short (romaji) → show them. Kanji "sub" is a
                 // long list of on/kun readings → show the meaning instead, and
                 // keep the full detail for the modal. Either way, one clipped line.
                 const shortSub = (c.sub?.length ?? 0) <= 6;
                 const hint = shortSub ? c.sub : c.meaning;
+                const isLearned = learned.has(c.char);
                 return (
                   <div
                     key={i}
-                    className="fl-lift relative flex h-[4.75rem] flex-col overflow-hidden rounded-xl border bg-paper text-center transition-colors hover:border-[color:var(--accent)] hover:shadow-soft"
-                    style={{ borderColor: "var(--color-edge)" }}
+                    className="fl-lift relative flex h-[4.75rem] flex-col overflow-hidden rounded-xl border text-center transition-colors hover:border-[color:var(--accent)] hover:shadow-soft"
+                    style={
+                      isLearned
+                        ? { borderColor: "color-mix(in srgb, var(--accent) 55%, transparent)", backgroundColor: "color-mix(in srgb, var(--accent) 7%, var(--color-paper))" }
+                        : { borderColor: "var(--color-edge)", backgroundColor: "var(--color-paper)" }
+                    }
                   >
+                    {isLearned && (
+                      <span className="absolute left-0.5 top-0.5 z-10 grid h-4 w-4 place-items-center rounded-full text-white" style={{ backgroundColor: "var(--accent)" }}>
+                        <Check className="h-2.5 w-2.5" strokeWidth={3} />
+                      </span>
+                    )}
                     <button
                       onClick={() => setSel(c)}
                       title={[c.sub, c.meaning].filter(Boolean).join(" · ") || undefined}
@@ -195,7 +242,13 @@ export function CharacterGrid({ groups, lang }: { groups: CharGroup[]; lang: str
             </div>
           </section>
         ))}
+        {activeItems.filter(matchFilter).length === 0 && (
+          <p className="rounded-2xl border hairline bg-paper p-6 text-center text-sm text-ink-soft">
+            {filter === "fav" ? "Belum ada favorit. Buka detail karakter lalu ketuk bintang." : "Semua karakter di set ini sudah kamu tandai hafal."}
+          </p>
+        )}
       </div>
+      </>
       )}
 
       {mode === "flashcard" && <CharFlashcard key={`fc-${catIdx}-${activeSub}`} items={activeItems} lang={lang} />}
@@ -227,6 +280,14 @@ export function CharacterGrid({ groups, lang }: { groups: CharGroup[]; lang: str
                     aria-label="Tutup"
                   >
                     <X className="h-5 w-5" />
+                  </button>
+                  <button
+                    onClick={() => toggleFav(sel.char)}
+                    aria-label="Favorit"
+                    className="absolute left-3 top-3 grid h-8 w-8 place-items-center rounded-lg transition-colors hover:bg-paper-2"
+                    style={{ color: favs.has(sel.char) ? "var(--color-gold)" : "var(--color-ink-faint)" }}
+                  >
+                    <Star className="h-5 w-5" fill={favs.has(sel.char) ? "currentColor" : "none"} />
                   </button>
 
                   <div className="grid place-items-center pt-2">
@@ -261,6 +322,17 @@ export function CharacterGrid({ groups, lang }: { groups: CharGroup[]; lang: str
                       </a>
                     )}
                   </div>
+                  <button
+                    onClick={() => toggleLearned(sel.char)}
+                    className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-bold transition-colors"
+                    style={
+                      learned.has(sel.char)
+                        ? { borderColor: "var(--color-edge)", color: "var(--color-ink-soft)" }
+                        : { borderColor: "color-mix(in srgb, var(--accent) 45%, transparent)", color: "var(--accent)" }
+                    }
+                  >
+                    <Check className="h-4 w-4" /> {learned.has(sel.char) ? "Hapus tanda hafal" : "Tandai hafal"}
+                  </button>
                 </motion.div>
               </motion.div>
             )}
