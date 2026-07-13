@@ -14,11 +14,11 @@ export function HubSidebar({ user }: { user: { name: string; email: string } }) 
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r hairline bg-paper/60 px-4 py-6 md:flex">
       <div className="px-2">
         <Logo />
-        <p className="mt-1 pl-8 text-xs text-ink-soft">Speak with confidence.</p>
+        <p className="mt-1 pl-8 text-xs text-ink-soft">Rumah untuk semua bahasa.</p>
       </div>
 
       <p className="mt-8 px-3 text-[0.62rem] font-bold uppercase tracking-[0.2em] text-ink-faint">
-        General
+        Umum
       </p>
       <nav className="mt-2 flex flex-1 flex-col gap-1">
         {HUB_NAV.map(({ label, href, icon: Icon }) => {

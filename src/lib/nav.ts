@@ -24,13 +24,14 @@ export type NavItem = {
   icon: LucideIcon;
 };
 
-// Hub (umbrella) — general, cross-language menu.
+// Hub (umbrella) — general, cross-language menu. Labels match the hub's own
+// room names (Paspor/Papan/Progres) for one coherent vocabulary.
 export const HUB_NAV: NavItem[] = [
-  { label: "Home", href: "/home", icon: Home },
-  { label: "Reports", href: "/home/reports", icon: BarChart3 },
-  { label: "Leaderboard", href: "/home/leaderboard", icon: Trophy },
-  { label: "Achievements", href: "/home/achievements", icon: Award },
-  { label: "Profile", href: "/home/profile", icon: User },
+  { label: "Beranda", href: "/home", icon: Home },
+  { label: "Progres", href: "/home/reports", icon: BarChart3 },
+  { label: "Papan", href: "/home/leaderboard", icon: Trophy },
+  { label: "Paspor", href: "/home/achievements", icon: Award },
+  { label: "Profil", href: "/home/profile", icon: User },
 ];
 
 export type ModuleNavItem = {
@@ -42,26 +43,26 @@ export type ModuleNavItem = {
 // Module (per-language) — scoped to /learn/[lang].
 // Full module menu (desktop sidebar).
 export const MODULE_NAV: ModuleNavItem[] = [
-  { label: "Home", segment: "", icon: Home },
-  { label: "Journey", segment: "/journey", icon: Route },
-  { label: "Exam Prep", segment: "/exam", icon: GraduationCap },
-  { label: "Vocab", segment: "/vocab", icon: Layers },
-  { label: "Characters", segment: "/characters", icon: Languages },
-  { label: "Reading", segment: "/reading", icon: BookOpen },
-  { label: "News", segment: "/news", icon: Newspaper },
-  { label: "Grammar", segment: "/grammar", icon: BookText },
-  { label: "Dialogs", segment: "/dialogs", icon: MessagesSquare },
-  { label: "Games", segment: "/games", icon: Gamepad2 },
-  { label: "Review", segment: "/review", icon: Repeat2 },
+  { label: "Beranda", segment: "", icon: Home },
+  { label: "Peta", segment: "/journey", icon: Route },
+  { label: "Ujian", segment: "/exam", icon: GraduationCap },
+  { label: "Kosakata", segment: "/vocab", icon: Layers },
+  { label: "Aksara", segment: "/characters", icon: Languages },
+  { label: "Bacaan", segment: "/reading", icon: BookOpen },
+  { label: "Berita", segment: "/news", icon: Newspaper },
+  { label: "Tata Bahasa", segment: "/grammar", icon: BookText },
+  { label: "Dialog", segment: "/dialogs", icon: MessagesSquare },
+  { label: "Permainan", segment: "/games", icon: Gamepad2 },
+  { label: "Ulasan", segment: "/review", icon: Repeat2 },
   { label: "Tutor", segment: "/tutor", icon: MessageCircle },
 ];
 
 // Condensed set for the mobile bottom tab bar (max 5).
 export const MODULE_TABS: ModuleNavItem[] = [
-  { label: "Home", segment: "", icon: Home },
-  { label: "Journey", segment: "/journey", icon: Route },
-  { label: "Vocab", segment: "/vocab", icon: Layers },
-  { label: "Review", segment: "/review", icon: Repeat2 },
+  { label: "Beranda", segment: "", icon: Home },
+  { label: "Peta", segment: "/journey", icon: Route },
+  { label: "Kosakata", segment: "/vocab", icon: Layers },
+  { label: "Ulasan", segment: "/review", icon: Repeat2 },
   { label: "Tutor", segment: "/tutor", icon: MessageCircle },
 ];
 

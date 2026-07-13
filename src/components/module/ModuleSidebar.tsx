@@ -10,7 +10,6 @@ import { getLanguage } from "@/lib/theme";
 export function ModuleSidebar({ lang }: { lang: string }) {
   const pathname = usePathname();
   const language = getLanguage(lang);
-  const homeHref = moduleHref(lang, "");
 
   return (
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r hairline bg-paper/60 px-4 py-6 md:flex">
@@ -19,7 +18,7 @@ export function ModuleSidebar({ lang }: { lang: string }) {
         className="flex items-center gap-1.5 px-2 text-xs font-semibold text-ink-soft transition-colors hover:text-ink"
       >
         <ChevronLeft className="h-4 w-4" />
-        All languages
+        Semua bahasa
       </Link>
 
       {language && (

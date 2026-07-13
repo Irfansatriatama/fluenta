@@ -12,15 +12,15 @@ import {
 type Glyph = ComponentType<{ className?: string; strokeWidth?: number }>;
 
 export const KIND_META: Record<string, { icon: Glyph; label: string }> = {
-  reading: { icon: ReadingGlyph, label: "Reading" },
-  listening: { icon: ListeningGlyph, label: "Listening" },
-  writing: { icon: WritingGlyph, label: "Writing" },
-  quiz: { icon: QuizGlyph, label: "Quiz" },
-  flashcard: { icon: FlashcardGlyph, label: "Flashcards" },
+  reading: { icon: ReadingGlyph, label: "Bacaan" },
+  listening: { icon: ListeningGlyph, label: "Menyimak" },
+  writing: { icon: WritingGlyph, label: "Menulis" },
+  quiz: { icon: QuizGlyph, label: "Kuis" },
+  flashcard: { icon: FlashcardGlyph, label: "Flashcard" },
   dialog: { icon: DialogGlyph, label: "Dialog" },
-  speaking: { icon: SpeakingGlyph, label: "Speaking" },
-  passage: { icon: ReadingGlyph, label: "Reading" },
-  conversation: { icon: DialogGlyph, label: "Conversation" },
+  speaking: { icon: SpeakingGlyph, label: "Berbicara" },
+  passage: { icon: ReadingGlyph, label: "Bacaan" },
+  conversation: { icon: DialogGlyph, label: "Percakapan" },
 };
 
 export function kindMeta(kind: string) {
