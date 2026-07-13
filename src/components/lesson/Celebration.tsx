@@ -92,7 +92,7 @@ export function Celebration({
       </div>
 
       <motion.h1
-        className="mt-4 font-display text-3xl font-extrabold"
+        className="mentor-voice mt-4 text-[2.15rem] font-semibold leading-tight"
         style={{ color: "var(--accent)" }}
         initial={reduce ? false : { opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}

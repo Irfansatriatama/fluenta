@@ -26,6 +26,7 @@
 
   --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), "Fraunces", Georgia, "Times New Roman", serif;
 
   --radius-card: 1.5rem;
 
@@ -47,6 +48,16 @@ body {
 /* Reusable letterpress hairline used to frame premium sections. */
 .hairline {
   border-color: color-mix(in srgb, var(--color-edge) 85%, transparent);
+}
+
+/* The Mentor's voice. Serif only speaks where Kei speaks to you — greetings,
+   corrections, the meaning of a finished lesson. Optical sizing + balanced
+   wrap give it the "editorial pop" the all-sans build never had. */
+.mentor-voice {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+  letter-spacing: -0.011em;
+  text-wrap: balance;
 }
 
 /* Quiz answer feedback — auto-neutralized by the reduced-motion block below. */

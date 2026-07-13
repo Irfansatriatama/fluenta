@@ -5,6 +5,8 @@ import {
   type ModuleSummary,
 } from "@/components/hub/LanguageModuleCard";
 import { ProgressRing } from "@/components/ui/ProgressRing";
+import { MentorGreeting } from "@/components/mentor/Mentor";
+import { daysSince, keiGreeting } from "@/lib/mentor";
 import { levelProgress } from "@/lib/gamification";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/session";
@@ -28,6 +30,15 @@ export default async function HomePage() {
   const { level, percent: levelPct } = levelProgress(totalXp);
   const globalStreak = streak?.current ?? 0;
 
+  const daysAway = daysSince(streak?.lastActiveDate);
+  const isNew = enrollments.length === 0 && totalXp === 0;
+  const greeting = keiGreeting({
+    name: session!.user.name,
+    isNew,
+    daysAway,
+    streak: globalStreak,
+  });
+
   const modules: ModuleSummary[] = enrollments.flatMap((e) => {
     const language = getLanguage(e.language.code);
     if (!language) return [];
@@ -38,14 +49,7 @@ export default async function HomePage() {
     <div className="mx-auto max-w-6xl">
       {/* header */}
       <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h1 className="fl-heading font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
-            Welcome back, {session!.user.name}
-          </h1>
-          <p className="mt-1 text-sm text-ink-soft">
-            Your journey across languages continues.
-          </p>
-        </div>
+        <MentorGreeting line={greeting.line} sub={greeting.sub} />
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
             <Flame className="h-6 w-6 text-flame" />

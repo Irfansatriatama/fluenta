@@ -4,6 +4,8 @@ import { type CSSProperties, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Flame, Play, RotateCcw, Sparkles, Target, X, Zap } from "lucide-react";
 import { Celebration } from "@/components/lesson/Celebration";
+import { MentorNote } from "@/components/mentor/Mentor";
+import { keiCorrection } from "@/lib/mentor";
 import { completeLesson } from "@/lib/lessonActions";
 import { gradeWriting, type WritingFeedback } from "@/lib/aiActions";
 
@@ -298,7 +300,18 @@ export function LessonRunner({
         )}
       </div>
 
-      {revealed && q.explanation && (
+      {revealed && isMcq && (
+        <div className="mt-4 flex flex-col gap-3">
+          <MentorNote tone={selected === answerIndex ? "correct" : "wrong"}>
+            {keiCorrection(selected === answerIndex, index)}
+          </MentorNote>
+          {q.explanation && (
+            <p className="rounded-xl bg-paper-2 p-3 text-sm text-ink-soft">{q.explanation}</p>
+          )}
+        </div>
+      )}
+
+      {revealed && !isMcq && q.explanation && (
         <p className="mt-4 rounded-xl bg-paper-2 p-3 text-sm text-ink-soft">{q.explanation}</p>
       )}
 
